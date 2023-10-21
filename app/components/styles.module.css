@@ -1,0 +1,13 @@
+.nav {
+    width: 800px;
+    margin: 0 auto;
+    background-color: grey;
+    display: flex;
+    justify-content: space-between;
+    height: var(--header-height)
+}
+
+.nav > li {
+    padding: 1rem;
+}
+
