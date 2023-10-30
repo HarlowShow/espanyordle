@@ -6,6 +6,8 @@
   --color-orange: #FFCF96;
   --color-yellow: #F6FDC3;
   --color-green: #CDFAD5;
+  --color-grey: #E6E6E7;
+  --border-width: 5px;
 }
 
 * {

@@ -2,6 +2,7 @@
 
 import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
+import { getAnswer } from '../data/words.js';
 
 export const GameContext = createContext();
 
@@ -9,13 +10,22 @@ function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
+  const answer = getAnswer()
 
   const validateGuess = (guess) => {
-    if (guess.length !== 5) {
+    if (guess.length !== 5 || typeof guess !== 'string') {
       // put some ui stuff here
       console.error("guess length must be five");
     } else {
-        console.log('guess of 5 entered')
+        console.log('guess was: ' + guess, 'answer was: ' + answer)
+        const nextGuess = {
+          guess: guess,
+          id: crypto.randomUUID(),
+          styles: []
+        }
+
+        setGuesses([nextGuess, ...guesses])
+        setCurrentGuess('')
     }
   };
 
@@ -38,6 +48,7 @@ function GameProvider({ children }) {
         keys,
         setKeys,
         currentGuess,
+        guesses,
         setCurrentGuess,
         validateGuess,
         handleUIKeyboardInput,
