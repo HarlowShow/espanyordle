@@ -45,16 +45,16 @@
   flex-direction: column;
 }
 
-.row-one {
-
+.misplaced {
+  background-color: yellow;
 }
 
-.row-two {
-
+.correct {
+  background-color: green;
 }
 
-.row-three {
-  
+.incorrect {
+  background-color: grey;
 }
 
 .keyboard-row {
@@ -81,8 +81,7 @@
     gap: 0.2rem;
   }
 
-  .cell {
-    /* background-color: grey; */
+  .guess-row > span {
     border: 2px solid var(--color-grey);
     font-size: 2rem;
     display: inline-flex;

@@ -3,25 +3,28 @@
 import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
 import { getAnswer } from '../data/words.js';
+import { checkGuess } from '../data/helpers.js';
 
 export const GameContext = createContext();
+const answer = getAnswer()
 
 function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
-  const answer = getAnswer()
 
   const validateGuess = (guess) => {
     if (guess.length !== 5 || typeof guess !== 'string') {
       // put some ui stuff here
       console.error("guess length must be five");
     } else {
-        console.log('guess was: ' + guess, 'answer was: ' + answer)
+        const styles = []
+        const results = checkGuess(guess, answer);
+        results.forEach((result) => styles.push(result.status))
         const nextGuess = {
           guess: guess,
           id: crypto.randomUUID(),
-          styles: []
+          style: styles,
         }
 
         setGuesses([...guesses, nextGuess])
@@ -31,7 +34,8 @@ function GameProvider({ children }) {
 
   const handleKeyboardInput = (key) => {
     if (key === "Enter" || key === "ENTER") {
-      validateGuess(currentGuess);
+      guesses.length < 6 ?
+      validateGuess(currentGuess) : console.log('lenght limit reached')
     } else if (key === "Backspace" || key === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, -1))
     } else if (currentGuess.length === 5) {
