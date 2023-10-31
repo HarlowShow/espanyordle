@@ -76,6 +76,10 @@ export const initKeys = [
       status: ''
     },
     { 
+      key: 'Ñ',
+      status: ''
+    },
+    { 
       key: 'Enter',
       status: ''
     },

@@ -9,12 +9,16 @@ export default function Header() {
     const goBack = (() => {
       router.push('/')
     })
+
+    const openModal = (() => {
+        console.log('modal will open')
+    })
     return (
         <nav >
             <ul role="menubar" className={styles.nav}>
                 <li role="menuitembackbutton"><Button callback={goBack}>Back</Button></li>
-                <li role="menuitemtitle"><h3>Espanyordle</h3></li>
-                <li role="menuitemhelpbutton"><button>Help</button></li>
+                <li className={styles.logo} role="menuitemtitle"><h3>Espanyordle</h3></li>
+                <li role="menuitemhelpbutton"><Button callback={openModal}>Help</Button></li>
             </ul>
         </nav>
     )

@@ -6,35 +6,44 @@ import { GameContext } from '../context/GameProvider';
 
 export default function Input(){
 
-    const { keys, handleUIKeyboardInput } = useContext(GameContext)
+    const { keys, handleKeyboardInput } = useContext(GameContext)
     const rowOne = keys.slice(0, 10)
-    const rowTwo = keys.slice(10, 19)
-    const rowThree = keys.slice(19, 28)
+    const rowTwo = keys.slice(10, 20)
+    const rowThree = keys.slice(20, 29)
 
     useEffect(() => {
-        console.log(keys)
-    }, [keys])
+        const handleInput = ((event) => {
+            const key = event.key.toUpperCase()
+            handleKeyboardInput(key)
+        })
+
+        window.addEventListener('keydown', handleInput)
+
+        return () => {
+            window.removeEventListener('keydown', handleInput)
+        }
+    }, [handleKeyboardInput])
     return (
         <div className={styles['keyboard-wrapper']}>
             <div className={styles['keyboard-row']}>
                 { rowOne.map(({key}) => (
-                    <div className={styles.key} key={key} onClick={() => handleUIKeyboardInput(key)}>
+                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
                         <span>{key}</span>
-                    </div>
+                    </button>
                 ))}
             </div>
             <div className={styles['keyboard-row']}>
                 { rowTwo.map(({key}) => (
-                    <div className={styles.key} key={key} onClick={() => handleUIKeyboardInput(key)}>
+                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
                         <span>{key}</span>
-                    </div>
+                    </button>
                 ))}
             </div>
             <div className={styles['keyboard-row']}>
                 { rowThree.map(({key}) => (
-                    <div className={styles.key} key={key} onClick={() => handleUIKeyboardInput(key)}>
+                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
                         <span>{key}</span>
-                    </div>
+                    </button>
                 ))}
             </div>
             <div className={styles['keyboard-row']}></div>

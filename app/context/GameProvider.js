@@ -24,15 +24,15 @@ function GameProvider({ children }) {
           styles: []
         }
 
-        setGuesses([nextGuess, ...guesses])
+        setGuesses([...guesses, nextGuess])
         setCurrentGuess('')
     }
   };
 
-  const handleUIKeyboardInput = (key) => {
-    if (key === "Enter") {
+  const handleKeyboardInput = (key) => {
+    if (key === "Enter" || key === "ENTER") {
       validateGuess(currentGuess);
-    } else if (key === "Backspace") {
+    } else if (key === "Backspace" || key === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, -1))
     } else if (currentGuess.length === 5) {
       console.log("word length limit reached");
@@ -51,7 +51,7 @@ function GameProvider({ children }) {
         guesses,
         setCurrentGuess,
         validateGuess,
-        handleUIKeyboardInput,
+        handleKeyboardInput,
       }}
     >
       {children}
