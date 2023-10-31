@@ -13,6 +13,7 @@ export default function Grid(){
     console.log(Array.isArray(guesses))
     return (
         <div className={styles['grid-wrapper']}>
+            <div className={styles['grid']}>
             <p className={styles['guess-row']}>
                 <span className={styles['cell']}>{currentGuess[0]}</span>
                 <span className={styles['cell']}>{currentGuess[1]}</span>
@@ -38,6 +39,7 @@ export default function Grid(){
  <span className={styles['cell']}></span>
                   </p>
             ))}
+            </div>
         </div>
     )
 }

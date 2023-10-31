@@ -1,13 +1,14 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --header-height: 100px;
+  --header-height: 80px;
   --color-red: #FF8080;
   --color-orange: #FFCF96;
   --color-yellow: #F6FDC3;
   --color-green: #CDFAD5;
   --color-grey: #E6E6E7;
   --border-width: 5px;
+  --grid-gap: 4px;
 }
 
 * {
@@ -54,7 +55,44 @@ ul {
 .main {
   display: flex;
   background-color: #fefefe;
-  width: 800px;
   margin: 0 auto;
-  height: calc(100% - var(--header-height));
+  height: calc(100vh - var(--header-height));
 }
+
+
+
+@media (min-width: 640px) {
+  .main {
+    max-width: 640px;
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    max-width: 768px;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  .main {
+    max-width: 800px;
+  }
+
+}
+
+@media screen and (min-width: 1280px) {
+  .main {
+    max-width: 800px;
+  }
+
+}
+
+@media screen and (min-width: 1536px) {
+  .main {
+    max-width: 800px;
+  }
+
+}
+
