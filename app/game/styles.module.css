@@ -56,22 +56,22 @@
 .key {
   border-radius: 5px;
   width: 50px;
-  background-color: #fcfcfc;
+  background-color: var(--color-default);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
 }
 .misplaced {
-  background-color: yellow;
+  background-color: var(--color-misplaced);
 }
 
 .correct {
-  background-color: green;
+  background-color: var(--color-correct);
 }
 
 .incorrect {
-  background-color: grey;
+  background-color: var(--color-incorrect);
 }
 
   .guess-row {

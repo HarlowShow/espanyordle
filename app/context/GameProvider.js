@@ -12,6 +12,7 @@ function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
+  const [hasWon, setHasWon] = useState(false)
 
   const updateKeys = ((word, status) => {
     const nextKeys = [...keys]
@@ -21,6 +22,11 @@ function GameProvider({ children }) {
       nextKeys[index].status = status[i]
     }
     setKeys(nextKeys)
+  })
+
+  const triggerWin = (() => {
+    console.log('you have won!')
+    setHasWon(true)
   })
 
   const validateGuess = (guess) => {
@@ -39,6 +45,9 @@ function GameProvider({ children }) {
 
         setGuesses([...guesses, nextGuess])
         updateKeys(guess, styles)
+        if (guess === answer) {
+          triggerWin()
+        }
         setCurrentGuess('')
     }
   };
@@ -69,6 +78,7 @@ function GameProvider({ children }) {
         setCurrentGuess,
         validateGuess,
         handleKeyboardInput,
+        hasWon
       }}
     >
       {children}

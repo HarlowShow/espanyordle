@@ -9,6 +9,10 @@
   --color-grey: #E6E6E7;
   --border-width: 5px;
   --grid-gap: 4px;
+  --color-correct: #69D89F;
+  --color-incorrect: #9F9F9F;
+  --color-misplaced: #EBD150;
+  --color-default: #DDE3E9;
 }
 
 * {
