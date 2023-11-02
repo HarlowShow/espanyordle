@@ -13,6 +13,16 @@ function GameProvider({ children }) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
 
+  const updateKeys = ((word, status) => {
+    const nextKeys = [...keys]
+    for (let i = 0; i < word.length; i++) {
+      const nextKey = word[i]
+      const index = nextKeys.map(i => i.key).indexOf(nextKey)
+      nextKeys[index].status = status[i]
+    }
+    setKeys(nextKeys)
+  })
+
   const validateGuess = (guess) => {
     if (guess.length !== 5 || typeof guess !== 'string') {
       // put some ui stuff here
@@ -28,6 +38,7 @@ function GameProvider({ children }) {
         }
 
         setGuesses([...guesses, nextGuess])
+        updateKeys(guess, styles)
         setCurrentGuess('')
     }
   };
@@ -45,6 +56,8 @@ function GameProvider({ children }) {
       setCurrentGuess(nextGuess);
     }
   };
+
+  
 
   return (
     <GameContext.Provider

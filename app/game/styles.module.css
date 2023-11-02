@@ -45,6 +45,23 @@
   flex-direction: column;
 }
 
+
+.keyboard-row {
+  display: flex;
+  /* justify-content: space-between; */
+  /* align-content: stretch; */
+  gap: 2px;
+}
+
+.key {
+  border-radius: 5px;
+  width: 50px;
+  background-color: #fcfcfc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
 .misplaced {
   background-color: yellow;
 }
@@ -56,23 +73,6 @@
 .incorrect {
   background-color: grey;
 }
-
-.keyboard-row {
-  display: flex;
-  /* justify-content: space-between; */
-  /* align-content: stretch; */
-  gap: 2px;
-}
-
-.key {
-    border-radius: 5px;
-    width: 50px;
-    background-color: #fcfcfc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-  }
 
   .guess-row {
     display: grid;

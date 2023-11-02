@@ -3,6 +3,7 @@
 import styles from './styles.module.css'
 import React, { useEffect, useContext } from 'react'
 import { GameContext } from '../context/GameProvider';
+import Key from './key'
 
 export default function Input(){
 
@@ -10,6 +11,8 @@ export default function Input(){
     const rowOne = keys.slice(0, 10)
     const rowTwo = keys.slice(10, 20)
     const rowThree = keys.slice(20, 29)
+    const test = true
+    // const keyClass = styles.key
 
     useEffect(() => {
         const handleInput = ((event) => {
@@ -26,24 +29,18 @@ export default function Input(){
     return (
         <div className={styles['keyboard-wrapper']}>
             <div className={styles['keyboard-row']}>
-                { rowOne.map(({key}) => (
-                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
-                        <span>{key}</span>
-                    </button>
+                { rowOne.map(({key, status}) => (
+                    <Key key={key} char={key} status={`${styles[status]}`}>{key}</Key>
                 ))}
             </div>
             <div className={styles['keyboard-row']}>
-                { rowTwo.map(({key}) => (
-                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
-                        <span>{key}</span>
-                    </button>
+                { rowTwo.map(({key, status}) => (
+                    <Key key={key} char={key} status={`${styles[status]}`}>{key}</Key>
                 ))}
             </div>
             <div className={styles['keyboard-row']}>
-                { rowThree.map(({key}) => (
-                    <button className={styles.key} key={key} onClick={() => handleKeyboardInput(key)}>
-                        <span>{key}</span>
-                    </button>
+                { rowThree.map(({key, status}) => (
+                        <Key key={key} char={key} status={`${styles[status]}`}>{key}</Key>
                 ))}
             </div>
             <div className={styles['keyboard-row']}></div>
