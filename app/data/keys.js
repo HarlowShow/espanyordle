@@ -1,71 +1,71 @@
 export const initKeys = [
     { 
       key: 'Q',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'W',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'E',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'R',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'T',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'Y',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'U',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'I',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'O',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'P',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'A',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'S',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'D',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'F',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'G',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'H',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'J',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'K',
@@ -77,42 +77,42 @@ export const initKeys = [
     },
     { 
       key: 'Ñ',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'Enter',
-      status: ''
+      status: 'enter'
     },
     { 
       key: 'Z',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'X',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'C',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'V',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'B',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'N',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'M',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'Backspace',
-      status: ''
+      status: 'backspace'
     },
   ]

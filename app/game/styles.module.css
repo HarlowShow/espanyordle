@@ -17,7 +17,6 @@
   flex-grow: 2;
   width: 100%;
   /* display: flex; */
-
 }
 .grid {
   background-color: var(--color-yellow);
@@ -38,8 +37,16 @@
     flex-grow: 3;
   }
 } */
+
 .keyboard-wrapper {
+  display: flex;
   flex-grow: 1;
+  width: 100%;
+  justify-content: center;
+}
+
+.keyboard {
+  
   background-color: var(--color-yellow);
   align-items: center;
   flex-direction: column;
@@ -48,19 +55,33 @@
 
 .keyboard-row {
   display: flex;
-  /* justify-content: space-between; */
-  /* align-content: stretch; */
-  gap: 2px;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 5px;
 }
 
 .key {
-  border-radius: 5px;
-  width: 50px;
+  border: none;
+  border-radius: 7px;
+  min-width: 50px;
   background-color: var(--color-default);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 70px;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.enter {
+  font-size: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-transform: uppercase;
+}
+
+.backspace {
+
 }
 .misplaced {
   background-color: var(--color-misplaced);
