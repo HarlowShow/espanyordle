@@ -3,6 +3,7 @@
 import styles from './styles.module.css'
 import Button from '../components/ui/button'
 import { useRouter } from 'next/navigation'
+import Logo from './logo'
 
 export default function Header() {
     const router = useRouter()
@@ -17,7 +18,7 @@ export default function Header() {
         <nav >
             <ul role="menubar" className={styles.nav}>
                 <li role="menuitembackbutton"><Button callback={goBack}>Back</Button></li>
-                <li className={styles.logo} role="menuitemtitle"><h3>Espanyordle</h3></li>
+                <li className={styles['logo-wrapper']} role="menuitemtitle"><Logo /></li>
                 <li role="menuitemhelpbutton"><Button callback={openModal}>Help</Button></li>
             </ul>
         </nav>

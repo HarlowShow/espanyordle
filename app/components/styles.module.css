@@ -11,6 +11,21 @@
     padding: 1rem;
 }
 
-.logo {
+/* TODO @media (max-width: 500px) {
+    height: 
+} */
+
+.logo-wrapper {
     align-self: center;
+}
+
+.logo {
+    display: flex;
+    gap: 2px;
+}
+
+.logo > span {
+    background-color: var(--color-correct);
+    padding: 0.5rem;
+    font-weight: 700;
 }
