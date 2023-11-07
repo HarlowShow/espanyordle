@@ -1,0 +1,14 @@
+.toast {
+    background-color: black;
+    border-radius: 7px;
+    width: 200px;
+    color: white;
+    padding: 0.6rem;
+}
+
+.toast-wrapper {
+    position: fixed;
+    top: calc(var(--header-height) + 10px);
+    left: 50%;
+    transform: translate(-50%)
+}

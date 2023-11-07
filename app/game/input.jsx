@@ -20,7 +20,13 @@ export default function Input(){
     useEffect(() => {
         const handleInput = ((event) => {
             const key = event.key.toUpperCase()
-            handleKeyboardInput(key)
+            const checkLetters = /[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+/i
+            if (key.match(checkLetters) && key.length === 1 || key === 'ENTER' || key === 'BACKSPACE') {
+                handleKeyboardInput(key)
+            } else {
+                console.warn('unsuitable keyboard input')
+            }
+            
         })
 
         window.addEventListener('keydown', handleInput)
