@@ -13,6 +13,7 @@ function GameProvider({ children }) {
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
   const [hasWon, setHasWon] = useState(false)
+  const [toastMsg, setToastMsg] = useState(null)
 
   const updateKeys = ((word, status) => {
     const nextKeys = [...keys]
@@ -30,8 +31,9 @@ function GameProvider({ children }) {
   })
 
   const validateGuess = (guess) => {
-    if (guess.length !== 5 || typeof guess !== 'string') {
+    if (guess.length !== 5) {
       // put some ui stuff here
+      setToastMsg('word must be five letters')
       console.error("guess length must be five");
     } else {
         const styles = []
@@ -78,7 +80,9 @@ function GameProvider({ children }) {
         setCurrentGuess,
         validateGuess,
         handleKeyboardInput,
-        hasWon
+        hasWon,
+        toastMsg,
+        setToastMsg,
       }}
     >
       {children}

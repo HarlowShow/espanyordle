@@ -4,6 +4,7 @@
     width: 200px;
     color: white;
     padding: 0.6rem;
+    animation: fade-out 2s;
 }
 
 .toast-wrapper {
@@ -11,4 +12,13 @@
     top: calc(var(--header-height) + 10px);
     left: 50%;
     transform: translate(-50%)
+}
+
+@keyframes fade-out {
+    0% { opacity: 1; }
+    100% { opacity: 0;}
+}
+
+.hidden {
+    opacity: 0;
 }
