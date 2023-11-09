@@ -2,7 +2,7 @@
 
 import styles from './styles.module.css'
 import React, { useEffect, useContext } from 'react'
-import { GameContext } from '../context/GameProvider';
+import { GameContext } from '../../context/GameProvider';
 import Key from './key'
 import { BsBackspace } from 'react-icons/bs'
 

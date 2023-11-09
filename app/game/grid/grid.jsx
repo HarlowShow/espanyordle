@@ -2,8 +2,8 @@
 
 import styles from "./styles.module.css";
 import { useContext } from "react";
-import { GameContext } from "../context/GameProvider";
-import { range } from "../data/utils";
+import { GameContext } from "../../context/GameProvider";
+import { range } from "../../data/utils";
 
 export default function Grid() {
   console.log('grid rendered')

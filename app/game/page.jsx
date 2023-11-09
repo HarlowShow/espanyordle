@@ -1,7 +1,7 @@
 'use client'
 
-import Input from './input';
-import Grid from './grid';
+import Input from './keyboard/keyboard';
+import Grid from './grid/grid';
 import styles from './styles.module.css'
 import GameProvider from '../context/GameProvider';
 import Toasts from "../components/toasts/toasts.jsx";

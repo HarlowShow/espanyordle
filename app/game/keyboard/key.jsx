@@ -1,5 +1,5 @@
 import { useContext} from 'react'
-import { GameContext } from '../context/GameProvider';
+import { GameContext } from '../../context/GameProvider';
 import styles from './styles.module.css'
 
 
@@ -14,3 +14,4 @@ export default function Key({status, char, children, optStyle = ''}) {
     </button>
     )
 }
+
