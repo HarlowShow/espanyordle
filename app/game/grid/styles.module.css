@@ -1,3 +1,5 @@
+
+
 .grid-wrapper {
     flex-grow: 2;
     width: 100%;
@@ -41,6 +43,47 @@
     aspect-ratio: 1;
   }
 
+  @keyframes flip {
+    0% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        /* background: white; */
+        transform: scaleY(0);
+    }
+
+    100% {
+        transform: scaleY(1);
+        /* background: green; */
+    }
+
+  }
+
+  .flip {
+        animation: flip 700ms ease forwards;
+  }
+
+  .zero {
+
+  }
+
+  .one {
+    animation-delay: var(--animation-delay)
+  }
+
+  .two {
+    animation-delay: calc(var(--animation-delay)*2)
+  }
+  .three {
+    animation-delay: calc(var(--animation-delay)*3)
+  }
+  .four {
+    animation-delay: calc(var(--animation-delay)*4)
+  }
+
+
+
   .misplaced {
     background-color: var(--color-misplaced);
   }
@@ -52,4 +95,3 @@
   .incorrect {
     background-color: var(--color-incorrect);
   }
-  

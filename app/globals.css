@@ -13,6 +13,7 @@
   --color-incorrect: #9F9F9F;
   --color-misplaced: #EBD150;
   --color-default: #DDE3E9;
+  --animation-delay: 700ms;
 }
 
 * {
