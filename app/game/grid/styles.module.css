@@ -61,7 +61,7 @@
   }
 
   .flip {
-        animation: flip 700ms ease forwards;
+        animation: flip var(--animation-delay) ease forwards;
   }
 
   .zero {
@@ -86,12 +86,15 @@
 
   .misplaced {
     background-color: var(--color-misplaced);
+    border: 2px solid var(--color-misplaced);
   }
   
   .correct {
     background-color: var(--color-correct);
+    border: 2px solid var(--color-correct);
   }
   
   .incorrect {
     background-color: var(--color-incorrect);
+    border: 2px solid var(--color-correct);
   }

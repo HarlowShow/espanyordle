@@ -1,10 +1,12 @@
 'use client';
 import styles from "./styles.module.css";
 import { useEffect, useState } from 'react';
+import { BASE_ANIMATION_DELAY } from '../../data/ui';
 
 export default function Cell({ className, delayIdx, children }) {
+    
     const [showColor, setShowColor] = useState(false)
-  let delay = "zero";
+    let delay = "zero";
   // just do a combined class with the delay and colour
 
   switch (delayIdx) {
@@ -35,7 +37,7 @@ export default function Cell({ className, delayIdx, children }) {
             if (showColor === false) {
                 setShowColor(true)
             }
-        }, delayIdx * 700)
+        }, delayIdx * (BASE_ANIMATION_DELAY))
 
         return () => clearTimeout(timeout)
     }, [delayIdx, showColor])
