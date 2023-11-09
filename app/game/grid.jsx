@@ -6,6 +6,7 @@ import { GameContext } from "../context/GameProvider";
 import { range } from "../data/utils";
 
 export default function Grid() {
+  console.log('grid rendered')
   const { currentGuess, guesses } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
   return (
