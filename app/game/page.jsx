@@ -2,21 +2,20 @@
 
 import Input from './keyboard/keyboard';
 import Grid from './grid/grid';
+import Results from './results/results';
 import styles from './styles.module.css'
 import GameProvider from '../context/GameProvider';
 import Toasts from "../components/toasts/toasts.jsx";
 // import Dictionary from '../api/dictionary.jsx';
-import { useState } from 'react';
 
 
 const Game = (() => {
-
-    const [hasWon, setHasWon] = useState('')
 
 
     return (
         <>
         <GameProvider>
+        <Results />
         {/* <Dictionary /> */}
         <Toasts />
         <div className={styles['game-container']}>

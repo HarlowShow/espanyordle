@@ -12,7 +12,8 @@ function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState([])
-  const [hasWon, setHasWon] = useState(false)
+  // 'win' | 'lose' | 'in progress'
+  const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
 
   const updateKeys = ((word, status) => {
@@ -23,11 +24,6 @@ function GameProvider({ children }) {
       nextKeys[index].status = status[i]
     }
     setKeys(nextKeys)
-  })
-
-  const triggerWin = (() => {
-    console.log('you have won!')
-    setHasWon(true)
   })
 
   const validateGuess = (guess) => {
@@ -48,7 +44,13 @@ function GameProvider({ children }) {
         setGuesses([...guesses, nextGuess])
         updateKeys(guess, styles)
         if (guess === answer) {
-          triggerWin()
+          console.log('win')
+          setGameState('win')
+        } else if (guesses.length === 5) {
+          console.log('lose')
+          setGameState('lose')
+        } else {
+          console.log('neither win nor loss triggered')
         }
         setCurrentGuess('')
     }
@@ -56,8 +58,7 @@ function GameProvider({ children }) {
 
   const handleKeyboardInput = (key) => {
     if (key === "Enter" || key === "ENTER") {
-      guesses.length < 6 ?
-      validateGuess(currentGuess) : console.log('lenght limit reached')
+      validateGuess(currentGuess)
     } else if (key === "Backspace" || key === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, -1))
     } else if (currentGuess.length === 5) {
@@ -80,7 +81,7 @@ function GameProvider({ children }) {
         setCurrentGuess,
         validateGuess,
         handleKeyboardInput,
-        hasWon,
+        gameState,
         toastMsg,
         setToastMsg,
       }}

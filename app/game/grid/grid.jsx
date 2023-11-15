@@ -7,8 +7,8 @@ import { range } from "../../data/utils";
 import Cell from './cell.jsx'
 
 export default function Grid() {
-  console.log('grid rendered')
-  const { currentGuess, guesses } = useContext(GameContext);
+
+  const { currentGuess, guesses, gameState } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
   return (
     <div className={styles["grid-wrapper"]}>
@@ -31,6 +31,7 @@ export default function Grid() {
               <Cell className={styles[style[4]]} delayIdx={4}>{guess[4]}</Cell>
             </p>
           ))}
+          { guesses.length <= 5 &&
           <p className={styles["guess-row"]}>
             <span>{currentGuess[0]}</span>
             <span>{currentGuess[1]}</span>
@@ -38,6 +39,7 @@ export default function Grid() {
             <span>{currentGuess[3]}</span>
             <span>{currentGuess[4]}</span>
           </p>
+          }
           {range(guessesRemaining).map((num) => (
             <p className={styles["guess-row"]} key={num}>
               <span></span>
