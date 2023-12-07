@@ -1,12 +1,12 @@
-'use client'
-
 import Input from './keyboard/keyboard';
 import Grid from './grid/grid';
-import Results from './results/results';
+
 import styles from './styles.module.css'
 import GameProvider from '../context/GameProvider';
 import Toasts from "../components/toasts/toasts.jsx";
+// import Test from './results/test';
 // import Dictionary from '../api/dictionary.jsx';
+import Results from './results/results';
 
 
 const Game = (() => {
@@ -15,11 +15,12 @@ const Game = (() => {
     return (
         <>
         <GameProvider>
-        <Results />
-        {/* <Dictionary /> */}
         <Toasts />
+        <Results />
+
         <div className={styles['game-container']}>
-            <Grid />
+            <Grid>
+            </Grid>
             <Input />
         </div>
         </GameProvider>

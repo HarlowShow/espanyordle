@@ -84,6 +84,7 @@ function GameProvider({ children }) {
         gameState,
         toastMsg,
         setToastMsg,
+        answer
       }}
     >
       {children}

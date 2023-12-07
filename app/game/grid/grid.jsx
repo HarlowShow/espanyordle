@@ -14,14 +14,6 @@ export default function Grid() {
     <div className={styles["grid-wrapper"]}>
         <div className={styles["grid"]}>
 
-{/* 
-          <p className={styles['guess-row']}>
-            <Cell delayIdx={0}/>
-            <Cell delayIdx={1}/>
-          </p> */}
-
-
-
           {guesses.map(({ guess, id, style }) => (
             <p className={styles["guess-row"]} key={id}>
               <Cell className={styles[style[0]]} delayIdx={0}>{guess[0]}</Cell>
