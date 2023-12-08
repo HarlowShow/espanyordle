@@ -17,11 +17,6 @@ const Results = (() => {
     const { showResultsModal, setShowResultsModal } = useContext(UIContext)
     const { gameState, answer } = useContext(GameContext)
 
-    // const shouldBeTrue = isNumber('2')
-    // const shouldBeFalse = isNumber('b')
-
-    console.log(shouldBeTrue, shouldBeFalse)
-
     // get the api data (TODO optimize this)
     useEffect(() => {
         async function getDefinition() {
@@ -47,27 +42,38 @@ const Results = (() => {
                 // get the audio file
                 const audioRef = data[0].hwi.prs[0].sound.audio ?? null
                 // for API rules about subdirectories
+                // TODO extract this into a helper function
                 let subdirectory = ''
                 if (audioRef !== null) {
                     const firstThree = audioRef.slice(0, 3)
                     const firstTwo = audioRef.slice(0, 2)
-                    const first = audioRef.slice(0)
+                    const first = audioRef.slice(0, 1)
+
+                    const stringCheck = /[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+/i
 
                     if (firstThree === 'bix') {
                         subdirectory = 'bix'
                     } else if (firstTwo === 'gg') {
                         subdirectory = 'gg'
-                    } else if (isNumber(first) === true) {
-                        // check if it starts with a number
+                    } else if (isNumber(first) === true || !!first.match(/^[.,:!?]/)) {
+                        // check if it starts with a number or punctuation
+                        // TODO properly test this, esp. the regex
                         subdirectory = 'number'
+                    } else if (first.match(stringCheck)) {
+                        subdirectory = first
+                        console.log(first)
+                    } else {
+                        console.log('no valid subdirectory was found. First char was: ' + first)
                     }
+
       
                 } else {
                     console.log('no audio file found')
                 }
 
                 console.log(audioRef)
-                const audio = `https://media.merriam-webster.com/audio/prons/es/me/mp3/[tbc]/[filename].mp3`
+                const audio = `https://media.merriam-webster.com/audio/prons/es/me/mp3/${subdirectory}/${audioRef}.mp3`
+                setAudioURL(audio)
             }
         }
         getDefinition()
@@ -87,10 +93,11 @@ const Results = (() => {
                     <Modal handleClose={() => setShowResultsModal(false)}>
                         <div>
                             <h1>The results - win lose thing here</h1>
+                            <audio controls src={audioURL}></audio>
                             <h2>{ answer }</h2>
-                            <h2>{ definition }</h2>
-                            { pronounciation && <p>{pronounciation}</p>}
-                            <h3>{ moreDefinitions }</h3>
+                            <h2>first def: { definition }</h2>
+                            { pronounciation && <p>pronounciation: {pronounciation}</p>}
+                            <h3>more definitions: { moreDefinitions }</h3>
                         </div>
                     </Modal>
                 }
