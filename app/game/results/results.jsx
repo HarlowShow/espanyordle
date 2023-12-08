@@ -12,9 +12,8 @@ const Results = (() => {
     const [definitions, setDefinitions] = useState(null)
     const { showResultsModal, setShowResultsModal } = useContext(UIContext)
     const { gameState, answer } = useContext(GameContext)
-    const [isShown, setIsShown] = useState(false)
 
-
+    // get the api data (TODO optimize this)
     useEffect(() => {
         async function getDefinition() {
             const res = await fetch(`https://www.dictionaryapi.com/api/v3/references/spanish/json/${answer}?key=${process.env.NEXT_PUBLIC_API_KEY}`)
@@ -30,16 +29,13 @@ const Results = (() => {
         getDefinition()
     }, [answer])
 
+    // trigger modal open on win
     useEffect(() => {
         console.log('game state changed to ' + gameState)
         if (gameState === 'win' || gameState === 'lose') {
            setShowResultsModal(true)
         }
     }, [gameState, setShowResultsModal])
-
-    useEffect(() => {
-        console.log('modal toggled')
-    }, [showResultsModal])
 
         return (
             <div>
