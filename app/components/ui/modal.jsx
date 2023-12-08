@@ -1,7 +1,9 @@
+import styles from './styles.module.css'
+
 export default function Modal({ handleClose, children}) {
     return (
-        <div>
-            <section className="modal-main">
+        <div className={styles['modal-wrapper']}>
+            <section className={styles['modal']}>
                     { children }
                 <button type="button" onClick={handleClose}>
                     Close

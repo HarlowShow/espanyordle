@@ -1,18 +1,19 @@
 'use client'
 
 import Modal from '../../components/ui/modal';
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 import { GameContext } from "../../context/GameProvider";
+import { UIContext } from '../../context/UIProvider';
 // import useDefinition from '../../api/definition'
 
 
 const Results = (() => {
 
-    const [isShown, setIsShown] = useState(true)
     const [definitions, setDefinitions] = useState(null)
-    const toggleModal = (() => setIsShown(!isShown))
-
+    const { showResultsModal, setShowResultsModal } = useContext(UIContext)
     const { gameState, answer } = useContext(GameContext)
+    const [isShown, setIsShown] = useState(false)
+
 
     useEffect(() => {
         async function getDefinition() {
@@ -32,15 +33,20 @@ const Results = (() => {
     useEffect(() => {
         console.log('game state changed to ' + gameState)
         if (gameState === 'win' || gameState === 'lose') {
-            setIsShown(true)
+           setShowResultsModal(true)
         }
-    }, [gameState])
+    }, [gameState, setShowResultsModal])
+
+    useEffect(() => {
+        console.log('modal toggled')
+    }, [showResultsModal])
 
         return (
             <div>
-                { isShown === true && 
-                    <Modal handleClose={toggleModal}>
+                { showResultsModal === true && 
+                    <Modal handleClose={() => setShowResultsModal(false)}>
                         <div>
+                            <h2>The results</h2>
                             <p>{ definitions }</p>
                         </div>
                     </Modal>
