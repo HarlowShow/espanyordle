@@ -7,23 +7,18 @@ import { UIContext } from "../../context/UIProvider";
 
 import { getWordData } from './worddata.js';
 import styles from "./styles.module.css";
-import IconButton from "../../components/ui/iconbutton";
-import { AiFillSound } from "react-icons/ai";
+import Definition from './definition';
 
 const Results = () => {
-  const [definition, setDefinition] = useState("");
-  const [moreDefinitions, setMoreDefinitions] = useState(null);
-  const [exampleEn, setExampleEn] = useState("");
-  const [exampleSp, setExampleSp] = useState("");
-  const [audioURL, setAudioURL] = useState("");
+  // const [definition, setDefinition] = useState("");
+  // const [moreDefinitions, setMoreDefinitions] = useState(null);
+  // const [exampleEn, setExampleEn] = useState("");
+  // const [exampleSp, setExampleSp] = useState("");
+  // const [audioURL, setAudioURL] = useState("");
+  const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
   const { gameState, answer } = useContext(GameContext);
-  const audioRef = useRef(null);
-
-  const playAudio = () => {
-    audioRef.current.play();
-  };
-
+ 
   // get the api data (TODO optimize this)
   useEffect(() => {
     async function getDefinition() {
@@ -36,12 +31,8 @@ const Results = () => {
         // TODO: add some validation here
         const data = await res.json();
 
-        const wordData = getWordData(data)
-        setDefinition(wordData.mainDef);
-        setMoreDefinitions(wordData.otherDefs);
-        setExampleEn(wordData.exampleEnglish);
-        setExampleSp(wordData.exampleSpanish);
-        setAudioURL(wordData.audio);
+        const newWordData = getWordData(data)
+        setWordData(newWordData)
     
       }
     }
@@ -60,32 +51,7 @@ const Results = () => {
     <div>
       {showResultsModal === true && (
         <Modal handleClose={() => setShowResultsModal(false)}>
-          <div>
-            <h1 className={styles["title"]}>You Won / Lost</h1>
-            <div className={styles["definition-wrapper"]}>
-              <div>
-                <h3 className={styles["definition"]}>
-                  {" "}
-                  {answer.toLowerCase()}
-                </h3>
-                <audio ref={audioRef} src={audioURL}></audio>
-                <IconButton callback={playAudio}>
-                  <AiFillSound className={styles["icon-button"]} />
-                </IconButton>
-              </div>
-              <div>
-                <h3 className={`${styles.definition} ${styles.green}`}>
-                  {definition}
-                </h3>
-              </div>
-            </div>
-            <div>
-              <span className={`${styles.example}`}>{exampleSp}</span>
-              <span className={`${styles.example} ${styles.light}`}> -- {exampleEn}</span>
-            </div>
-            {/* poss get rid of more defs */}
-            <p>more definitions: {moreDefinitions}</p>
-          </div>
+        <Definition wordData={wordData}/>
         </Modal>
       )}
     </div>

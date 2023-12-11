@@ -3,8 +3,10 @@
 
 }
 
-.definition {
-
+.heading {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: var(--color-dark-grey);
 }
 
 .definition-wrapper {
@@ -13,7 +15,7 @@
     justify-content: space-between;
 }
 
-.definition-wrapper > div:first-child {
+.inline {
     display: flex;
     align-items: baseline;
     /* gap: 0.5rem; */
