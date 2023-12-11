@@ -1,5 +1,5 @@
 export const WORDS = [
-    'apuro'
+    'APURO'
 ]
 
 export const getAnswer = (() => {

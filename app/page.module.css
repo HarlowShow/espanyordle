@@ -1,12 +1,9 @@
-
-
-  .main {
-    display: flex;
-    background-color: #fefefe;
-    margin: 0 auto;
-    height: calc(100% - var(--header-height));
-  }
-
+.main {
+  display: flex;
+  background-color: #fefefe;
+  margin: 0 auto;
+  height: calc(100% - var(--header-height));
+}
 
 /* 
 @media (min-width: 640px) {
@@ -43,4 +40,3 @@
     }
   
   } */
-

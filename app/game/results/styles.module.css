@@ -1,0 +1,43 @@
+.title {
+
+
+}
+
+.definition {
+
+}
+
+.definition-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.definition-wrapper > div:first-child {
+    display: flex;
+    align-items: baseline;
+    /* gap: 0.5rem; */
+}
+
+.green {
+    color: var(--color-correct);
+    padding-bottom: 0.75rem;
+}
+
+.definition {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.icon-button {
+    font-size: 1.25rem;
+}
+
+.example {
+    font-size: 1.2rem;
+}
+
+.light {
+    color: var(--color-dark-grey);
+    font-style: italic;
+}

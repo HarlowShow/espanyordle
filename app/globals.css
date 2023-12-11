@@ -7,6 +7,7 @@
   --color-yellow: #F6FDC3;
   --color-green: #CDFAD5;
   --color-grey: #E6E6E7;
+  --color-dark-grey: #626273;
   --border-width: 5px;
   --grid-gap: 4px;
   --color-correct: #69D89F;
@@ -27,6 +28,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   height: 100%;
+  line-height: 1.5;
 }
 
 body {
