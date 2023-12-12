@@ -13,10 +13,13 @@ const storedGameState = getGameStateFromLocalStorage()
 function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses ] = useState(storedGameState.guesses ?? [])
+  const [guesses, setGuesses ] = useState(storedGameState ? storedGameState.guesses : [])
+  const [disableAnimation, setDisableAnimation] = useState(false)
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
+
+  // TODO reenable this
 
   const updateKeys = ((word, status) => {
     const nextKeys = [...keys]
@@ -42,7 +45,7 @@ function GameProvider({ children }) {
           id: crypto.randomUUID(),
           style: styles,
         }
-
+        
         setGuesses([...guesses, nextGuess])
         updateKeys(guess, styles)
         if (guess === answer) {
@@ -59,6 +62,7 @@ function GameProvider({ children }) {
   };
 
   const handleKeyboardInput = (key) => {
+
     if (key === "Enter" || key === "ENTER") {
       validateGuess(currentGuess)
     } else if (key === "Backspace" || key === "BACKSPACE") {
@@ -87,7 +91,7 @@ function GameProvider({ children }) {
         gameState,
         toastMsg,
         setToastMsg,
-        answer
+        answer,
       }}
     >
       {children}

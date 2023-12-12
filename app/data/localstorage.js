@@ -10,5 +10,5 @@ export const setGameStateToLocalStorage = ((guesses) => {
 
 export const getGameStateFromLocalStorage = (() => {
     const state = localStorage.getItem(gameStateKey)
-    return JSON.parse(state) ?? null
+    return state ? JSON.parse(state) : null
 })

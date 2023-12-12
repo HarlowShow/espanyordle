@@ -1,12 +1,16 @@
 'use client';
 import styles from "./styles.module.css";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { BASE_ANIMATION_DELAY } from '../../data/ui';
 
-export default function Cell({ className, delayIdx, children }) {
+export default function Cell({ className, delayIdx, children, index, activeIdx }) {
     
     const [showColor, setShowColor] = useState(false)
+    console.log('index: ' + index)
+    console.log('active index: ' + activeIdx)
+
     let delay = "zero";
+    const disableAnimation = true
   // just do a combined class with the delay and colour
 
   switch (delayIdx) {
@@ -33,6 +37,8 @@ export default function Cell({ className, delayIdx, children }) {
     let style = ` ${styles.flip} ` + `${styles[delay]} `;
 
     useEffect(() => {
+
+        // timeout for the word flip animation effect
         const timeout = setTimeout(() => {
             if (showColor === false) {
                 setShowColor(true)
@@ -43,5 +49,14 @@ export default function Cell({ className, delayIdx, children }) {
     }, [delayIdx, showColor])
 
 
-  return <span className={style + `${showColor && className}`}>{children}</span>;
+  return (
+    <> {
+      index !== activeIdx ? 
+      <span className={`${className}`}>{children}.</span>
+      : 
+      <span className={style + `${showColor && className}`}>{children}</span>
+    }
+       
+    </>
+  )
 }
