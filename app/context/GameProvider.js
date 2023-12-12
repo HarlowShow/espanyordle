@@ -19,16 +19,6 @@ function GameProvider({ children }) {
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
 
-  const updateKeys = ((word, status) => {
-    const nextKeys = [...keys]
-    for (let i = 0; i < word.length; i++) {
-      const nextKey = word[i]
-      const index = nextKeys.map(i => i.key).indexOf(nextKey)
-      nextKeys[index].status = status[i]
-    }
-    setKeys(nextKeys)
-  })
-
   const enableAnimation = (() => {
     setAnimationIsDisabled(false)
   })
@@ -52,7 +42,7 @@ function GameProvider({ children }) {
         // enable animation for the latest row
         enableAnimation()
         
-        updateKeys(guess, styles)
+        // updateKeys(guess, styles)
         if (guess === answer) {
           console.log('win')
           setGameState('win')

@@ -100,11 +100,11 @@ export const initKeys = [
     },
     { 
       key: 'K',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'L',
-      status: ''
+      status: 'default'
     },
     { 
       key: 'Ñ',
