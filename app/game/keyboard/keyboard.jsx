@@ -5,17 +5,43 @@ import React, { useEffect, useContext } from 'react'
 import { GameContext } from '../../context/GameProvider';
 import Key from './key'
 import { BsBackspace } from 'react-icons/bs'
+import { keyIdxes } from '@/app/data/keys';
 
 export default function Input(){
 
-    const { keys, handleKeyboardInput } = useContext(GameContext)
+    const { keys, setKeys, handleKeyboardInput, guesses } = useContext(GameContext)
     const rowOne = keys.slice(0, 10)
     const rowTwo = keys.slice(10, 20)
     const rowThree = keys.slice(21, 28)
     const enter = keys[20]
     const backspace = keys[28]
-    
-    // const keyClass = styles.key
+    const nextKeys = keys
+
+    for (let i = 0; i < guesses.length; i++) {
+        const wordToCheck = guesses[i].guess
+        const stylesToCheck = guesses[i].style
+
+        for (let i = 0; i < 5; i++) {
+            const letterToCheck = wordToCheck[i]
+            const styleToApply = stylesToCheck[i]
+            const letterIdx = keyIdxes[letterToCheck]
+
+            if (nextKeys[letterIdx].status === 'default') {
+                nextKeys[letterIdx].status = styleToApply
+            }
+        }
+    }
+    setKeys(nextKeys)
+
+    const updateKeys = ((word, status) => {
+        const nextKeys = [...keys]
+        for (let i = 0; i < word.length; i++) {
+          const nextKey = word[i]
+          const index = nextKeys.map(i => i.key).indexOf(nextKey)
+          nextKeys[index].status = status[i]
+        }
+        setKeys(nextKeys)
+      })
 
     useEffect(() => {
         const handleInput = ((event) => {

@@ -19,8 +19,6 @@ function GameProvider({ children }) {
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
 
-  // TODO reenable this
-
   const updateKeys = ((word, status) => {
     const nextKeys = [...keys]
     for (let i = 0; i < word.length; i++) {
