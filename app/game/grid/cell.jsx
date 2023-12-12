@@ -2,16 +2,18 @@
 import styles from "./styles.module.css";
 import { useEffect, useState, useContext } from 'react';
 import { BASE_ANIMATION_DELAY } from '../../data/ui';
+import { GameContext } from "../../context/GameProvider";
 
 export default function Cell({ className, delayIdx, children, index, activeIdx }) {
     
+    // var to show colour after animation delay
     const [showColor, setShowColor] = useState(false)
-    console.log('index: ' + index)
-    console.log('active index: ' + activeIdx)
+    // animation is enabled when the row's index is the latest one 
+    // and the var is enabled in the validate guess function
+    const { animationIsDisabled } = useContext(GameContext);
 
+    // determine the delay by the letter's index
     let delay = "zero";
-    const disableAnimation = true
-  // just do a combined class with the delay and colour
 
   switch (delayIdx) {
     case 0:
@@ -51,8 +53,8 @@ export default function Cell({ className, delayIdx, children, index, activeIdx }
 
   return (
     <> {
-      index !== activeIdx ? 
-      <span className={`${className}`}>{children}.</span>
+      index !== activeIdx || animationIsDisabled === true ? 
+      <span className={`${className}`}>{children}</span>
       : 
       <span className={style + `${showColor && className}`}>{children}</span>
     }

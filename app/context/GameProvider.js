@@ -14,7 +14,7 @@ function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
   const [guesses, setGuesses ] = useState(storedGameState ? storedGameState.guesses : [])
-  const [disableAnimation, setDisableAnimation] = useState(false)
+  const [animationIsDisabled, setAnimationIsDisabled] = useState(true)
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
@@ -29,6 +29,10 @@ function GameProvider({ children }) {
       nextKeys[index].status = status[i]
     }
     setKeys(nextKeys)
+  })
+
+  const enableAnimation = (() => {
+    setAnimationIsDisabled(false)
   })
 
   const validateGuess = (guess) => {
@@ -47,6 +51,9 @@ function GameProvider({ children }) {
         }
         
         setGuesses([...guesses, nextGuess])
+        // enable animation for the latest row
+        enableAnimation()
+        
         updateKeys(guess, styles)
         if (guess === answer) {
           console.log('win')
@@ -60,6 +67,8 @@ function GameProvider({ children }) {
         setCurrentGuess('')
     }
   };
+
+ 
 
   const handleKeyboardInput = (key) => {
 
@@ -92,6 +101,8 @@ function GameProvider({ children }) {
         toastMsg,
         setToastMsg,
         answer,
+        enableAnimation,
+        animationIsDisabled,
       }}
     >
       {children}

@@ -13,7 +13,7 @@ export default function Grid() {
   const guessesRemaining = 5 - guesses.length;
 
   // identify which row is active to enable/disable animation
-  const activeIdx = guesses.length - 1
+  const activeIdx = guesses.length - 1;
 
 
   useEffect(() => {
