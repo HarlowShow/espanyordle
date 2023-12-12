@@ -29,7 +29,7 @@ export const getWordData = (data) => {
     }
   }
 
-  console.log(examples);
+//   console.log(examples);
 
   // get the URL for the audio
   const audioRef = data[0].hwi.prs[0].sound.audio ?? null;

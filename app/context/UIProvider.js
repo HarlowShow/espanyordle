@@ -9,10 +9,10 @@ function UIProvider({children}) {
     const [showHelpModal, setShowHelpModal] = useState(false)
     const [showResultsModal, setShowResultsModal] = useState(false)
 
-    const logModalState = (() => {
-        console.log('help modal on: ' + showHelpModal)
-        console.log('results modal on: ' + showResultsModal)
-    })
+    // const logModalState = (() => {
+    //     console.log('help modal on: ' + showHelpModal)
+    //     console.log('results modal on: ' + showResultsModal)
+    // })
 
     return (
         <UIContext.Provider
@@ -21,7 +21,6 @@ function UIProvider({children}) {
             setShowHelpModal,
             showResultsModal,
             setShowResultsModal,
-            logModalState
           }}
         >
           {children}

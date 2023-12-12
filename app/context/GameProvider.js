@@ -4,14 +4,16 @@ import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
 import { getAnswer } from '../data/words.js';
 import { checkGuess } from '../data/helpers.js';
+import { getGameStateFromLocalStorage } from "@/app/data/localstorage";
 
 export const GameContext = createContext();
 const answer = getAnswer()
+const storedGameState = getGameStateFromLocalStorage()
 
 function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses ] = useState([])
+  const [guesses, setGuesses ] = useState(storedGameState.guesses ?? [])
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
@@ -78,6 +80,7 @@ function GameProvider({ children }) {
         setKeys,
         currentGuess,
         guesses,
+        setGuesses,
         setCurrentGuess,
         validateGuess,
         handleKeyboardInput,

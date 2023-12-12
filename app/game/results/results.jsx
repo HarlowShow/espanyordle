@@ -8,13 +8,10 @@ import { UIContext } from "../../context/UIProvider";
 import { getWordData } from './worddata.js';
 import styles from "./styles.module.css";
 import Definition from './definition';
+import Stats from './stats';
 
 const Results = () => {
-  // const [definition, setDefinition] = useState("");
-  // const [moreDefinitions, setMoreDefinitions] = useState(null);
-  // const [exampleEn, setExampleEn] = useState("");
-  // const [exampleSp, setExampleSp] = useState("");
-  // const [audioURL, setAudioURL] = useState("");
+
   const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
   const { gameState, answer } = useContext(GameContext);
@@ -52,6 +49,8 @@ const Results = () => {
       {showResultsModal === true && (
         <Modal handleClose={() => setShowResultsModal(false)}>
         <Definition wordData={wordData}/>
+        <hr className={styles['divider']}></hr>
+        <Stats />
         </Modal>
       )}
     </div>

@@ -1,15 +1,32 @@
 "use client";
 
 import styles from "./styles.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameProvider";
+import { setGameStateToLocalStorage, getGameStateFromLocalStorage } from "@/app/data/localstorage";
 import { range } from "../../data/utils";
 import Cell from './cell.jsx'
 
 export default function Grid() {
 
-  const { currentGuess, guesses, gameState } = useContext(GameContext);
+  const { currentGuess, guesses, setGuesses, answer } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
+
+  // useEffect(() => {
+  //   console.log('game state got from ls')
+  //   const gameState = getGameStateFromLocalStorage()
+  //   if (gameState !== null) {
+  //     setGuesses(gameState.guesses)
+  //   } else {
+  //     console.log('game state was null')
+  //   }
+  // }, [setGuesses])
+
+  useEffect(() => {
+    console.log('game state set to ls')
+    setGameStateToLocalStorage(guesses)
+  }, [guesses])
+
   return (
     <div className={styles["grid-wrapper"]}>
         <div className={styles["grid"]}>

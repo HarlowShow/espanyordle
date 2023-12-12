@@ -11,14 +11,12 @@ import Logo from '../logo';
 import { UIContext } from "../../context/UIProvider";
 
 export default function Nav () {
-    const { showHelpModal, showResultsModal, setShowHelpModal, setShowResultsModal, logModalState } = useContext(UIContext)
+    const { showHelpModal, showResultsModal, setShowHelpModal, setShowResultsModal } = useContext(UIContext)
 
     const router = useRouter()
     const goBack = (() => {
       router.push('/')
     })
-
-    logModalState()
     
 
     return (

@@ -15,7 +15,7 @@ const Definition = ({ wordData }) => {
 
 
   return (
-    <div className={styles["definition-wrapper"]}>
+    <div className={styles["content-wrapper"]}>
         <h2 className={styles['heading']}>Today&apos;s Word</h2>
       <div className={styles['inline']}>
         <h3 className={styles["definition"]}> {answer.toLowerCase()}</h3>

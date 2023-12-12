@@ -9,10 +9,17 @@
     color: var(--color-dark-grey);
 }
 
-.definition-wrapper {
+.content-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 1rem;
+}
+
+.divider {
+    width: 95%;
+    border-top: 2px solid var(--color-grey);
+    border-radius: 5px;
 }
 
 .inline {
