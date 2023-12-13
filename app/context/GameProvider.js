@@ -5,6 +5,7 @@ import { initKeys } from "../data/keys.js";
 import { getAnswer } from '../data/words.js';
 import { checkGuess } from '../data/helpers.js';
 import { getGameStateFromLocalStorage } from "@/app/data/localstorage";
+import { updateStats } from "../data/stats.js";
 
 export const GameContext = createContext();
 const answer = getAnswer()
@@ -45,12 +46,14 @@ function GameProvider({ children }) {
         // updateKeys(guess, styles)
         if (guess === answer) {
           console.log('win')
+          updateStats(true, guesses.length + 1)
           setGameState('win')
         } else if (guesses.length === 5) {
           console.log('lose')
+          updateStats(false, 0)
           setGameState('lose')
         } else {
-          console.log('neither win nor loss triggered')
+          // console.log('neither win nor loss triggered')
         }
         setCurrentGuess('')
     }

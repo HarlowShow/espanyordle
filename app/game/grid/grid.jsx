@@ -39,11 +39,11 @@ export default function Grid() {
           ))}
           { guesses.length <= 5 &&
           <p className={styles["guess-row"]}>
-            <span className={currentGuess.length > 0 && activeGuessStyle}>{currentGuess[0]}</span>
-            <span className={currentGuess.length > 1 && activeGuessStyle}>{currentGuess[1]}</span>
-            <span className={currentGuess.length > 2 && activeGuessStyle}>{currentGuess[2]}</span>
-            <span className={currentGuess.length > 3 && activeGuessStyle}>{currentGuess[3]}</span>
-            <span className={currentGuess.length > 4 && activeGuessStyle}>{currentGuess[4]}</span>
+            <span className={currentGuess.length > 0 ? activeGuessStyle : undefined}>{currentGuess[0]}</span>
+            <span className={currentGuess.length > 1 ? activeGuessStyle : undefined}>{currentGuess[1]}</span>
+            <span className={currentGuess.length > 2 ? activeGuessStyle : undefined}>{currentGuess[2]}</span>
+            <span className={currentGuess.length > 3 ? activeGuessStyle : undefined}>{currentGuess[3]}</span>
+            <span className={currentGuess.length > 4 ? activeGuessStyle : undefined}>{currentGuess[4]}</span>
           </p>
           }
           {range(guessesRemaining).map((num) => (

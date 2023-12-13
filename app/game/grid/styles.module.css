@@ -41,7 +41,7 @@
     vertical-align: middle;
     box-sizing: border-box;
     aspect-ratio: 1;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .guess-row > span.active {
@@ -103,19 +103,21 @@
     animation-delay: calc(var(--animation-delay)*4)
   }
 
-
+  .correct, .incorrect, .misplaced {
+    color: white;
+  }
 
   .misplaced {
     background-color: var(--color-misplaced);
-    border: 2px solid var(--color-misplaced);
+    border: 2px solid var(--color-misplaced) !important;
   }
   
   .correct {
     background-color: var(--color-correct);
-    border: 2px solid var(--color-correct);
+    border: 2px solid var(--color-correct) !important;
   }
   
   .incorrect {
     background-color: var(--color-incorrect);
-    border: 2px solid var(--color-correct);
+    border: 2px solid var(--color-incorrect) !important;
   }
