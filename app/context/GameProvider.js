@@ -69,7 +69,6 @@ function GameProvider({ children }) {
     } else {
       const nextGuess = `${currentGuess}${key}`;
       setCurrentGuess(nextGuess);
-      console.log('handle input triggered: ' + key)
     }
   };
 

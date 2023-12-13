@@ -15,6 +15,8 @@ export default function Grid() {
   // identify which row is active to enable/disable animation
   const activeIdx = guesses.length - 1;
 
+  let activeGuessStyle = ` ${styles.active} `;
+
 
   useEffect(() => {
     // console.log('guesses use effect triggered')
@@ -37,11 +39,11 @@ export default function Grid() {
           ))}
           { guesses.length <= 5 &&
           <p className={styles["guess-row"]}>
-            <span>{currentGuess[0]}</span>
-            <span>{currentGuess[1]}</span>
-            <span>{currentGuess[2]}</span>
-            <span>{currentGuess[3]}</span>
-            <span>{currentGuess[4]}</span>
+            <span className={currentGuess.length > 0 && activeGuessStyle}>{currentGuess[0]}</span>
+            <span className={currentGuess.length > 1 && activeGuessStyle}>{currentGuess[1]}</span>
+            <span className={currentGuess.length > 2 && activeGuessStyle}>{currentGuess[2]}</span>
+            <span className={currentGuess.length > 3 && activeGuessStyle}>{currentGuess[3]}</span>
+            <span className={currentGuess.length > 4 && activeGuessStyle}>{currentGuess[4]}</span>
           </p>
           }
           {range(guessesRemaining).map((num) => (

@@ -12,8 +12,8 @@
     grid-template-rows: repeat(6, 1fr);
     box-sizing: border-box;
     /* padding: 0.75rem; */
-    gap: 0.2rem;
-    max-width: 500px;
+    gap: 0.3rem;
+    max-width: 550px;
     min-width: 330px;
     margin: auto;
     vertical-align: center;
@@ -29,7 +29,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     box-sizing: border-box;
-    gap: 0.2rem;
+    gap: 0.3rem;
   }
 
   .guess-row > span {
@@ -41,7 +41,28 @@
     vertical-align: middle;
     box-sizing: border-box;
     aspect-ratio: 1;
+    font-weight: 700;
   }
+
+  .guess-row > span.active {
+    border: 2px solid var(--color-nearly-black);
+    animation: grow-then-shrink 100ms;
+  }
+
+  @keyframes grow-then-shrink {
+    0% {
+      transform: scale(1)
+    }
+
+    50% {
+      transform: scale(1.08)
+    }
+
+    100% {
+      transform: scale(1)
+    }
+  }
+
 
   @keyframes flip {
     0% {
