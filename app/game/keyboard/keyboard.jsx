@@ -5,7 +5,6 @@ import React, { useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameProvider";
 import Key from "./key";
 import { BsBackspace } from "react-icons/bs";
-import { keyIdxes } from "@/app/data/keys";
 
 export default function Input() {
   const { keys, setKeys, handleKeyboardInput, guesses } =
@@ -36,7 +35,10 @@ export default function Input() {
     updateKeys(wordToCheck, stylesToCheck);
   }
 
-  setKeys(nextKeys);
+  useEffect(() => {
+    setKeys(nextKeys);
+
+  }, [setKeys, nextKeys])
 
   useEffect(() => {
     const handleInput = (event) => {

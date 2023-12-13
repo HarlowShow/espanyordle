@@ -52,7 +52,6 @@ export const getWordData = (data) => {
       subdirectory = "number";
     } else if (first.match(stringCheck)) {
       subdirectory = first;
-      console.log(first);
     } else {
       console.log("no valid subdirectory was found. First char was: " + first);
     }

@@ -38,7 +38,7 @@ const Results = () => {
 
   // trigger modal open on win
   useEffect(() => {
-    console.log("game state changed to " + gameState);
+    // console.log("game state changed to " + gameState);
     if (gameState === "win" || gameState === "lose") {
       setShowResultsModal(true);
     }

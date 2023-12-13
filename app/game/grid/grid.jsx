@@ -17,13 +17,9 @@ export default function Grid() {
 
 
   useEffect(() => {
-    console.log('guesses use effect triggered')
+    // console.log('guesses use effect triggered')
     // save to ls when a guess is added
     setGameStateToLocalStorage(guesses)
-    // if (previousGuesses === guesses) {
-    //   console.log('previous guesses same as current guesses')
-    //   setAnimationIsDisabled(true)
-    // }
   }, [guesses])
 
   return (
