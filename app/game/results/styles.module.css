@@ -7,13 +7,43 @@
     font-size: 0.9rem;
     text-transform: uppercase;
     color: var(--color-dark-grey);
+    padding-bottom: 0.5rem;
+   
 }
 
 .content-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.content-wrapper > h2:first-child {
+    margin-top: -4rem;
+    z-index: 1;
+}
+
+.key-stats-wrapper {
+    display: flex;
+    justify-items: center;
+    gap: 1rem;
+}
+
+.key-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.key-stat > p:nth-of-type(1) {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.key-stat > p:nth-of-type(2) {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-dark-grey);
 }
 
 .divider {

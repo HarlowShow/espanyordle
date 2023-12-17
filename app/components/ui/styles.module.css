@@ -29,6 +29,7 @@
 .modal-header {
   display: flex;
   justify-content: flex-end;
+  z-index: 2;
 }
 
 .modal-content {
