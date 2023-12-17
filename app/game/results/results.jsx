@@ -9,6 +9,7 @@ import { getWordData } from './worddata.js';
 import styles from "./styles.module.css";
 import Definition from './definition';
 import Stats from './stats';
+import { BASE_ANIMATION_DELAY } from "@/app/data/ui";
 
 const Results = () => {
 
@@ -40,7 +41,9 @@ const Results = () => {
   useEffect(() => {
     // console.log("game state changed to " + gameState);
     if (gameState === "win" || gameState === "lose") {
-      setShowResultsModal(true);
+      setTimeout(() => {
+        setShowResultsModal(true);
+      }, BASE_ANIMATION_DELAY * 5)
     }
   }, [gameState, setShowResultsModal]);
 
