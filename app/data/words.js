@@ -1,5 +1,7 @@
 const startDate = new Date(2023, 11, 17)
 
+
+
 // index for testing words
 const testIndex = 0
 // ÁÉÍÓÜÑ
@@ -26,8 +28,15 @@ export const WORDS = [
     'DAÑAR',
     'SEGÚN',
     'LUGAR',
-    'ASOMO'
-
+    'ASOMO',
+    'MOJAR',
+    'ATAJO',
+    'AVENA',
+    'PASEO',
+    'HUEVO',
+    'FÓSIL',
+    'FRENO',
+    'ABAJO',
 
 
 ]

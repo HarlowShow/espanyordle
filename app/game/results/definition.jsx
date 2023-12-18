@@ -26,7 +26,7 @@ const Definition = ({ wordData }) => {
           </IconButton>
         )}
       </div>
-      <div>
+      <div className={styles['inline']}>
         { wordData.mainDef &&
         <h3 className={`${styles.definition} ${styles.green}`}>
           {wordData.mainDef}

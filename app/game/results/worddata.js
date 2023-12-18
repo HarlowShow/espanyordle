@@ -1,11 +1,16 @@
 import { isNumber } from "../../data/utils";
 
+// TESTING WORDS:
+// BURRO - multiple entries in data array
 export const getWordData = (data) => {
 
-    // console.log(data[0])
+    console.log(data)
 
   // the main definition
   const mainDef = data[0]?.shortdef[0] ?? null;
+  // word type
+//   const wordType = data[0].fl ?? null;
+//   console.log(wordType)
   // alternative meanings
   const otherDefs = data[0]?.shortdef?.slice(1).join(", ") ?? null;
   // example sentences - array of tuples
