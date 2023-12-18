@@ -4,7 +4,7 @@ import { isNumber } from "../../data/utils";
 // BURRO - multiple entries in data array
 export const getWordData = (data) => {
 
-    console.log(data)
+    // console.log(data)
 
   // the main definition
   const mainDef = data[0]?.shortdef[0] ?? null;

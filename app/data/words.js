@@ -1,6 +1,24 @@
-const startDate = new Date(2023, 11, 17)
+// TODO: test on dates with specific timestamps
+// if you know how many miliseconds in a day you could just remainder that 
+export const calcIndex = (() => {
+    const startDate = new Date(2023, 11, 18)
+    const threeDaysLater = new Date(2023, 11, 21)
+    const initTimeStamp = startDate.getTime()
+    const newTimeStamp = threeDaysLater.getTime()
+    console.log(initTimeStamp)
+    console.log(newTimeStamp)
 
+    let diff = 0
 
+    if (newTimeStamp > initTimeStamp) {
+        diff = newTimeStamp - initTimeStamp
+    } else {
+        console.warn('error processing date')
+    }
+    const hours = Math.floor((diff / 1000 / 60 / 60))
+    console.log('difference is: ' + diff)
+    console.log('in hours that is: ' + hours)
+})
 
 // index for testing words
 const testIndex = 0

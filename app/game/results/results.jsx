@@ -10,6 +10,7 @@ import styles from "./styles.module.css";
 import Definition from './definition';
 import Stats from './stats';
 import { BASE_ANIMATION_DELAY } from "@/app/data/ui";
+import { calcIndex } from '../../data/words';
 
 const Results = () => {
 
@@ -51,9 +52,10 @@ const Results = () => {
     <div>
       {showResultsModal === true && (
         <Modal handleClose={() => setShowResultsModal(false)}>
-        <Definition wordData={wordData}/>
+        {/* <Definition wordData={wordData}/>
         <hr className={styles['divider']}></hr>
-        <Stats />
+        <Stats /> */}
+        <div onClick={calcIndex}>Date fn</div>
         </Modal>
       )}
     </div>

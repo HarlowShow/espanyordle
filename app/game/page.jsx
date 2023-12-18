@@ -8,10 +8,12 @@ import Toasts from "../components/toasts/toasts.jsx";
 // import Test from './results/test';
 // import Dictionary from '../api/dictionary.jsx';
 import Results from './results/results';
+import { calcIndex} from '../data/words';
 
 
 const Game = (() => {
 
+    calcIndex()
 
     return (
         <>
