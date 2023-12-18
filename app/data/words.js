@@ -1,7 +1,38 @@
+const startDate = new Date(2023, 11, 17)
+
+// index for testing words
+const testIndex = 0
+// ÁÉÍÓÜÑ
+
 export const WORDS = [
-    'APURO'
+    'APURO',
+    'NUEVO',
+    'MUSEO',
+    'TEMER',
+    'AZADA',
+    'FALDA',
+    'BORDE',
+    'VOLAR',
+    'FONDO',
+    'FARDO',
+    'GRADO',
+    'HONDO',
+    'NOPAL',
+    'SEÑAL',
+    'BESAR',
+    'CAVAR',
+    'CAZAR',
+    'COLAR',
+    'DAÑAR',
+    'SEGÚN',
+    'LUGAR',
+    'ASOMO'
+
+
+
 ]
 
 export const getAnswer = (() => {
-    return WORDS[Math.floor(Math.random() * WORDS.length)]
+
+        return WORDS[WORDS.length -1]
 })

@@ -1,25 +1,30 @@
 import { isNumber } from "../../data/utils";
 
 export const getWordData = (data) => {
+
+    // console.log(data[0])
+
   // the main definition
-  const mainDef = data[0].shortdef[0] ?? null;
+  const mainDef = data[0]?.shortdef[0] ?? null;
   // alternative meanings
-  const otherDefs = data[0].shortdef.slice(1).join(", ") ?? null;
+  const otherDefs = data[0]?.shortdef?.slice(1).join(", ") ?? null;
   // example sentences - array of tuples
   let examples = [];
 
   const exampleEnglish =
-    data[0].def[0].sseq[0][0][1].dt.slice(-1)[0][1][0].tr ?? null;
+    data[0]?.def[0]?.sseq[0][0][1]?.dt?.slice(-1)[0][1][0]?.tr ?? null;
   const exampleSpanish =
-    data[0].def[0].sseq[0][0][1].dt.slice(-1)[0][1][0].t ?? null;
+    data[0]?.def[0]?.sseq[0][0][1]?.dt?.slice(-1)[0][1][0]?.t ?? null;
 
-  const senses = data[0].def[0].sseq;
+    // console.log(data[0].def[0].sseq[0][0][1].dt)
+
+  const senses = data[0]?.def[0]?.sseq;
 
   for (let i = 0; i < senses.length; i++) {
     const exampleE =
-      data[0].def[0].sseq[i][0][1].dt.slice(-1)[0][1][0].tr ?? null;
+      data?.[0].def?.[0].sseq[i][0][1]?.dt?.slice(-1)[0][1][0]?.tr ?? null;
     const exampleS =
-      data[0].def[0].sseq[i][0][1].dt.slice(-1)[0][1][0].t ?? null;
+      data?.[0].def?.[0].sseq[i][0][1]?.dt?.slice(-1)[0][1][0]?.t ?? null;
     if (exampleE && exampleS) {
       examples.push({
         english: exampleE,
@@ -32,7 +37,7 @@ export const getWordData = (data) => {
 //   console.log(examples);
 
   // get the URL for the audio
-  const audioRef = data[0].hwi.prs[0].sound.audio ?? null;
+  const audioRef = data?.[0].hwi?.prs?.[0].sound?.audio ?? null;
 
   let subdirectory = "";
   if (audioRef !== null) {
@@ -57,9 +62,11 @@ export const getWordData = (data) => {
     }
   } else {
     console.log("no audio file found");
+    subdirectory = null
   }
 
-  const audio = `https://media.merriam-webster.com/audio/prons/es/me/mp3/${subdirectory}/${audioRef}.mp3`;
+  // add something here so that audioref returns null if audioref not found
+  const audio = subdirectory ? `https://media.merriam-webster.com/audio/prons/es/me/mp3/${subdirectory}/${audioRef}.mp3` : null
   return {
     mainDef,
     otherDefs,

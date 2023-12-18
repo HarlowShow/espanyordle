@@ -21,7 +21,7 @@ const Results = () => {
   useEffect(() => {
     async function getDefinition() {
       const res = await fetch(
-        `https://www.dictionaryapi.com/api/v3/references/spanish/json/${answer}?key=${process.env.NEXT_PUBLIC_API_KEY}`
+        `https://www.dictionaryapi.com/api/v3/references/spanish/json/${answer.toLowerCase()}?key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       if (!res.ok) {
         throw new Error("Failed to fetch data");
