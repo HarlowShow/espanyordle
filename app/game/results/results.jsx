@@ -16,6 +16,7 @@ const Results = () => {
   const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
   const { gameState, answer } = useContext(GameContext);
+  const { gameIsOld, setGameIsOld} = useState(false)
 
   // get the api data (TODO optimize this)
   useEffect(() => {
@@ -44,6 +45,10 @@ const Results = () => {
       setTimeout(() => {
         setShowResultsModal(true);
       }, BASE_ANIMATION_DELAY * 5)
+
+      if (gameState === "win") {
+
+      }
     }
   }, [gameState, setShowResultsModal]);
 

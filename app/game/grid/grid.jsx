@@ -3,7 +3,7 @@
 import styles from "./styles.module.css";
 import { useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameProvider";
-import { setGameStateToLocalStorage } from "@/app/data/localstorage";
+import { setGameStateToLocalStorage, setGameNumberInLocalStorage } from "@/app/data/localstorage";
 import { range } from "../../data/utils";
 import Cell from './cell.jsx'
 
@@ -22,6 +22,7 @@ export default function Grid() {
     // console.log('guesses use effect triggered')
     // save to ls when a guess is added
     setGameStateToLocalStorage(guesses)
+    setGameNumberInLocalStorage()
   }, [guesses])
 
   return (

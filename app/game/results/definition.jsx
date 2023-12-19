@@ -1,12 +1,18 @@
 import IconButton from "../../components/ui/iconbutton";
 import { GameContext } from "../../context/GameProvider";
 import { AiFillSound } from "react-icons/ai";
+import { isGameStateOld } from '../../data/helpers'
+import NextDayPrompt from './nextdayprompt';
 import styles from "./styles.module.css";
 import { useRef, useContext } from "react";
 
 const Definition = ({ wordData }) => {
   const { answer } = useContext(GameContext);
   const audioRef = useRef(null);
+
+  // show the prompt if a new game is available
+  const isOld = isGameStateOld()
+
 
   
   const playAudio = () => {
@@ -17,6 +23,12 @@ const Definition = ({ wordData }) => {
   return (
     <div className={styles["content-wrapper"]}>
         <h2 className={styles['heading']}>Today&apos;s Word</h2>
+        { isOld && 
+        <>
+        <span>*</span>
+        <NextDayPrompt />
+        </>
+        }
       <div className={styles['inline']}>
         <h3 className={styles["definition"]}> {answer.toLowerCase()}</h3>
         {wordData.audio && (

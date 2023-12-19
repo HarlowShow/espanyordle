@@ -1,5 +1,6 @@
 import { ZERO_DAY_WORDLE } from "./config"
 import { WORDS } from './words'
+import { getGameNumberFromLocalStorage } from "./localstorage"
 
 export const calcIndex = ((startDate, currentDate) => {
   // milliseconds in a day
@@ -27,8 +28,14 @@ export const calcIndex = ((startDate, currentDate) => {
   return index
 })
 
+// get the index for each day
+export const getDailyIndex = (() => {
+  return calcIndex(ZERO_DAY_WORDLE, Date.now())
+})
+
+// get the word for each day
 export const getDailyWord = (() => {
-  const index = calcIndex(ZERO_DAY_WORDLE, Date.now())
+  const index = getDailyIndex()
   const word = WORDS[index]
 
   if (!word) {
@@ -36,6 +43,12 @@ export const getDailyWord = (() => {
   } else {
     return word
   }
+})
+
+export const isGameStateOld = (() => {
+  const todaysIndex = getDailyIndex()
+  const latestIndex = getGameNumberFromLocalStorage()
+  return todaysIndex === latestIndex ? false : true
 })
 
 
