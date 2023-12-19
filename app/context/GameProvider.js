@@ -2,13 +2,14 @@
 
 import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
-import { getAnswer } from '../data/words.js';
+import { getDailyWord } from '../data/helpers.js';
 import { checkGuess } from '../data/helpers.js';
 import { getGameStateFromLocalStorage } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
 
 export const GameContext = createContext();
-const answer = getAnswer()
+const answer = getDailyWord()
+// console.log(answer)
 const storedGameState = getGameStateFromLocalStorage()
 
 function GameProvider({ children }) {

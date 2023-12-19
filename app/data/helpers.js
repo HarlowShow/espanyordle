@@ -1,3 +1,45 @@
+import { ZERO_DAY_WORDLE } from "./config"
+import { WORDS } from './words'
+
+export const calcIndex = ((startDate, currentDate) => {
+  // milliseconds in a day
+  const dailyMS =  86400000
+
+  // milliseconds for the start date
+  const initTimeStamp = startDate.getTime()
+  // get milliseconds for current date if not using Date.now()
+  const newTimeStamp = typeof currentDate === 'number' ? currentDate : currentDate.getTime()
+
+  let diff = 0
+
+  if (newTimeStamp > initTimeStamp) {
+      diff = newTimeStamp - initTimeStamp
+  } else {
+      console.warn('error processing date')
+  }
+
+  // const hours = Math.floor((diff / 1000 / 60 / 60))
+
+  // get days elapsed, round down
+  const days = diff / dailyMS
+  const index = Math.floor(days)
+  
+  return index
+})
+
+export const getDailyWord = (() => {
+  const index = calcIndex(ZERO_DAY_WORDLE, Date.now())
+  const word = WORDS[index]
+
+  if (!word) {
+    console.warn('something went wrong, word not found')
+  } else {
+    return word
+  }
+})
+
+
+
 export const removeAccents = ((answer) => {
   // create a version of the answer with accents removed
   const answerChars = answer.split('');

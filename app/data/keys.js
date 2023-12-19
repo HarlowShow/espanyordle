@@ -1,34 +1,3 @@
-export const keyIdxes = {
-  Q: 0,
-  W: 1,
-  E: 2,
-  R: 3,
-  T: 4,
-  Y: 5,
-  U: 6,
-  I: 7,
-  O: 8,
-  P: 9,
-  A: 10,
-  S: 11,
-  D: 12,
-  F: 13,
-  G: 14,
-  H: 15,
-  J: 16,
-  K: 17,
-  L: 18,
-  Ñ: 19,
-  Z: 21,
-  X: 22,
-  C: 23,
-  V: 24,
-  B: 25,
-  N: 26,
-  M: 27
-}
-
-
 export const initKeys = [
     { 
       key: 'Q',

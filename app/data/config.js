@@ -1,0 +1,1 @@
+export const ZERO_DAY_WORDLE = new Date(2023, 11, 18)

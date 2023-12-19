@@ -1,7 +1,7 @@
 "use client";
 
 import Modal from "../../components/ui/modal";
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameProvider";
 import { UIContext } from "../../context/UIProvider";
 
@@ -10,14 +10,13 @@ import styles from "./styles.module.css";
 import Definition from './definition';
 import Stats from './stats';
 import { BASE_ANIMATION_DELAY } from "@/app/data/ui";
-import { calcIndex } from '../../data/words';
 
 const Results = () => {
 
   const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
   const { gameState, answer } = useContext(GameContext);
- 
+
   // get the api data (TODO optimize this)
   useEffect(() => {
     async function getDefinition() {
@@ -52,10 +51,9 @@ const Results = () => {
     <div>
       {showResultsModal === true && (
         <Modal handleClose={() => setShowResultsModal(false)}>
-        {/* <Definition wordData={wordData}/>
+        <Definition wordData={wordData}/>
         <hr className={styles['divider']}></hr>
-        <Stats /> */}
-        <div onClick={calcIndex}>Date fn</div>
+        <Stats />
         </Modal>
       )}
     </div>
