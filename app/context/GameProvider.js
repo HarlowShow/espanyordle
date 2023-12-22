@@ -20,6 +20,7 @@ function GameProvider({ children }) {
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
+  const [isGameOld, setIsGameOld] = useState(false)
 
   const enableAnimation = (() => {
     setAnimationIsDisabled(false)

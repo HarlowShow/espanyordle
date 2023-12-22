@@ -1,8 +1,8 @@
 import IconButton from "../../components/ui/iconbutton";
 import { GameContext } from "../../context/GameProvider";
 import { AiFillSound } from "react-icons/ai";
-import { isGameStateOld } from '../../data/helpers'
-import NextDayPrompt from './nextdayprompt';
+import { isGameIndexOld } from "../../data/helpers";
+import NextDayPrompt from "./nextdayprompt";
 import styles from "./styles.module.css";
 import { useRef, useContext } from "react";
 
@@ -11,25 +11,23 @@ const Definition = ({ wordData }) => {
   const audioRef = useRef(null);
 
   // show the prompt if a new game is available
-  const isOld = isGameStateOld()
+  const isOldObj = isGameIndexOld();
+  const isOld = isOldObj.isOld
+  const offset = isOldObj.offset ?? null
 
-
-  
   const playAudio = () => {
-      audioRef.current.play();
-    };
-
+    audioRef.current.play();
+  };
 
   return (
     <div className={styles["content-wrapper"]}>
-        <h2 className={styles['heading']}>Today&apos;s Word</h2>
-        { isOld && 
-        <>
-        <span>*</span>
-        <NextDayPrompt />
-        </>
-        }
-      <div className={styles['inline']}>
+      <h2 className={styles["heading"]}>Today&apos;s Word
+          <NextDayPrompt isOld={isOld} offset={offset} />
+      
+      </h2>
+          
+    
+      <div className={styles["inline"]}>
         <h3 className={styles["definition"]}> {answer.toLowerCase()}</h3>
         {wordData.audio && (
           <IconButton callback={playAudio}>
@@ -38,33 +36,31 @@ const Definition = ({ wordData }) => {
           </IconButton>
         )}
       </div>
-      <div className={styles['inline']}>
-        { wordData.mainDef &&
-        <h3 className={`${styles.definition} ${styles.green}`}>
-          {wordData.mainDef}
-        </h3>
-        }
+      <div className={styles["inline"]}>
+        {wordData.mainDef && (
+          <h3 className={`${styles.definition} ${styles.green}`}>
+            {wordData.mainDef}
+          </h3>
+        )}
       </div>
-      { wordData.exampleEnglish && wordData.exampleSpanish && 
-      <div>
-        { wordData.examples.length > 0 &&
+      {wordData.exampleEnglish && wordData.exampleSpanish && (
         <div>
-            { wordData.examples.map(({english, spanish, key}) => (
+          {wordData.examples.length > 0 && (
+            <div>
+              {wordData.examples.map(({ english, spanish, key }) => (
                 <div key={key}>
-                    <span className={`${styles.example}`}>{spanish}</span>
-                    <span className={`${styles.example} ${styles.light}`}>
+                  <span className={`${styles.example}`}>{spanish}</span>
+                  <span className={`${styles.example} ${styles.light}`}>
                     {" "}
                     — {english}
-                    </span>
+                  </span>
                 </div>
-            ))}
+              ))}
+            </div>
+          )}
+          {/* <p>Can also mean: {wordData.otherDefs}</p> */}
         </div>
-        
-        }
-        {/* <p>Can also mean: {wordData.otherDefs}</p> */}
-      </div>
-      }
-
+      )}
     </div>
   );
 };

@@ -1,19 +1,34 @@
 "use client";
 
-import { getDailyIndex } from "../data/helpers";
+import { isGameIndexOld, getDailyIndex } from "../data/helpers";
 const gameStateKey = "gameState";
 const statsKey = "stats";
-const gameNumberKey = "gameNumber";
+const gameIndexKey = "gameNumber";
+const offsetKey = "offset";
 
-export const setGameNumberInLocalStorage = (() => {
-    const idx = getDailyIndex();
-    localStorage.setItem(gameNumberKey, JSON.stringify(idx))
-})
+export const setGameIndexInLocalStorage = () => {
+    // get current index first
+    const isOld = isGameIndexOld()
+    console.log('is old: ' + isOld)
+    // if the index has changed, update the is behind key
+    const idx = getDailyIndex()
+    if (parsed !== idx) {
+        // console.log('days behind: ' + currentIndex - parsed)
+        console.log('mismatch')
+        console.log('last index: ' + parsed)
+        console.log('todays index: ' + idx)
+    } else {
+        console.log('playing todays game')
+    }
 
-export const getGameNumberFromLocalStorage = (() => {
-    const gameNumber = localStorage.getItem(gameNumberKey);
-    return gameNumber ? JSON.parse(gameNumber) : null;
-})
+    console.log('setting index')
+  localStorage.setItem(gameIndexKey, JSON.stringify(idx));
+};
+
+export const getGameIndexFromLocalStorage = () => {
+  const gameNumber = localStorage.getItem(gameIndexKey);
+  return gameNumber ? JSON.parse(gameNumber) : null;
+};
 
 export const setGameStateToLocalStorage = (guesses) => {
   // tbc add answer param, probs need to check if the game changes
@@ -25,9 +40,9 @@ export const setGameStateToLocalStorage = (guesses) => {
 };
 
 export const getGameStateFromLocalStorage = () => {
-    // otherwise get game state from local storage
-    const state = localStorage.getItem(gameStateKey);
-    return state ? JSON.parse(state) : null;
+  // otherwise get game state from local storage
+  const state = localStorage.getItem(gameStateKey);
+  return state ? JSON.parse(state) : null;
 };
 
 export const setStatsInLocalStorage = (stats) => {
@@ -39,4 +54,3 @@ export const getStatsFromLocalStorage = () => {
 
   return stats ? JSON.parse(stats) : null;
 };
-

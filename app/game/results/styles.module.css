@@ -58,6 +58,11 @@
     /* gap: 0.5rem; */
 }
 
+.note {
+    text-transform: initial;
+    font-weight: initial;
+}
+
 .green {
     color: var(--color-correct);
     padding-bottom: 0.75rem;
