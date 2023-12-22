@@ -9,7 +9,7 @@ import { updateStats } from "../data/stats.js";
 
 export const GameContext = createContext();
 const answer = getDailyWord()
-// console.log(answer)
+// TODO reorganise this. should set gameidx in context
 const storedGameState = getGameStateFromLocalStorage()
 const isOld = isGameIndexOld()
 
@@ -31,9 +31,6 @@ function GameProvider({ children }) {
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
-
-
-
 
   const enableAnimation = (() => {
     setAnimationIsDisabled(false)
