@@ -58,6 +58,7 @@ export const updateStats = ((hasWon, winDistro) => {
         played: nextPlayed,
         won: nextWon,
         distro: nextDistro,
+        lastPlayedIdx: todaysIndex,
         currentStreak: nextCurrentStreak,
         longestStreak: nextLongestStreak
     }

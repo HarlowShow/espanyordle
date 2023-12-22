@@ -1,6 +1,6 @@
 "use client";
 
-import { isGameIndexOld, getDailyIndex } from "../data/helpers";
+import { getDailyIndex } from "../data/helpers";
 const gameStateKey = "gameState";
 const statsKey = "stats";
 const gameIndexKey = "gameNumber";
