@@ -7,21 +7,8 @@ const gameIndexKey = "gameNumber";
 const offsetKey = "offset";
 
 export const setGameIndexInLocalStorage = () => {
-    // get current index first
-    const isOld = isGameIndexOld()
-    console.log('is old: ' + isOld)
-    // if the index has changed, update the is behind key
-    const idx = getDailyIndex()
-    if (parsed !== idx) {
-        // console.log('days behind: ' + currentIndex - parsed)
-        console.log('mismatch')
-        console.log('last index: ' + parsed)
-        console.log('todays index: ' + idx)
-    } else {
-        console.log('playing todays game')
-    }
 
-    console.log('setting index')
+    const idx = getDailyIndex()
   localStorage.setItem(gameIndexKey, JSON.stringify(idx));
 };
 

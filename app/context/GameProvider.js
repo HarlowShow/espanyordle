@@ -2,25 +2,38 @@
 
 import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
-import { getDailyWord } from '../data/helpers.js';
+import { getDailyWord, isGameIndexOld } from '../data/helpers.js';
 import { checkGuess } from '../data/helpers.js';
-import { getGameStateFromLocalStorage } from "@/app/data/localstorage";
+import { getGameStateFromLocalStorage, setGameIndexInLocalStorage } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
 
 export const GameContext = createContext();
 const answer = getDailyWord()
 // console.log(answer)
 const storedGameState = getGameStateFromLocalStorage()
+const isOld = isGameIndexOld()
 
 function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guesses, setGuesses ] = useState(storedGameState ? storedGameState.guesses : [])
+
+  // resets the guesses to zero if the last recorded game is old
+  // TODO: refactor this mess
+  const latestStoredState = storedGameState ? storedGameState.guesses : []
+  const stateToUse = isOld.isOld ? [] : latestStoredState
+
+  if (stateToUse.length === 0) {
+    setGameIndexInLocalStorage()
+  }
+
+  const [guesses, setGuesses ] = useState(stateToUse)
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true)
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState('in progress')
   const [toastMsg, setToastMsg] = useState(null)
-  const [isGameOld, setIsGameOld] = useState(false)
+
+
+
 
   const enableAnimation = (() => {
     setAnimationIsDisabled(false)
