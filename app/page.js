@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div>
       <h1>the home page is here</h1>
-      <Button callback={goToGame}>Play</Button>
+      <Button callback={goToGame} label={"play"}>Play</Button>
     </div>
   );
 }

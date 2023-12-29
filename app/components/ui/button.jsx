@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 
-export default function Button({callback, children}) {
+export default function Button({callback, label, children}) {
     return (
-        <button type="button" className={styles.button} onClick={callback}>{children}</button>
+        <button type="button" aria-label={label} className={styles.button} onClick={callback}>{children}</button>
     )
 }

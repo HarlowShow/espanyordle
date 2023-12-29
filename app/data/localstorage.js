@@ -7,12 +7,13 @@ const gameIndexKey = "gameNumber";
 const offsetKey = "offset";
 
 export const setGameIndexInLocalStorage = () => {
-
+    console.log('setting game index in local storage');
     const idx = getDailyIndex()
   localStorage.setItem(gameIndexKey, JSON.stringify(idx));
 };
 
 export const getGameIndexFromLocalStorage = () => {
+    console.log('getting game index from local storage')
   const gameNumber = localStorage.getItem(gameIndexKey);
   return gameNumber ? JSON.parse(gameNumber) : null;
 };

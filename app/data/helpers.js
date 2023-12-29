@@ -1,4 +1,5 @@
 import { ZERO_DAY_WORDLE } from "./config";
+// import { ZERO_DAY_WORDLE_PLUS_ONE } from "./config";
 import { WORDS } from "./words";
 import { getGameIndexFromLocalStorage } from "./localstorage";
 

@@ -24,8 +24,8 @@ export default function Nav () {
         <li role="menuitembackbutton"><Button callback={goBack}>Back</Button></li>
         <li className={styles['logo-wrapper']} role="menuitemtitle"><Logo /></li>
         <li className={styles['button-group']}>
-        <IconButton callback={() => setShowResultsModal(!showResultsModal)}><VscGraph /></IconButton>
-        <IconButton callback={() => setShowHelpModal(!showHelpModal)}><LuHelpCircle /></IconButton>
+        <IconButton callback={() => setShowResultsModal(!showResultsModal)} label="statistics">< VscGraph aria-hidden="true" focusable="false"/></IconButton>
+        <IconButton callback={() => setShowHelpModal(!showHelpModal)} label="help"><LuHelpCircle aria-hidden="true" focusable="false"/></IconButton>
         </li>
         </ul>
     )

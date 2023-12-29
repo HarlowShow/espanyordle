@@ -1,7 +1,13 @@
 import styles from './styles.module.css'
+import VisuallyHidden from './visuallyhidden'
 
-export default function IconButton({callback, children}) {
+export default function IconButton({callback, label, children}) {
     return (
-        <button type="button" className={styles['icon-button']} onClick={callback}>{children}</button>
+        <button type="button" className={styles['icon-button']} onClick={callback}>
+            <VisuallyHidden>
+                {label}
+            </VisuallyHidden>
+            {children}
+            </button>
     )
 }
