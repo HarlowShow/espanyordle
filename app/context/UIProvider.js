@@ -6,7 +6,7 @@ export const UIContext = createContext();
 
 function UIProvider({children}) {
 
-    const [showHelpModal, setShowHelpModal] = useState(false)
+    const [showHelpModal, setShowHelpModal] = useState(true)
     const [showResultsModal, setShowResultsModal] = useState(false)
 
     // const logModalState = (() => {

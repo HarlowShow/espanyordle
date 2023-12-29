@@ -8,6 +8,7 @@ import Toasts from "../components/toasts/toasts.jsx";
 // import Test from './results/test';
 // import Dictionary from '../api/dictionary.jsx';
 import Results from './results/results';
+import Help from './help/help'
 
 
 const Game = (() => {
@@ -20,6 +21,7 @@ const Game = (() => {
         <Toasts />
 
         <div className={styles['game-container']}>
+            <Help />
             <Results />
             <Grid>
             </Grid>
