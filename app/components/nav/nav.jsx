@@ -1,15 +1,12 @@
 "use client";
 
 import styles from "./styles.module.css";
-import Button from "../ui/button";
 import IconButton from "../ui/iconbutton";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
 import { useContext } from "react";
 import { LuHelpCircle } from "react-icons/lu";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
-import Logo from "../ui/logo";
 import { UIContext } from "../../context/UIProvider";
 
 export default function Nav() {
@@ -25,7 +22,6 @@ export default function Nav() {
     router.push("/");
   };
 
-  const pathname = usePathname();
 
   return (
         <ul role="menubar" className={styles.nav}>

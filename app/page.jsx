@@ -1,8 +1,10 @@
 'use client'
 
 import Button from './components/ui/button';
-import styles from './page.module.css'
-import { useRouter } from 'next/navigation'
+import styles from './page.module.css';
+import { useRouter } from 'next/navigation';
+import Logo from './components/ui/logo';
+import Help from './game/help/help';
 
 
 export default function Home() {
@@ -12,8 +14,13 @@ export default function Home() {
   })
   return (
     <div className={styles.home}>
+            <Help />
+         <Logo />
+         <p>(Españordle)</p>
       <h2>A daily word game for spanish learners</h2>
-      <Button callback={goToGame} label={"play"}>Play</Button>
+      <div className={styles['button-wrapper']}>
+      <Button callback={goToGame} label={"play"}>PLAY</Button>
+      </div>
     </div>
   );
 }
