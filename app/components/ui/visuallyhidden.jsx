@@ -1,4 +1,4 @@
-import styles from './styles.module.css'
+import styles from './Buttons.module.css'
 
 const VisuallyHidden = ({ children }) => {
     return (

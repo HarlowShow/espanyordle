@@ -1,4 +1,4 @@
-import styles from './styles.module.css'
+import styles from './Modal.module.css'
 import { IoClose } from "react-icons/io5";
 import IconButton from './iconbutton';
 

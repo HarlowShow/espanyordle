@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./styles.module.css";
+import styles from "./Grid.module.css";
 import { useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameProvider";
 import {

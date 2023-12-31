@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./Results.module.css";
 import { getStatsFromLocalStorage } from "../../data/localstorage.js";
 import SingleStat from './singlestat'
 

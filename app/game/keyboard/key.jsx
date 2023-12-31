@@ -1,6 +1,6 @@
 import { useContext} from 'react'
 import { GameContext } from '../../context/GameProvider';
-import styles from './styles.module.css'
+import styles from './Keyboard.module.css'
 
 
 

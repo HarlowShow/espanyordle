@@ -3,7 +3,7 @@ import { GameContext } from "../../context/GameProvider";
 import { AiFillSound } from "react-icons/ai";
 import { isGameIndexOld } from "../../data/helpers";
 import NextDayPrompt from "./nextdayprompt";
-import styles from "./styles.module.css";
+import styles from "./Results.module.css";
 import { useRef, useContext } from "react";
 
 const Definition = ({ wordData }) => {

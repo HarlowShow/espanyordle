@@ -3,7 +3,7 @@
 import Modal from "../../components/ui/modal";
 import { UIContext } from "../../context/UIProvider";
 import { useContext } from "react";
-import styles from "./styles.module.css";
+import styles from "./Help.module.css";
 
 const Help = () => {
   const cellCorrectStyle = ` ${styles.cell} ` + `${styles.correct} `;

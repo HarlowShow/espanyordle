@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./styles.module.css";
+import styles from "./Nav.module.css";
 import IconButton from "../ui/iconbutton";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";

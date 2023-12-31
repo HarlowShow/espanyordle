@@ -1,5 +1,5 @@
 'use client';
-import styles from "./styles.module.css";
+import styles from "./Grid.module.css";
 import { useEffect, useState, useContext } from 'react';
 import { BASE_ANIMATION_DELAY } from '../../data/ui';
 import { GameContext } from "../../context/GameProvider";

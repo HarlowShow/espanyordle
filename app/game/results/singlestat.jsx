@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./Results.module.css";
 
 
 const SingleStat = (({stat, label}) => {

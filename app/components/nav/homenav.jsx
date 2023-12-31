@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./styles.module.css";
+import styles from "./Nav.module.css";
 import { useContext } from 'react';
 import { LuHelpCircle } from "react-icons/lu";
 import IconButton from '../ui/iconbutton';

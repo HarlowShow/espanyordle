@@ -6,7 +6,7 @@ import { GameContext } from "../../context/GameProvider";
 import { UIContext } from "../../context/UIProvider";
 
 import { getWordData } from './worddata.js';
-import styles from "./styles.module.css";
+import styles from "./Results.module.css";
 import Definition from './definition';
 import Stats from './stats';
 import { BASE_ANIMATION_DELAY } from "@/app/data/ui";

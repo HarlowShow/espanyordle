@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "./styles.module.css";
+import styles from "./Results.module.css";
 
 // TODO: figure out when to trigger this - atm game no. updates in LS automatically so there's no comparison
 // trigger on win/lose via parent

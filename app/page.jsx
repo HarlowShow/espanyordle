@@ -1,7 +1,7 @@
 'use client'
 
 import Button from './components/ui/button';
-import styles from './page.module.css';
+import styles from './Home.module.css';
 import { useRouter } from 'next/navigation';
 import Logo from './components/ui/logo';
 import Help from './game/help/help';
