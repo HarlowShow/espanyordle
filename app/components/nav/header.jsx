@@ -1,14 +1,20 @@
-'use client'
+"use client";
 
-import styles from './styles.module.css'
+import { usePathname } from "next/navigation";
 
-import Nav from './nav'
+import Nav from "./nav";
+import HomeNav from './homenav';
 
 export default function Header() {
+  const pathname = usePathname();
 
-    return (
-        <nav >
-            <Nav />
+  return (
+    <div>
+      {pathname === "/game" ? (
+        <nav>
+          <Nav />
         </nav>
-    )
+      ) : <HomeNav />}
+    </div>
+  );
 }

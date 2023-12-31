@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { LuHelpCircle } from "react-icons/lu";
 import { VscGraph } from "react-icons/vsc";
 import { AiFillHome } from "react-icons/ai";
-import Logo from "../logo";
+import Logo from "../ui/logo";
 import { UIContext } from "../../context/UIProvider";
 
 export default function Nav() {
@@ -26,11 +26,8 @@ export default function Nav() {
   };
 
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
-    <>
-    {pathname === "/game" && (
         <ul role="menubar" className={styles.nav}>
           <li>
             <IconButton callback={goBack} label="home">
@@ -52,12 +49,5 @@ export default function Nav() {
             </IconButton>
           </li>
           </ul>
-      )}
-        {pathname === "/" && (
-        <div className={styles["nav-home"]}>
-          <Logo />
-        </div>
-      )}
-      </>
   );
 }

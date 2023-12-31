@@ -1,8 +1,9 @@
-import styles from './styles.module.css'
+'use client'
+import styles from './styles.module.css';
 
 export default function Logo () {
     return (
-        <div className={styles.logo}>
+        <div className={styles['logo-wrapper']}>
             <span>E</span>
             <span>S</span>
             <span>P</span>
@@ -15,4 +16,5 @@ export default function Logo () {
             <span>E</span>
         </div>
     )
+    
 }

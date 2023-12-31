@@ -41,7 +41,7 @@ const Help = () => {
               word.
             </p>
             <p>
-              Accents are not required for a correct guess, but will be included
+              Accents besides ñ are not required for a correct guess, but will be included
               once the word is revealed.
             </p>
             </div>

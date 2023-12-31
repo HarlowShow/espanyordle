@@ -67,6 +67,7 @@ ul {
   margin: 0 auto;
   height: calc(100% - var(--header-height));
   width: 100%;
+  justify-content: center;
   /* width: 375px; */
 }
 
