@@ -1,16 +1,21 @@
-.nav {
-    width: 100%;
+.nav, .nav-home {
+    width: 100vw;
+    height: var(--header-height);
     margin: 0 auto;
     background-color: white;
     display: flex;
+}
+
+
+.nav {
     justify-content: space-between;
-    height: var(--header-height)
 }
 
 .nav > li {
     padding: 1rem;
 }
 
-.logo-wrapper {
-    align-self: center;
+.nav-home {
+    justify-content: center;
+    align-items: center;
 }
