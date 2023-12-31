@@ -1,10 +1,6 @@
-  .button, .icon-button {
+.button, .icon-button {
     display: inline-block;
     box-sizing: border-box;
-    color: #111827;
-    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: .875rem;
-    font-weight: 600;
     line-height: 1.25rem;
     padding: .75rem 1rem;
     cursor: pointer;
@@ -32,8 +28,7 @@
   }
   
   
-  .button-two {
-    display: inline-block;
+  .button {
     outline: 0;
     border: 0;
     cursor: pointer;
@@ -48,7 +43,7 @@
     box-shadow: 0 0 0 3px #000000 inset;
   }
   
-  .button-two:hover {
+  .button:hover {
     transform: translateY(-2px);
   }
   

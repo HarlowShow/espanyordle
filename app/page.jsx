@@ -16,7 +16,7 @@ export default function Home() {
     <div className={styles.home}>
             <Help />
          <Logo />
-         <p>(Españordle)</p>
+         <h1>(Españordle)</h1>
       <h2>A daily word game for spanish learners</h2>
       <div className={styles['button-wrapper']}>
       <Button callback={goToGame} label={"play"}>PLAY</Button>

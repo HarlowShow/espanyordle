@@ -63,7 +63,6 @@ ul {
 
 .main {
   display: flex;
-  background-color: #fefefe;
   margin: 0 auto;
   height: calc(100% - var(--header-height));
   width: 100%;

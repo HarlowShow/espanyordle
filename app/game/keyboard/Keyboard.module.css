@@ -6,7 +6,6 @@
   }
   
   .keyboard {
-    
     /* background-color: var(--color-yellow); */
     align-items: center;
     flex-direction: column;
@@ -63,5 +62,11 @@
   
   .incorrect {
     background-color: var(--color-incorrect);
+  }
+
+  @media (min-width: 640px) {
+    .keyboard-wrapper {
+      max-width: 525px;
+    }
   }
   
