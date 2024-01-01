@@ -3,33 +3,49 @@
 import { createContext, useState } from "react";
 import { initKeys } from "../data/keys.js";
 import { getDailyWord, isGameIndexOld } from '../data/helpers.js';
+import { getLatestGameState } from '../data/statehelpers.js';
 import { checkGuess } from '../data/helpers.js';
 import { getGameStateFromLocalStorage, setGameIndexInLocalStorage } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
-
 export const GameContext = createContext();
+
+// const { latestGuesses, latestAnswer } = getGameStateFromLocalStorage()
 const answer = getDailyWord()
-// TODO reorganise this. should set gameidx in context
-const storedGameState = getGameStateFromLocalStorage()
-const isOld = isGameIndexOld()
+
 
 function GameProvider({ children }) {
   const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
 
   // resets the guesses to zero if the last recorded game is old
-  // TODO: refactor this mess
-  const latestStoredState = storedGameState ? storedGameState.guesses : []
-  const stateToUse = isOld.isOld ? [] : latestStoredState
+    // const latestStoredState = latestGuesses ? latestGuesses : []
+    // console.log('latest stored guesses: ' + latestStoredState)
+    // const stateToUse = isOld.isOld ? [] : latestStoredState
 
-  if (stateToUse.length === 0) {
-    setGameIndexInLocalStorage()
-  }
+  // TODO: add back?
+  // if (stateToUse.length === 0) {
+  //   console.log('found no prev guesses, setting new game index in ls')
+  //   setGameIndexInLocalStorage()
+  // }
 
-  const [guesses, setGuesses ] = useState(stateToUse)
+  const [guesses, setGuesses ] = useState(() => {
+    const latestState = getGameStateFromLocalStorage()
+    const isOld = isGameIndexOld()
+    return latestState?.guesses && isOld.isOld === false ? latestState.guesses : []
+  })
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true)
+
   // 'win' | 'lose' | 'in progress'
-  const [gameState, setGameState] = useState('in progress')
+  // const latestGameState = getLatestGameState(latestGuesses, latestAnswer)
+  // TODO add logic back once bug fixed
+  const [gameState, setGameState] = useState(() => {
+    const latestState = getGameStateFromLocalStorage()
+    if (latestState?.guesses && latestState?.answer) {
+      const latestGameState = getLatestGameState(latestState.guesses, latestState.answer)
+      return latestGameState
+    }
+    return 'in progress'
+  })
   const [toastMsg, setToastMsg] = useState(null)
 
   const enableAnimation = (() => {
@@ -75,16 +91,21 @@ function GameProvider({ children }) {
 
   const handleKeyboardInput = (key) => {
 
-    if (key === "Enter" || key === "ENTER") {
-      validateGuess(currentGuess)
-    } else if (key === "Backspace" || key === "BACKSPACE") {
-        setCurrentGuess(currentGuess.slice(0, -1))
-    } else if (currentGuess.length === 5) {
-      console.log("word length limit reached");
+    if (gameState === 'in progress') {
+      if (key === "Enter" || key === "ENTER") {
+        validateGuess(currentGuess)
+      } else if (key === "Backspace" || key === "BACKSPACE") {
+          setCurrentGuess(currentGuess.slice(0, -1))
+      } else if (currentGuess.length === 5) {
+        console.log("word length limit reached");
+      } else {
+        const nextGuess = `${currentGuess}${key}`;
+        setCurrentGuess(nextGuess);
+      }
     } else {
-      const nextGuess = `${currentGuess}${key}`;
-      setCurrentGuess(nextGuess);
+      console.log('game state not in progress')
     }
+
   };
 
   

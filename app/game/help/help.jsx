@@ -6,9 +6,9 @@ import { useContext } from "react";
 import styles from "./Help.module.css";
 
 const Help = () => {
-  const cellCorrectStyle = ` ${styles.cell} ` + `${styles.correct} `;
-  const cellIncorrectStyle = ` ${styles.cell} ` + `${styles.incorrect} `;
-  const cellMisplacedStyle = ` ${styles.cell} ` + `${styles.misplaced} `;
+  const cellCorrectStyle = ` ${styles.cell} correct`;
+  const cellIncorrectStyle = ` ${styles.cell} incorrect`;
+  const cellMisplacedStyle = ` ${styles.cell} misplaced`;
 
   const { showHelpModal, setShowHelpModal } = useContext(UIContext);
   return (

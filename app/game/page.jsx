@@ -1,3 +1,5 @@
+'use client'
+
 import Input from './keyboard/keyboard';
 import Grid from './grid/grid';
 
@@ -12,9 +14,6 @@ import Help from './help/help'
 
 
 const Game = (() => {
-
-
-
     return (
         <>
         <GameProvider>

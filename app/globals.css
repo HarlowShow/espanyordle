@@ -107,3 +107,22 @@ ul {
 
 }
 
+.correct, .incorrect, .misplaced {
+  color: white;
+}
+
+.misplaced {
+  background-color: var(--color-misplaced);
+  border: 2px solid var(--color-misplaced) !important;
+}
+
+.correct {
+  background-color: var(--color-correct);
+  border: 2px solid var(--color-correct) !important;
+}
+
+.incorrect {
+  background-color: var(--color-incorrect);
+  border: 2px solid var(--color-incorrect) !important;
+}
+

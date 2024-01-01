@@ -10,7 +10,7 @@ import { range } from "../../data/utils";
 import Cell from "./cell.jsx";
 
 export default function Grid() {
-  const { currentGuess, guesses } = useContext(GameContext);
+  const { currentGuess, guesses, answer } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
 
   // identify which row is active to enable/disable animation
@@ -21,8 +21,8 @@ export default function Grid() {
   useEffect(() => {
     // console.log('guesses use effect triggered')
     // save to ls when a guess is added
-    setGameStateToLocalStorage(guesses);
-  }, [guesses]);
+    setGameStateToLocalStorage(guesses, answer);
+  }, [guesses, answer]);
 
   return (
     <div className={styles["grid-wrapper"]}>

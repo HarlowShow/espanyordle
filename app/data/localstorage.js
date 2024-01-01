@@ -7,21 +7,22 @@ const gameIndexKey = "gameNumber";
 const offsetKey = "offset";
 
 export const setGameIndexInLocalStorage = () => {
-    console.log('setting game index in local storage');
+    // console.log('setting game index in local storage');
     const idx = getDailyIndex()
   localStorage.setItem(gameIndexKey, JSON.stringify(idx));
 };
 
 export const getGameIndexFromLocalStorage = () => {
-    console.log('getting game index from local storage')
+    // console.log('getting game index from local storage')
   const gameNumber = localStorage.getItem(gameIndexKey);
   return gameNumber ? JSON.parse(gameNumber) : null;
 };
 
-export const setGameStateToLocalStorage = (guesses) => {
+export const setGameStateToLocalStorage = (guesses, answer = '') => {
   // tbc add answer param, probs need to check if the game changes
   const gameState = {
     guesses,
+    answer
   };
 
   localStorage.setItem(gameStateKey, JSON.stringify(gameState));
@@ -30,7 +31,8 @@ export const setGameStateToLocalStorage = (guesses) => {
 export const getGameStateFromLocalStorage = () => {
   // otherwise get game state from local storage
   const state = localStorage.getItem(gameStateKey);
-  return state ? JSON.parse(state) : null;
+  const latestState = state ? JSON.parse(state) : null;
+  return latestState
 };
 
 export const setStatsInLocalStorage = (stats) => {
