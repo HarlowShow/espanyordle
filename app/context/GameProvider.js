@@ -1,43 +1,33 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { initKeys } from "../data/keys.js";
-import { getDailyWord, isGameIndexOld } from '../data/helpers.js';
+import { INIT_KEYS } from "../data/keys.js";
+import { getDailyWord, isGameIndexOld, getDailyIndex } from '../data/helpers.js';
 import { getLatestGameState } from '../data/statehelpers.js';
 import { checkGuess } from '../data/helpers.js';
 import { getGameStateFromLocalStorage, setGameIndexInLocalStorage } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
 export const GameContext = createContext();
 
-// const { latestGuesses, latestAnswer } = getGameStateFromLocalStorage()
 const answer = getDailyWord()
 
 
 function GameProvider({ children }) {
-  const [keys, setKeys] = useState(initKeys);
   const [currentGuess, setCurrentGuess] = useState("");
-
-  // resets the guesses to zero if the last recorded game is old
-    // const latestStoredState = latestGuesses ? latestGuesses : []
-    // console.log('latest stored guesses: ' + latestStoredState)
-    // const stateToUse = isOld.isOld ? [] : latestStoredState
-
-  // TODO: add back?
-  // if (stateToUse.length === 0) {
-  //   console.log('found no prev guesses, setting new game index in ls')
-  //   setGameIndexInLocalStorage()
-  // }
-
+  
+  const [dailyIndex] = useState(getDailyIndex())
+  console.log('daily index: ' + dailyIndex)
+  
   const [guesses, setGuesses ] = useState(() => {
     const latestState = getGameStateFromLocalStorage()
     const isOld = isGameIndexOld()
     return latestState?.guesses && isOld.isOld === false ? latestState.guesses : []
   })
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true)
+  
+
 
   // 'win' | 'lose' | 'in progress'
-  // const latestGameState = getLatestGameState(latestGuesses, latestAnswer)
-  // TODO add logic back once bug fixed
   const [gameState, setGameState] = useState(() => {
     const latestState = getGameStateFromLocalStorage()
     if (latestState?.guesses && latestState?.answer) {
@@ -46,7 +36,47 @@ function GameProvider({ children }) {
     }
     return 'in progress'
   })
+
   const [toastMsg, setToastMsg] = useState(null)
+
+  // TODO rewrite using map or something bcus mutability issue
+  const nextKeys = (() => {
+    // console.log('next keys callback triggered')
+    const isOld = isGameIndexOld()
+    console.log('init keys, Q is ' + INIT_KEYS[0].status)
+    if (isOld.isOld) {
+      console.log('returning init keys as keys')
+      const nextKeys = [...INIT_KEYS];
+      return nextKeys
+    } else {
+      // update keys for a single word
+      const nextKeys = [...INIT_KEYS];
+      const updateKeys = (word, status) => {
+        for (let i = 0; i < word.length; i++) {
+          const nextKey = word[i];
+          const index = nextKeys.map((i) => i.key).indexOf(nextKey);
+          if (nextKeys[index].status === "default") {
+            nextKeys[index].status = status[i];
+          }
+        }
+      };
+      // loop through all guesses to update keys
+      for (let i = 0; i < guesses.length; i++) {
+        const wordToCheck = guesses[i].guess;
+        const stylesToCheck = guesses[i].style;
+        updateKeys(wordToCheck, stylesToCheck);
+      }
+      return nextKeys;
+    }
+  })
+
+  const [keys, setKeys] = useState(nextKeys())
+
+  const updateKeys = (() => {
+    const next = nextKeys()
+    setKeys(next)
+  })
+
 
   const enableAnimation = (() => {
     setAnimationIsDisabled(false)
@@ -68,6 +98,9 @@ function GameProvider({ children }) {
         }
         
         setGuesses([...guesses, nextGuess])
+        updateKeys()
+        // TODO: is this the best place to put this?
+        setGameIndexInLocalStorage()
         // enable animation for the latest row
         enableAnimation()
         
@@ -115,6 +148,7 @@ function GameProvider({ children }) {
       value={{
         keys,
         setKeys,
+        updateKeys,
         currentGuess,
         guesses,
         setGuesses,
@@ -127,6 +161,7 @@ function GameProvider({ children }) {
         answer,
         enableAnimation,
         animationIsDisabled,
+        dailyIndex,
       }}
     >
       {children}

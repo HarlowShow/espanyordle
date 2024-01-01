@@ -1,4 +1,4 @@
-export const initKeys = [
+export const INIT_KEYS = [
     { 
       key: 'Q',
       status: 'default'

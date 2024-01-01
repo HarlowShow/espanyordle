@@ -39,8 +39,8 @@ export const getDailyIndex = () => {
 export const getDailyWord = () => {
   const index = getDailyIndex();
   // TESTING
-  const testIndex = index;
-  const word = WORDS[testIndex];
+  // const testIndex = index;
+  const word = WORDS[index];
 
   if (!word) {
     console.warn("something went wrong, word not found");
@@ -54,8 +54,8 @@ export const getDailyWord = () => {
 export const isGameIndexOld = () => {
   const todaysIndex = getDailyIndex();
   const latestIndex = getGameIndexFromLocalStorage();
-  console.log('todays index is: ' + todaysIndex)
-  console.log('latest recorded index is: ' + latestIndex)
+  // console.log('todays index is: ' + todaysIndex)
+  // console.log('latest recorded index is: ' + latestIndex)
   return todaysIndex === latestIndex
     ? { isOld: false }
     : { isOld: true, offset: todaysIndex - latestIndex };
