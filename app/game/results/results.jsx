@@ -16,7 +16,6 @@ const Results = () => {
   const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
   const { gameState, answer } = useContext(GameContext);
-  const { gameIsOld, setGameIsOld} = useState(false)
 
   // get the api data (TODO optimize this)
   useEffect(() => {
