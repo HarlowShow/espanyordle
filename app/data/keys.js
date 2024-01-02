@@ -116,3 +116,122 @@ export const INIT_KEYS = [
       status: 'backspace'
     },
   ]
+
+  export const KEYS = {
+    Q: { 
+      key: 'Q',
+      status: 'default'
+    },
+    M: { 
+      key: 'W',
+      status: 'default'
+    },
+    E: { 
+      key: 'E',
+      status: 'default'
+    },
+    R: { 
+      key: 'R',
+      status: 'default'
+    },
+    T: { 
+      key: 'T',
+      status: 'default'
+    },
+    Y: { 
+      key: 'Y',
+      status: 'default'
+    },
+    U: { 
+      key: 'U',
+      status: 'default'
+    },
+    I: { 
+      key: 'I',
+      status: 'default'
+    },
+    O: { 
+      key: 'O',
+      status: 'default'
+    },
+    P: { 
+      key: 'P',
+      status: 'default'
+    },
+    A: { 
+      key: 'A',
+      status: 'default'
+    },
+    S: { 
+      key: 'S',
+      status: 'default'
+    },
+    D: { 
+      key: 'D',
+      status: 'default'
+    },
+    F: { 
+      key: 'F',
+      status: 'default'
+    },
+    G: { 
+      key: 'G',
+      status: 'default'
+    },
+    H: { 
+      key: 'H',
+      status: 'default'
+    },
+    J: { 
+      key: 'J',
+      status: 'default'
+    },
+    K: { 
+      key: 'K',
+      status: 'default'
+    },
+    L: { 
+      key: 'L',
+      status: 'default'
+    },
+    Ñ: { 
+      key: 'Ñ',
+      status: 'default'
+    },
+    Enter: { 
+      key: 'Enter',
+      status: 'enter'
+    },
+    Z: { 
+      key: 'Z',
+      status: 'default'
+    },
+    X: { 
+      key: 'X',
+      status: 'default'
+    },
+    C: { 
+      key: 'C',
+      status: 'default'
+    },
+    V: { 
+      key: 'V',
+      status: 'default'
+    },
+    B: { 
+      key: 'B',
+      status: 'default'
+    },
+    N: { 
+      key: 'N',
+      status: 'default'
+    },
+    M: { 
+      key: 'M',
+      status: 'default'
+    },
+    Backspace: { 
+      key: 'Backspace',
+      status: 'backspace'
+    },
+  }

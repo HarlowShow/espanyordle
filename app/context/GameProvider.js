@@ -1,18 +1,22 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { INIT_KEYS } from "../data/keys.js";
+import { INIT_KEYS, KEYS } from "../data/keys.js";
 import { getDailyWord, isGameIndexOld, getDailyIndex } from '../data/helpers.js';
 import { getLatestGameState } from '../data/statehelpers.js';
 import { checkGuess } from '../data/helpers.js';
 import { getGameStateFromLocalStorage, setGameIndexInLocalStorage } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
+import cloneDeep from 'lodash.clonedeep';
 export const GameContext = createContext();
 
 const answer = getDailyWord()
 
 
 function GameProvider({ children }) {
+  const test = cloneDeep(INIT_KEYS)
+  // console.log(test)
+
   const [currentGuess, setCurrentGuess] = useState("");
   
   const [dailyIndex] = useState(getDailyIndex())
@@ -40,18 +44,18 @@ function GameProvider({ children }) {
   const [toastMsg, setToastMsg] = useState(null)
 
   // TODO rewrite using map or something bcus mutability issue
-  const nextKeys = (() => {
+  const getNextKeys = (() => {
     // console.log('next keys callback triggered')
     const isOld = isGameIndexOld()
     console.log('init keys, Q is ' + INIT_KEYS[0].status)
     if (isOld.isOld) {
       console.log('returning init keys as keys')
-      const nextKeys = [...INIT_KEYS];
-      return nextKeys
+      const initKeys = [...INIT_KEYS];
+      return initKeys
     } else {
       // update keys for a single word
-      const nextKeys = [...INIT_KEYS];
-      const updateKeys = (word, status) => {
+      const nextKeys = [...test]
+      const updateKeysForWord = (word, status) => {
         for (let i = 0; i < word.length; i++) {
           const nextKey = word[i];
           const index = nextKeys.map((i) => i.key).indexOf(nextKey);
@@ -64,16 +68,21 @@ function GameProvider({ children }) {
       for (let i = 0; i < guesses.length; i++) {
         const wordToCheck = guesses[i].guess;
         const stylesToCheck = guesses[i].style;
-        updateKeys(wordToCheck, stylesToCheck);
+        updateKeysForWord(wordToCheck, stylesToCheck);
       }
       return nextKeys;
     }
   })
 
-  const [keys, setKeys] = useState(nextKeys())
+  const [keys, setKeys] = useState(getNextKeys())
+  const [newKeys, setNewKeys] = useState(() => {
+    return Array.from(KEYS)
+  })
+
+  console.log('new keys: ' + newKeys)
 
   const updateKeys = (() => {
-    const next = nextKeys()
+    const next = getNextKeys()
     setKeys(next)
   })
 
@@ -148,7 +157,6 @@ function GameProvider({ children }) {
       value={{
         keys,
         setKeys,
-        updateKeys,
         currentGuess,
         guesses,
         setGuesses,
@@ -162,6 +170,7 @@ function GameProvider({ children }) {
         enableAnimation,
         animationIsDisabled,
         dailyIndex,
+        newKeys
       }}
     >
       {children}

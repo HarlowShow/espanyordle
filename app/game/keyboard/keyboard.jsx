@@ -7,7 +7,7 @@ import Key from "./key";
 import { BsBackspace } from "react-icons/bs";
 
 export default function Input() {
-  const { handleKeyboardInput, guesses, keys, updateKeys } =
+  const { handleKeyboardInput, guesses, keys, updateKeys, newKeys } =
     useContext(GameContext);
 
   console.log('keyboard rerendering, q is ' + keys[0].status)
