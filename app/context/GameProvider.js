@@ -22,7 +22,7 @@ function GameProvider({ children }) {
   const [currentGuess, setCurrentGuess] = useState("");
 
   const [dailyIndex] = useState(getDailyIndex());
-  console.log("daily index: " + dailyIndex);
+  // console.log("daily index: " + dailyIndex);
 
   const [guesses, setGuesses] = useState(() => {
     const latestState = getGameStateFromLocalStorage();
@@ -48,20 +48,13 @@ function GameProvider({ children }) {
 
   const [toastMsg, setToastMsg] = useState(null);
 
-  // it's better to not look at this
+  // X____X
   const getNextKeys = (nextGuesses) => {
-    console.log('next keys callback triggered')
-    const isOld = isGameIndexOld();
+    // console.log('next keys callback triggered')
     const newKeys = [];
     const active = new Map();
-
-    if (isOld.isOld) {
-      console.log("returning init keys as keys");
-      // TODO can remove this now?
-      return INIT_KEYS;
-    } else {
-      // update keys for a single word
-
+   
+      // adds the key statuses to a map
       const addToMap = (word, status) => {
         console.log('add to map function')
         for (let i = 0; i < word.length; i++) {
@@ -72,16 +65,14 @@ function GameProvider({ children }) {
         }
       };
 
-      // loop through all guesses to update keys
+      // loop through all guesses to update the map
       for (let i = 0; i < nextGuesses.length; i++) {
-        // console.log('looping through guesses')
         const wordToCheck = nextGuesses[i].guess;
         const stylesToCheck = nextGuesses[i].style;
         addToMap(wordToCheck, stylesToCheck);
       }
- 
-    }
 
+      // loop through all the keys to update the status
     for (let i = 0; i < INIT_KEYS.length; i++) {
       const oldKey = INIT_KEYS[i];
       const newStatus = active.get(oldKey.key) ?? oldKey.status;

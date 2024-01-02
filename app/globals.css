@@ -126,3 +126,11 @@ ul {
   border: 2px solid var(--color-incorrect) !important;
 }
 
+.heading {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--color-dark-grey);
+  padding-bottom: 0.5rem;
+ 
+}
+
