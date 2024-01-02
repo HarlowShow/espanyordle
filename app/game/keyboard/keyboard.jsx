@@ -5,12 +5,11 @@ import React, { useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameProvider";
 import Key from "./key";
 import { BsBackspace } from "react-icons/bs";
+import { INIT_KEYS } from "@/app/data/keys";
 
 export default function Input() {
-  const { handleKeyboardInput, guesses, keys, updateKeys, newKeys } =
+  const { handleKeyboardInput, keys } =
     useContext(GameContext);
-
-  console.log('keyboard rerendering, q is ' + keys[0].status)
 
   const rowOne = keys.slice(0, 10);
   const rowTwo = keys.slice(10, 20);

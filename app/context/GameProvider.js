@@ -1,143 +1,163 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { INIT_KEYS, KEYS } from "../data/keys.js";
-import { getDailyWord, isGameIndexOld, getDailyIndex } from '../data/helpers.js';
-import { getLatestGameState } from '../data/statehelpers.js';
-import { checkGuess } from '../data/helpers.js';
-import { getGameStateFromLocalStorage, setGameIndexInLocalStorage } from "@/app/data/localstorage";
+import { INIT_KEYS } from "../data/keys.js";
+import {
+  getDailyWord,
+  isGameIndexOld,
+  getDailyIndex,
+} from "../data/helpers.js";
+import { getLatestGameState } from "../data/statehelpers.js";
+import { checkGuess } from "../data/helpers.js";
+import {
+  getGameStateFromLocalStorage,
+  setGameIndexInLocalStorage,
+} from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
-import cloneDeep from 'lodash.clonedeep';
 export const GameContext = createContext();
 
-const answer = getDailyWord()
-
+const answer = getDailyWord();
 
 function GameProvider({ children }) {
-  const test = cloneDeep(INIT_KEYS)
-  // console.log(test)
-
   const [currentGuess, setCurrentGuess] = useState("");
-  
-  const [dailyIndex] = useState(getDailyIndex())
-  console.log('daily index: ' + dailyIndex)
-  
-  const [guesses, setGuesses ] = useState(() => {
-    const latestState = getGameStateFromLocalStorage()
-    const isOld = isGameIndexOld()
-    return latestState?.guesses && isOld.isOld === false ? latestState.guesses : []
-  })
-  const [animationIsDisabled, setAnimationIsDisabled] = useState(true)
-  
 
+  const [dailyIndex] = useState(getDailyIndex());
+  console.log("daily index: " + dailyIndex);
+
+  const [guesses, setGuesses] = useState(() => {
+    const latestState = getGameStateFromLocalStorage();
+    const isOld = isGameIndexOld();
+    return latestState?.guesses && isOld.isOld === false
+      ? latestState.guesses
+      : [];
+  });
+  const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState(() => {
-    const latestState = getGameStateFromLocalStorage()
+    const latestState = getGameStateFromLocalStorage();
     if (latestState?.guesses && latestState?.answer) {
-      const latestGameState = getLatestGameState(latestState.guesses, latestState.answer)
-      return latestGameState
+      const latestGameState = getLatestGameState(
+        latestState.guesses,
+        latestState.answer
+      );
+      return latestGameState;
     }
-    return 'in progress'
-  })
+    return "in progress";
+  });
 
-  const [toastMsg, setToastMsg] = useState(null)
+  const [toastMsg, setToastMsg] = useState(null);
 
-  // TODO rewrite using map or something bcus mutability issue
-  const getNextKeys = (() => {
-    // console.log('next keys callback triggered')
-    const isOld = isGameIndexOld()
-    console.log('init keys, Q is ' + INIT_KEYS[0].status)
+  // it's better to not look at this
+  const getNextKeys = (nextGuesses) => {
+    console.log('next keys callback triggered')
+    const isOld = isGameIndexOld();
+    const newKeys = [];
+    const active = new Map();
+
     if (isOld.isOld) {
-      console.log('returning init keys as keys')
-      const initKeys = [...INIT_KEYS];
-      return initKeys
+      console.log("returning init keys as keys");
+      // TODO can remove this now?
+      return INIT_KEYS;
     } else {
       // update keys for a single word
-      const nextKeys = [...test]
-      const updateKeysForWord = (word, status) => {
+
+      const addToMap = (word, status) => {
+        console.log('add to map function')
         for (let i = 0; i < word.length; i++) {
           const nextKey = word[i];
-          const index = nextKeys.map((i) => i.key).indexOf(nextKey);
-          if (nextKeys[index].status === "default") {
-            nextKeys[index].status = status[i];
-          }
+          const nextStatus = status[i];
+          active.set(nextKey, nextStatus);
+          // console.log(active)
         }
       };
+
       // loop through all guesses to update keys
-      for (let i = 0; i < guesses.length; i++) {
-        const wordToCheck = guesses[i].guess;
-        const stylesToCheck = guesses[i].style;
-        updateKeysForWord(wordToCheck, stylesToCheck);
+      for (let i = 0; i < nextGuesses.length; i++) {
+        // console.log('looping through guesses')
+        const wordToCheck = nextGuesses[i].guess;
+        const stylesToCheck = nextGuesses[i].style;
+        addToMap(wordToCheck, stylesToCheck);
       }
-      return nextKeys;
+ 
     }
-  })
 
-  const [keys, setKeys] = useState(getNextKeys())
-  const [newKeys, setNewKeys] = useState(() => {
-    return Array.from(KEYS)
-  })
+    for (let i = 0; i < INIT_KEYS.length; i++) {
+      const oldKey = INIT_KEYS[i];
+      const newStatus = active.get(oldKey.key) ?? oldKey.status;
+      // console.log('new status for' + oldKey.key + 'is ' + newStatus)
+      const nextKey = {
+        key: oldKey.key,
+        status: newStatus,
+      }
+      // console.log('next key to push is' + JSON.stringify(nextKey))
+      newKeys.push(nextKey);
+    }
 
-  console.log('new keys: ' + newKeys)
+    return newKeys;
+  };
 
-  const updateKeys = (() => {
-    const next = getNextKeys()
-    setKeys(next)
-  })
+  const [keys, setKeys] = useState(() => {
+    if (guesses.length === 0) {
+      return INIT_KEYS
+    } else {
+      const keys = getNextKeys(guesses)
+      return keys;
+    }
+    });
 
 
-  const enableAnimation = (() => {
-    setAnimationIsDisabled(false)
-  })
+  const enableAnimation = () => {
+    setAnimationIsDisabled(false);
+  };
 
   const validateGuess = (guess) => {
     if (guess.length !== 5) {
       // put some ui stuff here
-      setToastMsg('word must be five letters')
+      setToastMsg("word must be five letters");
       console.error("guess length must be five");
     } else {
-        const styles = []
-        const results = checkGuess(guess, answer);
-        results.forEach((result) => styles.push(result.status))
-        const nextGuess = {
-          guess: guess,
-          id: crypto.randomUUID(),
-          style: styles,
-        }
-        
-        setGuesses([...guesses, nextGuess])
-        updateKeys()
-        // TODO: is this the best place to put this?
-        setGameIndexInLocalStorage()
-        // enable animation for the latest row
-        enableAnimation()
-        
-        // updateKeys(guess, styles)
-        if (guess === answer) {
-          console.log('win')
-          updateStats(true, guesses.length + 1)
-          setGameState('win')
-        } else if (guesses.length === 5) {
-          console.log('lose')
-          updateStats(false, 0)
-          setGameState('lose')
-        } else {
-          // console.log('neither win nor loss triggered')
-        }
-        setCurrentGuess('')
+      const styles = [];
+      const results = checkGuess(guess, answer);
+      results.forEach((result) => styles.push(result.status));
+      const nextGuess = {
+        guess: guess,
+        id: crypto.randomUUID(),
+        style: styles,
+      };
+
+      const nextGuesses = [...guesses, nextGuess]
+
+      setGuesses(nextGuesses);
+      const nextKeys = getNextKeys(nextGuesses)
+      setKeys(nextKeys);
+      // TODO: is this the best place to put this?
+      setGameIndexInLocalStorage();
+      // enable animation for the latest row
+      enableAnimation();
+
+      // updateKeys(guess, styles)
+      if (guess === answer) {
+        console.log("win");
+        updateStats(true, guesses.length + 1);
+        setGameState("win");
+      } else if (guesses.length === 5) {
+        console.log("lose");
+        updateStats(false, 0);
+        setGameState("lose");
+      } else {
+        // console.log('neither win nor loss triggered')
+      }
+      setCurrentGuess("");
     }
   };
 
- 
-
   const handleKeyboardInput = (key) => {
-
-    if (gameState === 'in progress') {
+    if (gameState === "in progress") {
       if (key === "Enter" || key === "ENTER") {
-        validateGuess(currentGuess)
+        validateGuess(currentGuess);
       } else if (key === "Backspace" || key === "BACKSPACE") {
-          setCurrentGuess(currentGuess.slice(0, -1))
+        setCurrentGuess(currentGuess.slice(0, -1));
       } else if (currentGuess.length === 5) {
         console.log("word length limit reached");
       } else {
@@ -145,12 +165,9 @@ function GameProvider({ children }) {
         setCurrentGuess(nextGuess);
       }
     } else {
-      console.log('game state not in progress')
+      console.log("game state not in progress");
     }
-
   };
-
-  
 
   return (
     <GameContext.Provider
@@ -170,7 +187,6 @@ function GameProvider({ children }) {
         enableAnimation,
         animationIsDisabled,
         dailyIndex,
-        newKeys
       }}
     >
       {children}
