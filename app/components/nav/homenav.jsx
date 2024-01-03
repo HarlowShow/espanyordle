@@ -2,7 +2,7 @@
 
 import styles from "./Nav.module.css";
 import { useContext } from 'react';
-import { LuHelpCircle } from "react-icons/lu";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 import IconButton from '../ui/iconbutton';
 import { UIContext } from "../../context/UIProvider";
 
@@ -16,10 +16,11 @@ export default function HomeNav() {
         <ul className={styles["nav-home"]}>
           <li className={styles["button-group"]}>
             <IconButton
+           
               callback={() => setShowHelpModal(!showHelpModal)}
               label="help"
             >
-              <LuHelpCircle aria-hidden="true" focusable="false" />
+              <IoIosHelpCircleOutline className={styles['scale']} aria-hidden="true" focusable="false" />
             </IconButton>
           </li>
           </ul>

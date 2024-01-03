@@ -4,10 +4,11 @@ import styles from "./Nav.module.css";
 import IconButton from "../ui/iconbutton";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
-import { LuHelpCircle } from "react-icons/lu";
+import { BiHomeAlt2 } from "react-icons/bi";
+import { IoIosHelpCircleOutline } from "react-icons/io";
 import { VscGraph } from "react-icons/vsc";
-import { AiFillHome } from "react-icons/ai";
 import { UIContext } from "../../context/UIProvider";
+import { getDailyIndex } from '../../data/helpers';
 
 export default function Nav() {
   const {
@@ -22,15 +23,21 @@ export default function Nav() {
     router.push("/");
   };
 
+  const index = getDailyIndex()
+  const gameNumber = index + 1
+
 
   return (
-        <ul role="menubar" className={styles.nav}>
-          <li>
+        <ul role="menubar" className={styles['nav']}>
+          <li className={styles.left}>
             <IconButton callback={goBack} label="home">
-              <AiFillHome aria-hidden="true" focusable="false" />
+              <BiHomeAlt2 aria-hidden="true" focusable="false" />
             </IconButton>
           </li>
-          <li className={styles["button-group"]}>
+          <li className={styles.center}>
+            <h1>Daily #{gameNumber}</h1>
+          </li>
+          <li className={styles.right}>
             <IconButton
               callback={() => setShowResultsModal(!showResultsModal)}
               label="statistics"
@@ -41,7 +48,7 @@ export default function Nav() {
               callback={() => setShowHelpModal(!showHelpModal)}
               label="help"
             >
-              <LuHelpCircle aria-hidden="true" focusable="false" />
+              <IoIosHelpCircleOutline className={styles['scale']} aria-hidden="true" focusable="false" />
             </IconButton>
           </li>
           </ul>

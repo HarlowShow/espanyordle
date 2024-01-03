@@ -14,6 +14,13 @@
     transform: translate(-50%)
 }
 
+@media (max-width: 640px) {
+    .toast-wrapper {
+        top: calc(var(--mobile-header-height) + 10px);
+        /* font-size: 1.5rem; */
+    }
+}
+
 @keyframes fade-out {
     0% { opacity: 1; }
     100% { opacity: 0;}

@@ -18,7 +18,7 @@ export const calcIndex = (startDate, currentDate) => {
   if (newTimeStamp > initTimeStamp) {
     diff = newTimeStamp - initTimeStamp;
   } else {
-    console.warn("error processing date");
+    // console.warn("error processing date");
   }
 
   // const hours = Math.floor((diff / 1000 / 60 / 60))
