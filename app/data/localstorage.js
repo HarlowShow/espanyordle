@@ -9,12 +9,12 @@ const offsetKey = "offset";
 export const setGameIndexInLocalStorage = () => {
     // console.log('setting game index in local storage');
     const idx = getDailyIndex()
-  localStorage.setItem(gameIndexKey, JSON.stringify(idx));
+  window?.localStorage.setItem(gameIndexKey, JSON.stringify(idx));
 };
 
 export const getGameIndexFromLocalStorage = () => {
     // console.log('getting game index from local storage')
-  const gameNumber = localStorage.getItem(gameIndexKey);
+  const gameNumber = window?.localStorage.getItem(gameIndexKey);
   return gameNumber ? JSON.parse(gameNumber) : null;
 };
 
@@ -25,22 +25,22 @@ export const setGameStateToLocalStorage = (guesses, answer = '') => {
     answer
   };
 
-  localStorage.setItem(gameStateKey, JSON.stringify(gameState));
+  window?.localStorage.setItem(gameStateKey, JSON.stringify(gameState));
 };
 
 export const getGameStateFromLocalStorage = () => {
   // otherwise get game state from local storage
-  const state = localStorage.getItem(gameStateKey);
+  const state = window?.localStorage.getItem(gameStateKey);
   const latestState = state ? JSON.parse(state) : null;
   return latestState
 };
 
 export const setStatsInLocalStorage = (stats) => {
-  localStorage.setItem(statsKey, JSON.stringify(stats));
+  window?.localStorage.setItem(statsKey, JSON.stringify(stats));
 };
 
 export const getStatsFromLocalStorage = () => {
-  const stats = localStorage.getItem(statsKey);
+  const stats = window?.localStorage.getItem(statsKey);
 
   return stats ? JSON.parse(stats) : null;
 };

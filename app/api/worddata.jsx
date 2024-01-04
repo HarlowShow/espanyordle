@@ -8,13 +8,49 @@ import Toasts from "../components/toasts/toasts.jsx";
 import Results from '../game/results/results.jsx';
 import Help from '../game/help/help'
 import Test from './test'
+import { getWordData } from '../game/results/worddata';
+
+
+async function getData() {
+    const res = await fetch(
+        `https://www.dictionaryapi.com/api/v3/references/spanish/json/NUEVO?key=${process.env.NEXT_PUBLIC_API_KEY}`
+      );
+      if (!res.ok) {
+        throw new Error("Failed to fetch data");
+      } else {
+        // TODO: add some validation here
+        const data = await res.json();
+    
+        const newWordData = getWordData(data)
+        return newWordData
+}}
+
+// mainDef: string
+// otherDefs?: string
+// exampleEnglish: string
+// exampleSpanish: string
+// audio: string
+// examples: [{}] - { english: string, spanish: string: key }
+
+/* Supabase:
+word
+maindef
+
+
+*/
 
 
 
 const WordData = (async() => {
 
-    const { data } = await supabase.from('words').select('word');
-    const word = data[0].word
+    const defData = await getData()
+    // console.log(defData)
+
+
+
+    // select data from specific column with that id
+    const { data } = await supabase.from('words').select('examples').eq('id', 1);
+    console.log(data)
 
 
     return (
@@ -22,7 +58,7 @@ const WordData = (async() => {
         <Toasts />
 
         <div className={styles['game-container']}>
-            <Test word={word}/>
+            <Test examples={data}/>
             <Help />
             <Results />
             <Grid>
