@@ -5,9 +5,12 @@ import styles from './Home.module.css';
 import { useRouter } from 'next/navigation';
 import Logo from './components/ui/logo';
 import Help from './game/help/help';
+// import { createClient } from '@/utils/supabase/server';
+//   import { cookies } from 'next/headers';
 
 
 export default function Home() {
+
   const router = useRouter()
   const goToGame = (() => {
     router.push('/game')
