@@ -4,9 +4,9 @@ import { AiFillSound } from "react-icons/ai";
 import styles from "./Results.module.css";
 import { useRef, useContext } from "react";
 
-const Definition = ({ wordData, newWordData }) => {
+const Definition = ({ newWordData }) => {
   const testing = true
-  const { answer, gameState } = useContext(GameContext);
+  const { gameState } = useContext(GameContext);
   const audioRef = useRef(null);
 
   const newWord = newWordData.word
@@ -35,7 +35,7 @@ const Definition = ({ wordData, newWordData }) => {
             )}
           </div>
           <div className={styles["inline"]}>
-            {wordData.mainDef && (
+            {newWordData.maindef && (
               <h3 className={`${styles.definition} ${styles.green}`}>
                 {newMainDef}
               </h3>

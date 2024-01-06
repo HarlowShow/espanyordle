@@ -1,5 +1,5 @@
 import { WORDS } from "../../data/words.mjs";
-import { getWordData } from "../getworddata.mjs";
+import { getAPIWordData } from "./getapiworddata.mjs";
 import { supabase } from "../../lib/supabase/supabase.mjs";
 const idx = 4
 
@@ -13,7 +13,7 @@ async function setData(word) {
     // TODO: add some validation here
     const data = await res.json();
 
-    const newWordData = getWordData(data);
+    const newWordData = getAPIWordData(data);
     return newWordData;
   }
 }

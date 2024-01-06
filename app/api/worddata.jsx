@@ -19,22 +19,10 @@ const WordData = (async() => {
     const wordIndex = getDailyIndex() + 1;
 
 
-    // select data from specific column with that id, should be MARCA
+    // get data for the day's word
     const { data } = await supabase.from('words-prod').select('word, maindef, examples, audio_url, other_defs').eq('index', wordIndex);
-    // console.log(data)
     const wordData = data[0]
-
-    /*
-    [
-  {
-    word: 'MARCA',
-    maindef: 'mark',
-    examples: [ [Object], [Object], [Object], [Object] ],
-    audio_url: 'https://media.merriam-webster.com/audio/prons/es/me/mp3/m/marca01sp.mp3',
-    other_defs: 'brand, make, trademark'
-  }
-]
-    */
+    const newAnswer = wordData.word
 
     return (
         <GameProvider>
@@ -44,7 +32,7 @@ const WordData = (async() => {
             {/* <Test/> */}
             <Help />
             <Results newWordData={wordData}/>
-            <Grid>
+            <Grid newAnswer={newAnswer}>
             </Grid>
             <Input />
         </div>

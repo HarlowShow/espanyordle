@@ -3,7 +3,7 @@
 // TESTING WORDS:
 // BURRO - multiple entries in data array
 
-export const getWordData = (data) => {
+export const getAPIWordData = (data) => {
 
   const isNumber = ((string) => {
     const num = Number(string);

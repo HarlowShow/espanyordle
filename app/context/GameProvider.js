@@ -1,9 +1,8 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { INIT_KEYS } from "../data/keys.js";
 import {
-  getDailyWord,
   isGameIndexOld,
   getDailyIndex,
 } from "../data/helpers.js";
@@ -12,20 +11,33 @@ import { checkGuess } from "../data/helpers.js";
 import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
+  getLastPlayedFromLocalStorage,
+  setLastPlayedInLocalStorage
 } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
+import { GetDailyWord } from '../lib/supabase/getdailyword'
 export const GameContext = createContext();
 
-const answer = getDailyWord();
 
 function GameProvider({ children }) {
+
+    const [answer, setAnswer] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      const nextAnswer = await GetDailyWord();
+      setAnswer(nextAnswer);
+    })();
+  }, [])
+
+
   const [currentGuess, setCurrentGuess] = useState("");
 
   const [dailyIndex] = useState(getDailyIndex());
   // console.log("daily index: " + dailyIndex);
 
   const [guesses, setGuesses] = useState(() => {
-    const latestState = getGameStateFromLocalStorage();
+    const latestState = typeof window !== 'undefined' ? getGameStateFromLocalStorage() : null;
     const isOld = isGameIndexOld();
     return latestState?.guesses && isOld.isOld === false
       ? latestState.guesses
@@ -35,7 +47,7 @@ function GameProvider({ children }) {
 
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState(() => {
-    const latestState = getGameStateFromLocalStorage();
+    const latestState = typeof window !== 'undefined' ? getGameStateFromLocalStorage() : null;
     if (latestState?.guesses && latestState?.answer) {
       const latestGameState = getLatestGameState(
         latestState.guesses,
@@ -123,7 +135,9 @@ function GameProvider({ children }) {
       const nextKeys = getNextKeys(nextGuesses)
       setKeys(nextKeys);
       // TODO: is this the best place to put this?
-      setGameIndexInLocalStorage();
+      if (typeof window !== 'undefined') {
+        setGameIndexInLocalStorage();
+      }
       // enable animation for the latest row
       enableAnimation();
 
@@ -132,10 +146,12 @@ function GameProvider({ children }) {
         console.log("win");
         updateStats(true, guesses.length + 1);
         setGameState("win");
+        setLastPlayedInLocalStorage(dailyIndex);
       } else if (guesses.length === 5) {
         console.log("lose");
         updateStats(false, 0);
         setGameState("lose");
+        setLastPlayedInLocalStorage(dailyIndex)
       } else {
         // console.log('neither win nor loss triggered')
       }
