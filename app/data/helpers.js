@@ -1,6 +1,6 @@
 import { ZERO_DAY_WORDLE } from "./config";
 // import { ZERO_DAY_WORDLE_PLUS_ONE } from "./config";
-import { WORDS } from "./words";
+import { WORDS } from "./words.mjs";
 import { getGameIndexFromLocalStorage } from "./localstorage";
 
 export const calcIndex = (startDate, currentDate) => {
@@ -142,3 +142,11 @@ export const checkGuess = (guess, answer) => {
 
   return result;
 };
+
+export const shuffle = (array) => { 
+  for (let i = array.length - 1; i > 0; i--) { 
+    const j = Math.floor(Math.random() * (i + 1)); 
+    [array[i], array[j]] = [array[j], array[i]]; 
+  } 
+  return array; 
+}; 

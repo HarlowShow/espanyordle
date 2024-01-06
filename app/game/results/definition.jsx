@@ -4,9 +4,17 @@ import { AiFillSound } from "react-icons/ai";
 import styles from "./Results.module.css";
 import { useRef, useContext } from "react";
 
-const Definition = ({ wordData }) => {
+const Definition = ({ wordData, newWordData }) => {
+  const testing = true
   const { answer, gameState } = useContext(GameContext);
   const audioRef = useRef(null);
+
+  const newWord = newWordData.word
+  const newMainDef = newWordData.maindef
+  const newAudio = newWordData.audio_url ?? null
+  const newExamples = newWordData.examples || null
+  // should check for string length here
+  const newOtherDefs = newWordData.other_defs 
 
   const playAudio = () => {
     audioRef.current.play();
@@ -15,13 +23,13 @@ const Definition = ({ wordData }) => {
   return (
     <div className={styles["content-wrapper"]}>
       <h2 className={styles["heading"]}>Today&apos;s Word</h2>
-      {gameState !== "in progress" ? (
+      {gameState !== "in progress" || testing === true ? (
         <>
           <div className={styles["inline"]}>
-            <h3 className={styles["definition"]}> {answer.toLowerCase()}</h3>
-            {wordData.audio && (
+            <h3 className={styles["definition"]}> {newWord.toLowerCase()}</h3>
+            {newAudio && (
               <IconButton callback={playAudio}>
-                <audio ref={audioRef} src={wordData.audio}></audio>
+                <audio ref={audioRef} src={newAudio}></audio>
                 <AiFillSound className={styles["icon-button"]} />
               </IconButton>
             )}
@@ -29,16 +37,22 @@ const Definition = ({ wordData }) => {
           <div className={styles["inline"]}>
             {wordData.mainDef && (
               <h3 className={`${styles.definition} ${styles.green}`}>
-                {wordData.mainDef}
+                {newMainDef}
               </h3>
             )}
           </div>
-          {wordData.exampleEnglish && wordData.exampleSpanish && (
+          <div className={styles['can-also-mean']}>{
+            newOtherDefs && newOtherDefs !== '' &&
+            <>
+            <span>Can also mean:{" "}</span><span>{newOtherDefs}</span>
+            </>
+            }
+          </div>
+          {newExamples && newExamples.length > 0 && (
             <div>
-              {wordData.examples.length > 0 && (
                 <div>
-                  {wordData.examples.map(({ english, spanish, key }) => (
-                    <div key={key}>
+                  {newExamples.map(({ english, spanish }) => (
+                    <div key={english}>
                       <span className={`${styles.example}`}>{spanish}</span>
                       <span className={`${styles.example} ${styles.light}`}>
                         {" "}
@@ -47,7 +61,6 @@ const Definition = ({ wordData }) => {
                     </div>
                   ))}
                 </div>
-              )}
               {/* <p>Can also mean: {wordData.otherDefs}</p> */}
             </div>
           )}

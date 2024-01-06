@@ -11,7 +11,7 @@ import Definition from './definition';
 import Stats from './stats';
 import { BASE_ANIMATION_DELAY } from "@/app/data/ui";
 
-const Results = () => {
+const Results = ({newWordData}) => {
 
   const [wordData, setWordData] = useState({})
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
@@ -55,7 +55,7 @@ const Results = () => {
     <div>
       {showResultsModal === true && (
         <Modal handleClose={() => setShowResultsModal(false)}>
-        <Definition wordData={wordData}/>
+        <Definition wordData={wordData} newWordData={newWordData}/>
         <hr className={styles['divider']}></hr>
         <Stats />
         </Modal>

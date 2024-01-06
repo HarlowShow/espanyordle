@@ -6,61 +6,44 @@ import styles from '../game/styles.module.css'
 import GameProvider from '../context/GameProvider';
 import Toasts from "../components/toasts/toasts.jsx";
 import Results from '../game/results/results.jsx';
-import Help from '../game/help/help'
+import Help from '../game/help/help';
+import { getDailyIndex } from '../data/helpers';
 import Test from './test'
-import { getWordData } from '../game/results/worddata';
 
-
-async function getData() {
-    const res = await fetch(
-        `https://www.dictionaryapi.com/api/v3/references/spanish/json/NUEVO?key=${process.env.NEXT_PUBLIC_API_KEY}`
-      );
-      if (!res.ok) {
-        throw new Error("Failed to fetch data");
-      } else {
-        // TODO: add some validation here
-        const data = await res.json();
-    
-        const newWordData = getWordData(data)
-        return newWordData
-}}
-
-// mainDef: string
-// otherDefs?: string
-// exampleEnglish: string
-// exampleSpanish: string
-// audio: string
-// examples: [{}] - { english: string, spanish: string: key }
-
-/* Supabase:
-word
-maindef
-
-
-*/
 
 
 
 const WordData = (async() => {
 
-    const defData = await getData()
-    // console.log(defData)
+
+    const wordIndex = getDailyIndex() + 1;
 
 
+    // select data from specific column with that id, should be MARCA
+    const { data } = await supabase.from('words-prod').select('word, maindef, examples, audio_url, other_defs').eq('index', wordIndex);
+    // console.log(data)
+    const wordData = data[0]
 
-    // select data from specific column with that id
-    const { data } = await supabase.from('words').select('examples').eq('id', 1);
-    console.log(data)
-
+    /*
+    [
+  {
+    word: 'MARCA',
+    maindef: 'mark',
+    examples: [ [Object], [Object], [Object], [Object] ],
+    audio_url: 'https://media.merriam-webster.com/audio/prons/es/me/mp3/m/marca01sp.mp3',
+    other_defs: 'brand, make, trademark'
+  }
+]
+    */
 
     return (
         <GameProvider>
         <Toasts />
 
         <div className={styles['game-container']}>
-            <Test examples={data}/>
+            {/* <Test/> */}
             <Help />
-            <Results />
+            <Results newWordData={wordData}/>
             <Grid>
             </Grid>
             <Input />

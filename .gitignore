@@ -6,6 +6,9 @@
 .pnp.js
 
 # testing
+/lib/supabase
+/api/scripts
+/supabase
 /coverage
 
 # next.js

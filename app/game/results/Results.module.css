@@ -78,10 +78,17 @@
 }
 
 .example {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .light {
     color: var(--color-dark-grey);
     font-style: italic;
+}
+
+.can-also-mean {
+    /* text-transform: uppercase; */
+    font-size: 0.9rem;
+    color: var(--color-dark-grey);
+    padding-bottom: 0.5rem;
 }
