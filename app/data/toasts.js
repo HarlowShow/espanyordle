@@ -3,7 +3,7 @@ const WIN_TOASTS = [
 ]
 
 const LOSE_TOASTS = [
-    'Not today', 'Better luck next time', 'There&apos;s always tomorrow', 'Them&apos;s the breaks'
+    'Not today', 'Better luck next time', 'Try again tomorrow?', 'Them&apos;s the breaks'
 ]
 
 export const getRandomToast = ((condition) => {

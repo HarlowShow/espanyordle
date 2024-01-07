@@ -1,28 +1,61 @@
 .toast {
-    background-color: black;
-    border-radius: 7px;
-    width: 200px;
+    background-color: var(--color-nearly-black);
+    border-radius: var(--border-radius);
     color: white;
-    padding: 0.6rem;
-    animation: fade-out 3s;
+    min-width: 150px;
+    width: min-content;
+    max-width: 200px;
+    padding: 0.6rem 1rem;
+    animation: fade-out 2.5s;
+    text-align: center;
+    z-index: 2;
+    line-height: 1.2;
 }
 
+/* animation disabled styles for testing
+.static-toast {
+    background-color: var(--color-nearly-black);
+    border-radius: var(--border-radius);
+    color: white;
+    min-width: 150px;
+    width: min-content;
+    max-width: 200px;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    z-index: 2;
+    line-height: 1.2;
+}
+
+.static-toast-wrapper {
+    position: fixed;
+    top: calc(var(--header-height) + 10px);
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2;
+    
+}
+
+*/
 .toast-wrapper {
     position: fixed;
     top: calc(var(--header-height) + 10px);
     left: 50%;
-    transform: translate(-50%)
+    transform: translate(-50%);
+    z-index: 2;
 }
+
+
 
 @media (max-width: 640px) {
     .toast-wrapper {
-        top: calc(var(--mobile-header-height) + 10px);
+        top: calc(var(--mobile-header-height) + 3px);
         /* font-size: 1.5rem; */
     }
 }
 
 @keyframes fade-out {
     0% { opacity: 1; }
+    15% {opacity: 1;}
     100% { opacity: 0;}
 }
 
