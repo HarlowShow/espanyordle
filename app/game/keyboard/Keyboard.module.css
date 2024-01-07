@@ -51,6 +51,10 @@
   .backspace {
   
   }
+
+  .correct, .incorrect, .misplaced {
+    color: white;
+  }
   
   .misplaced {
     background-color: var(--color-misplaced);

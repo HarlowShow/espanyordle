@@ -13,8 +13,8 @@
   --border-width: 5px;
   --grid-gap: 4px;
   --color-correct: #478d7b;
-  --color-incorrect: #9F9F9F;
-  --color-misplaced: #EBD150;
+  --color-incorrect: #747474;
+  --color-misplaced: #c7af34;
   --color-default: #DDE3E9;
   --animation-delay: 400ms;
 }

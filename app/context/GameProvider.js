@@ -15,6 +15,7 @@ import {
 } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
 import { GetDailyWord } from '../lib/supabase/getdailyword'
+import { getRandomToast } from '../data/toasts.js'
 export const GameContext = createContext();
 
 
@@ -149,13 +150,17 @@ function GameProvider({ children }) {
 
       // updateKeys(guess, styles)
       if (guess === answer) {
-        // console.log("win");
+        console.log("win");
         updateStats(true, guesses.length + 1);
+        const toast = getRandomToast('win')
+        setToastMsg(toast)
         setGameState("win");
         setLastPlayedInLocalStorage(dailyIndex);
       } else if (guesses.length === 5) {
-        // console.log("lose");
+        console.log("lose");
         updateStats(false, 0);
+        const toast = getRandomToast('lose')
+        setToastMsg(toast)
         setGameState("lose");
         setLastPlayedInLocalStorage(dailyIndex)
       } else {

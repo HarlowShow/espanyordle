@@ -21,16 +21,16 @@ const Results = ({newWordData}) => {
 
   // trigger modal open on win or lose for first time each day
   useEffect(() => {
-    // console.log("game state changed to " + gameState);
+    console.log("game state changed to " + gameState);
     const { lastPlayedIdx } = getStatsFromLocalStorage()
-    if (lastPlayedIdx !== dailyIndex && gameState === "win" || gameState === "lose") {
+    console.log(lastPlayedIdx, dailyIndex)
+    const hasFinishedGame = gameState === 'win' || gameState === 'lose'
+    if (lastPlayedIdx !== dailyIndex && hasFinishedGame) {
+      console.log('setting timeout')
       setTimeout(() => {
         setShowResultsModal(true);
       }, BASE_ANIMATION_DELAY * 5)
 
-      if (gameState === "win") {
-
-      }
     }
   }, [gameState, setShowResultsModal, dailyIndex]);
 

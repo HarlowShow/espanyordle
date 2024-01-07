@@ -22,7 +22,7 @@ export default function Input() {
     const handleInput = (event) => {
       const key = event.key.toUpperCase();
       const checkLetters = /[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+/i;
-      console.log('use effect in keybaord handling input for: ' + event.key)
+      // console.log('use effect in keybaord handling input for: ' + event.key)
       if (
         (key.match(checkLetters) && key.length === 1) ||
         key === "ENTER" ||
