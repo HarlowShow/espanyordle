@@ -20,6 +20,7 @@ export const GameContext = createContext();
 
 function GameProvider({ children }) {
 
+    const [isLoading, setIsLoading] = useState(true)
     const [answer, setAnswer] = useState(null)
 
   useEffect(() => {
@@ -46,6 +47,8 @@ function GameProvider({ children }) {
       ? latestState.guesses
       : [];
     setGuesses(latestGuesses)
+    // TESTING: disable this
+    setIsLoading(false)
   }, [])
 
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
@@ -199,6 +202,7 @@ function GameProvider({ children }) {
         enableAnimation,
         animationIsDisabled,
         dailyIndex,
+        isLoading
       }}
     >
       {children}

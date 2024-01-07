@@ -5,6 +5,7 @@
     width: 100%;
     display: flex;
     place-content: center;
+    height: 100%;
   }
   .grid {
     /* background-color: var(--color-yellow); */
@@ -17,6 +18,11 @@
     min-width: 330px;
     margin: auto;
     vertical-align: center;
+  }
+
+  .spinner-wrapper {
+    width: 100%;
+    /* padding-top: 50%; */
   }
   
   @media (max-width: 400px) {

@@ -8,9 +8,10 @@ import {
 } from "@/app/data/localstorage";
 import { range } from "../../data/utils";
 import Cell from "./cell.jsx";
+import Spinner from '../../components/ui/spinner'
 
 export default function Grid() {
-  const { currentGuess, guesses, answer } = useContext(GameContext);
+  const { currentGuess, guesses, answer, isLoading } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
 
   // identify which row is active to enable/disable animation
@@ -26,8 +27,11 @@ export default function Grid() {
     }
   }, [guesses, answer]);
 
-  return (
+  return ( 
+
     <div className={styles["grid-wrapper"]}>
+      {
+    !isLoading ? (
       <div className={styles["grid"]}>
         {guesses.map(({ guess, id, style }, index) => (
           <p className={styles["guess-row"]} key={id}>
@@ -112,6 +116,12 @@ export default function Grid() {
           </p>
         ))}
       </div>
+    ) : (
+      <div className={styles['spinner-wrapper']}>
+        <Spinner />
+      </div>
+    )}
     </div>
+
   );
 }
