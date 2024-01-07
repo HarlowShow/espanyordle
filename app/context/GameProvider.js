@@ -107,15 +107,13 @@ function GameProvider({ children }) {
 
     return newKeys;
   };
+  
+  const [keys, setKeys] = useState(INIT_KEYS);
+  useEffect(() => {
+        const keys = getNextKeys(guesses)
+        setKeys(keys)
+  }, [guesses])
 
-  const [keys, setKeys] = useState(() => {
-    if (guesses.length === 0) {
-      return INIT_KEYS
-    } else {
-      const keys = getNextKeys(guesses)
-      return keys;
-    }
-    });
 
 
   const enableAnimation = () => {
