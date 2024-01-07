@@ -2,36 +2,32 @@
 
 import { createContext, useState, useEffect } from "react";
 import { INIT_KEYS } from "../data/keys.js";
-import {
-  isGameIndexOld,
-  getDailyIndex,
-} from "../data/helpers.js";
+import { isGameIndexOld, getDailyIndex } from "../data/helpers.js";
 import { getLatestGameState } from "../data/statehelpers.js";
 import { checkGuess } from "../data/helpers.js";
 import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
-  setLastPlayedInLocalStorage
+  setLastPlayedInLocalStorage,
 } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
-import { GetDailyWord } from '../lib/supabase/getdailyword'
-import { getRandomToast } from '../data/toasts.js'
+import { GetDailyWord } from "../lib/supabase/getdailyword";
+import { getRandomToast } from "../data/toasts.js";
+import { isInWordList } from "../data/wordhelpers.mjs";
+
 export const GameContext = createContext();
 
-
 function GameProvider({ children }) {
-
-    const [isLoading, setIsLoading] = useState(true)
-    const [answer, setAnswer] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
+  const [answer, setAnswer] = useState(null);
 
   useEffect(() => {
     (async () => {
       const nextAnswer = await GetDailyWord();
       setAnswer(nextAnswer);
     })();
-  }, [])
+  }, []);
   // console.log(answer)
-
 
   const [currentGuess, setCurrentGuess] = useState("");
 
@@ -40,23 +36,22 @@ function GameProvider({ children }) {
 
   const [guesses, setGuesses] = useState([]);
 
-
   useEffect(() => {
-    const latestState = getGameStateFromLocalStorage()
-    const isOld = typeof window !== 'undefined' ? isGameIndexOld() : null;
-    const latestGuesses = latestState?.guesses && isOld.isOld === false
-      ? latestState.guesses
-      : [];
-    setGuesses(latestGuesses)
+    const latestState = getGameStateFromLocalStorage();
+    const isOld = typeof window !== "undefined" ? isGameIndexOld() : null;
+    const latestGuesses =
+      latestState?.guesses && isOld.isOld === false ? latestState.guesses : [];
+    setGuesses(latestGuesses);
     // TESTING: disable this
-    setIsLoading(false)
-  }, [])
+    setIsLoading(false);
+  }, []);
 
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
   const [gameState, setGameState] = useState(() => {
-    const latestState = typeof window !== 'undefined' ? getGameStateFromLocalStorage() : null;
+    const latestState =
+      typeof window !== "undefined" ? getGameStateFromLocalStorage() : null;
     if (latestState?.guesses && latestState?.answer) {
       const latestGameState = getLatestGameState(
         latestState.guesses,
@@ -74,26 +69,26 @@ function GameProvider({ children }) {
     // console.log('next keys callback triggered')
     const newKeys = [];
     const active = new Map();
-   
-      // adds the key statuses to a map
-      const addToMap = (word, status) => {
-        // console.log('add to map function')
-        for (let i = 0; i < word.length; i++) {
-          const nextKey = word[i];
-          const nextStatus = status[i];
-          active.set(nextKey, nextStatus);
-          // console.log(active)
-        }
-      };
 
-      // loop through all guesses to update the map
-      for (let i = 0; i < nextGuesses.length; i++) {
-        const wordToCheck = nextGuesses[i].guess;
-        const stylesToCheck = nextGuesses[i].style;
-        addToMap(wordToCheck, stylesToCheck);
+    // adds the key statuses to a map
+    const addToMap = (word, status) => {
+      // console.log('add to map function')
+      for (let i = 0; i < word.length; i++) {
+        const nextKey = word[i];
+        const nextStatus = status[i];
+        active.set(nextKey, nextStatus);
+        // console.log(active)
       }
+    };
 
-      // loop through all the keys to update the status
+    // loop through all guesses to update the map
+    for (let i = 0; i < nextGuesses.length; i++) {
+      const wordToCheck = nextGuesses[i].guess;
+      const stylesToCheck = nextGuesses[i].style;
+      addToMap(wordToCheck, stylesToCheck);
+    }
+
+    // loop through all the keys to update the status
     for (let i = 0; i < INIT_KEYS.length; i++) {
       const oldKey = INIT_KEYS[i];
       const newStatus = active.get(oldKey.key) ?? oldKey.status;
@@ -101,21 +96,19 @@ function GameProvider({ children }) {
       const nextKey = {
         key: oldKey.key,
         status: newStatus,
-      }
+      };
       // console.log('next key to push is' + JSON.stringify(nextKey))
       newKeys.push(nextKey);
     }
 
     return newKeys;
   };
-  
+
   const [keys, setKeys] = useState(INIT_KEYS);
   useEffect(() => {
-        const keys = getNextKeys(guesses)
-        setKeys(keys)
-  }, [guesses])
-
-
+    const keys = getNextKeys(guesses);
+    setKeys(keys);
+  }, [guesses]);
 
   const enableAnimation = () => {
     setAnimationIsDisabled(false);
@@ -126,6 +119,8 @@ function GameProvider({ children }) {
       // put some ui stuff here
       setToastMsg("word must be five letters");
       console.error("guess length must be five");
+    } else if (!isInWordList(guess)) {
+      setToastMsg("word not in word list");
     } else {
       const styles = [];
       const results = checkGuess(guess, answer);
@@ -136,13 +131,13 @@ function GameProvider({ children }) {
         style: styles,
       };
 
-      const nextGuesses = [...guesses, nextGuess]
+      const nextGuesses = [...guesses, nextGuess];
 
       setGuesses(nextGuesses);
-      const nextKeys = getNextKeys(nextGuesses)
+      const nextKeys = getNextKeys(nextGuesses);
       setKeys(nextKeys);
       // TODO: is this the best place to put this?
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         setGameIndexInLocalStorage();
       }
       // enable animation for the latest row
@@ -152,17 +147,17 @@ function GameProvider({ children }) {
       if (guess === answer) {
         console.log("win");
         updateStats(true, guesses.length + 1);
-        const toast = getRandomToast('win')
-        setToastMsg(toast)
+        const toast = getRandomToast("win");
+        setToastMsg(toast);
         setGameState("win");
         setLastPlayedInLocalStorage(dailyIndex);
       } else if (guesses.length === 5) {
         console.log("lose");
         updateStats(false, 0);
-        const toast = getRandomToast('lose')
-        setToastMsg(toast)
+        const toast = getRandomToast("lose");
+        setToastMsg(toast);
         setGameState("lose");
-        setLastPlayedInLocalStorage(dailyIndex)
+        setLastPlayedInLocalStorage(dailyIndex);
       } else {
         // console.log('neither win nor loss triggered')
       }
@@ -205,7 +200,7 @@ function GameProvider({ children }) {
         enableAnimation,
         animationIsDisabled,
         dailyIndex,
-        isLoading
+        isLoading,
       }}
     >
       {children}

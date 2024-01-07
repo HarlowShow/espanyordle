@@ -1,7 +1,7 @@
-import { WORDS } from "../../data/words.mjs";
+import { WORDS } from "../../data/wordhelpers.mjs";
 import { getAPIWordData } from "./getapiworddata.mjs";
 import { supabase } from "../../lib/supabase/supabase.mjs";
-const idx = 4
+const idx = 4;
 
 async function setData(word) {
   const res = await fetch(
@@ -18,14 +18,11 @@ async function setData(word) {
   }
 }
 
-
 // console.log(data)
 
 for (let idx = 150; idx < WORDS.length - 3; idx++) {
   const data = await setData(WORDS[idx]);
-  const { error } = await supabase
-  .from("words-prod")
-  .insert({
+  const { error } = await supabase.from("words-prod").insert({
     id: idx + 1,
     word: WORDS[idx],
     maindef: data.mainDef,
@@ -33,7 +30,7 @@ for (let idx = 150; idx < WORDS.length - 3; idx++) {
     examples: data.examples,
     other_defs: data.otherDefs,
   });
-  
+
   if (error) {
     console.log(error);
   }

@@ -1,6 +1,6 @@
 import { ZERO_DAY_WORDLE } from "./config";
+import { removeAccents } from './wordhelpers.mjs'
 // import { ZERO_DAY_WORDLE_PLUS_ONE } from "./config";
-import { WORDS } from "./words.mjs";
 import { getGameIndexFromLocalStorage } from "./localstorage";
 
 export const calcIndex = (startDate, currentDate) => {
@@ -35,26 +35,13 @@ export const getDailyIndex = () => {
   return calcIndex(ZERO_DAY_WORDLE, Date.now());
 };
 
-// get the word for each day
-export const getDailyWord = () => {
-  const index = getDailyIndex();
-  // TESTING
-  // const testIndex = index;
-  const word = WORDS[index];
-
-  if (!word) {
-    console.warn("something went wrong, word not found");
-  } else {
-    return word;
-  }
-};
-
 // if false, returns { isOld: false }
 // if true, returns { isOld: true, offSet: number}
 export const isGameIndexOld = () => {
   const todaysIndex = getDailyIndex();
 
-  const latestIndex = typeof window !== 'undefined' ? getGameIndexFromLocalStorage() : null;
+  const latestIndex =
+    typeof window !== "undefined" ? getGameIndexFromLocalStorage() : null;
   // console.log('todays index is: ' + todaysIndex)
   // console.log('latest recorded index is: ' + latestIndex)
   return todaysIndex === latestIndex
@@ -62,37 +49,6 @@ export const isGameIndexOld = () => {
     : { isOld: true, offset: todaysIndex - latestIndex };
 };
 
-export const removeAccents = (answer) => {
-  // create a version of the answer with accents removed
-  const answerChars = answer.split("");
-  const result = [];
-
-  for (let i = 0; i < answerChars.length; i++) {
-    switch (answerChars[i]) {
-      case "Ú":
-        result.push("U");
-        break;
-      case "É":
-        result.push("E");
-        break;
-      case "Á":
-        result.push("A");
-        break;
-      case "Í":
-        result.push("I");
-        break;
-      case "Ó":
-        result.push("O");
-        break;
-      case "Ü":
-        result.push("U");
-        break;
-      default:
-        result.push(answerChars[i]);
-    }
-  }
-  return result;
-};
 
 export const checkGuess = (guess, answer) => {
   const SOLVED_CHAR = "✓";
@@ -144,10 +100,10 @@ export const checkGuess = (guess, answer) => {
   return result;
 };
 
-export const shuffle = (array) => { 
-  for (let i = array.length - 1; i > 0; i--) { 
-    const j = Math.floor(Math.random() * (i + 1)); 
-    [array[i], array[j]] = [array[j], array[i]]; 
-  } 
-  return array; 
-}; 
+export const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
