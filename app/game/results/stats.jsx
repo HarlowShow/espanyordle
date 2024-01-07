@@ -31,7 +31,7 @@ const Stats = () => {
             <SingleStat stat={currentStreak} label={"Current Streak"}/>
             <SingleStat stat={longestStreak} label={"Longest Streak"}/>
           </ul>
-          <Distro distro={testDistro}/>
+          <Distro distro={distro}/>
         </div>
       ) : (
         <div>

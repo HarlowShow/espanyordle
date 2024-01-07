@@ -21,7 +21,9 @@ export default function Grid() {
   useEffect(() => {
     // console.log('guesses use effect triggered')
     // save to ls when a guess is added
-    setGameStateToLocalStorage(guesses, answer);
+    if (guesses.length !== 0) {
+      setGameStateToLocalStorage(guesses, answer);
+    }
   }, [guesses, answer]);
 
   return (

@@ -18,7 +18,7 @@ export const calcIndex = (startDate, currentDate) => {
   if (newTimeStamp > initTimeStamp) {
     diff = newTimeStamp - initTimeStamp;
   } else {
-    // console.warn("error processing date");
+    console.warn("error processing date");
   }
 
   // const hours = Math.floor((diff / 1000 / 60 / 60))
@@ -53,7 +53,8 @@ export const getDailyWord = () => {
 // if true, returns { isOld: true, offSet: number}
 export const isGameIndexOld = () => {
   const todaysIndex = getDailyIndex();
-  const latestIndex = getGameIndexFromLocalStorage();
+
+  const latestIndex = typeof window !== 'undefined' ? getGameIndexFromLocalStorage() : null;
   // console.log('todays index is: ' + todaysIndex)
   // console.log('latest recorded index is: ' + latestIndex)
   return todaysIndex === latestIndex

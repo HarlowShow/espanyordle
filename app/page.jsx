@@ -18,12 +18,15 @@ export default function Home() {
   return (
     <div className={styles.home}>
             <Help />
+         <div className={styles['home-content']}>
          <Logo />
          <h1>(Españordle)</h1>
-      <h2>A daily word game for spanish learners</h2>
+      <h2>A Daily Word Game For Spanish Learners</h2>
       <div className={styles['button-wrapper']}>
       <Button callback={goToGame} label={"play"}>PLAY</Button>
       </div>
+
+         </div>
     </div>
   );
 }

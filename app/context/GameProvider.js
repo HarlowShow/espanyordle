@@ -11,7 +11,6 @@ import { checkGuess } from "../data/helpers.js";
 import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
-  getLastPlayedFromLocalStorage,
   setLastPlayedInLocalStorage
 } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
@@ -29,6 +28,7 @@ function GameProvider({ children }) {
       setAnswer(nextAnswer);
     })();
   }, [])
+  // console.log(answer)
 
 
   const [currentGuess, setCurrentGuess] = useState("");
@@ -36,13 +36,18 @@ function GameProvider({ children }) {
   const [dailyIndex] = useState(getDailyIndex());
   // console.log("daily index: " + dailyIndex);
 
-  const [guesses, setGuesses] = useState(() => {
-    const latestState = typeof window !== 'undefined' ? getGameStateFromLocalStorage() : null;
-    const isOld = isGameIndexOld();
-    return latestState?.guesses && isOld.isOld === false
+  const [guesses, setGuesses] = useState([]);
+
+
+  useEffect(() => {
+    const latestState = getGameStateFromLocalStorage()
+    const isOld = typeof window !== 'undefined' ? isGameIndexOld() : null;
+    const latestGuesses = latestState?.guesses && isOld.isOld === false
       ? latestState.guesses
       : [];
-  });
+    setGuesses(latestGuesses)
+  }, [])
+
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
@@ -68,7 +73,7 @@ function GameProvider({ children }) {
    
       // adds the key statuses to a map
       const addToMap = (word, status) => {
-        console.log('add to map function')
+        // console.log('add to map function')
         for (let i = 0; i < word.length; i++) {
           const nextKey = word[i];
           const nextStatus = status[i];
@@ -143,12 +148,12 @@ function GameProvider({ children }) {
 
       // updateKeys(guess, styles)
       if (guess === answer) {
-        console.log("win");
+        // console.log("win");
         updateStats(true, guesses.length + 1);
         setGameState("win");
         setLastPlayedInLocalStorage(dailyIndex);
       } else if (guesses.length === 5) {
-        console.log("lose");
+        // console.log("lose");
         updateStats(false, 0);
         setGameState("lose");
         setLastPlayedInLocalStorage(dailyIndex)
