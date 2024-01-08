@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from "react";
 import { GameContext } from "../../context/GameProvider";
 import { UIContext } from "../../context/UIProvider";
 import { getStatsFromLocalStorage } from "@/app/data/localstorage";
+import ShareBar from './sharebar';
 
 import styles from "./Results.module.css";
 import Definition from './definition';
@@ -41,6 +42,7 @@ const Results = ({newWordData}) => {
         <Definition newWordData={newWordData}/>
         <hr className={styles['divider']}></hr>
         <Stats />
+        <ShareBar />
         </Modal>
       )}
     </div>

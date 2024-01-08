@@ -92,3 +92,16 @@
     color: var(--color-dark-grey);
     padding-bottom: 0.5rem;
 }
+
+.share-bar {
+    /* border: 2px solid red; */
+    width: 100%;
+    position: sticky;
+    bottom: -1rem;
+    background: white;
+}
+
+.buttons {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}

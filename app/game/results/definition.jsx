@@ -25,6 +25,7 @@ const Definition = ({ newWordData }) => {
       <h2 className={styles["heading"]}>Today&apos;s Word</h2>
       {gameState !== "in progress" || testing === true ? (
         <>
+        { testing === true && <span>*results testing mode</span>}
           <div className={styles["inline"]}>
             <h3 className={styles["definition"]}> {newWord.toLowerCase()}</h3>
             {newAudio && (
