@@ -8,7 +8,7 @@ import { checkGuess } from "../data/helpers.js";
 import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
-  setLastPlayedInLocalStorage,
+  getStatsFromLocalStorage,
 } from "@/app/data/localstorage";
 import { updateStats } from "../data/stats.js";
 import { GetDailyWord } from "../lib/supabase/getdailyword";
@@ -32,6 +32,9 @@ function GameProvider({ children }) {
   const [currentGuess, setCurrentGuess] = useState("");
 
   const [dailyIndex] = useState(getDailyIndex());
+
+  const [lastPlayed, setLastPlayed] = useState(null);
+
   // console.log("daily index: " + dailyIndex);
 
   const [guesses, setGuesses] = useState([]);
@@ -49,18 +52,19 @@ function GameProvider({ children }) {
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
-  const [gameState, setGameState] = useState(() => {
-    const latestState =
-      typeof window !== "undefined" ? getGameStateFromLocalStorage() : null;
-    if (latestState?.guesses && latestState?.answer) {
-      const latestGameState = getLatestGameState(
-        latestState.guesses,
-        latestState.answer
-      );
-      return latestGameState;
-    }
-    return "in progress";
-  });
+ const [gameState, setGameState] = useState(() => {
+  const latestState =
+    typeof window !== "undefined" ? getGameStateFromLocalStorage() : null;
+  if (latestState?.guesses && latestState?.answer) {
+    const latestGameState = getLatestGameState(
+      latestState.guesses,
+      latestState.answer
+    );
+    return latestGameState;
+  }
+  return "in progress";
+});
+
 
   const [toastMsg, setToastMsg] = useState(null);
 
@@ -142,22 +146,25 @@ function GameProvider({ children }) {
       }
       // enable animation for the latest row
       enableAnimation();
+      const { lastPlayedIdx } = getStatsFromLocalStorage();
 
       // updateKeys(guess, styles)
       if (guess === answer) {
+        console.log("setting last played idx to: " + lastPlayedIdx);
+        setLastPlayed(lastPlayedIdx);
         console.log("win");
+        setGameState("win");
         updateStats(true, guesses.length + 1);
         const toast = getRandomToast("win");
         setToastMsg(toast);
-        setGameState("win");
-        setLastPlayedInLocalStorage(dailyIndex);
       } else if (guesses.length === 5) {
+        console.log("setting last played idx to: " + lastPlayedIdx);
+        setLastPlayed(lastPlayedIdx);
         console.log("lose");
+        setGameState("lose");
         updateStats(false, 0);
         const toast = getRandomToast("lose");
         setToastMsg(toast);
-        setGameState("lose");
-        setLastPlayedInLocalStorage(dailyIndex);
       } else {
         // console.log('neither win nor loss triggered')
       }
@@ -201,6 +208,7 @@ function GameProvider({ children }) {
         animationIsDisabled,
         dailyIndex,
         isLoading,
+        lastPlayed,
       }}
     >
       {children}

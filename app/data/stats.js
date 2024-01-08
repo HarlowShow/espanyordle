@@ -40,7 +40,7 @@ export const updateStats = (hasWon, winDistro) => {
 
   // check if there's a game played. If so check if it was yesterday's game
   if (
-    currentStats.latestGameIdx &&
+    currentStats.lastPlayedIdx &&
     todaysIndex - currentStats.lastPlayedIdx === 1
   ) {
     console.log("streak continued!");
