@@ -13,7 +13,7 @@ useEffect(() => {
 }, [label])
 
     return (
-        <button type="button" className={styles['icon-button']} onClick={callback} ref={buttonRef} >
+        <button type="button" className={styles['icon-button']} onClick={callback} ref={buttonRef} data-ui>
             <VisuallyHidden>
                 {label}
             </VisuallyHidden>
