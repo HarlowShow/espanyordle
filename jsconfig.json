@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
+    "baseUrl": "app/",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/data/*": ["data/*"],
+      "@/game/*": ["game/*"],
+      "@/context/*": ["context/*"],
     }
   }
 }

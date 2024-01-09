@@ -1,3 +1,6 @@
+// ARCHIVED, could still use for testing
+
+
 import { supabase } from "../lib/supabase";
 import Input from "../game/keyboard/keyboard";
 import Grid from "../game/grid/grid";

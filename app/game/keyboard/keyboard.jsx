@@ -3,13 +3,14 @@
 import styles from "./Keyboard.module.css";
 import React, { useEffect, useContext } from "react";
 import { GameContext } from "../../context/GameProvider";
+import { UIContext } from '@/context/UIProvider'
 import Key from "./key";
 import { BsBackspace } from "react-icons/bs";
-import { INIT_KEYS } from "@/app/data/keys";
 
 export default function Input() {
   const { handleKeyboardInput, keys } =
     useContext(GameContext);
+  const { showHelpModal, showResultsModal} = useContext(UIContext);
 
   const rowOne = keys.slice(0, 10);
   const rowTwo = keys.slice(10, 20);
@@ -23,14 +24,17 @@ export default function Input() {
       const key = event.key.toUpperCase();
       const checkLetters = /[a-záéíóúüñA-ZÁÉÍÓÚÜÑ]+/i;
       // console.log('use effect in keybaord handling input for: ' + event.key)
-      if (
-        (key.match(checkLetters) && key.length === 1) ||
-        key === "ENTER" ||
-        key === "BACKSPACE"
-      ) {
-        handleKeyboardInput(key);
-      } else {
-        console.warn("unsuitable keyboard input");
+
+      if (!showHelpModal && !showResultsModal && key !== 'ESCAPE') {
+        if (
+          (key.match(checkLetters) && key.length === 1) ||
+          key === "ENTER" ||
+          key === "BACKSPACE"
+        ) {
+          handleKeyboardInput(key);
+        } else {
+          console.warn("unsuitable keyboard input");
+        }
       }
     };
 
@@ -39,7 +43,7 @@ export default function Input() {
     return () => {
       window.removeEventListener("keydown", handleInput);
     };
-  }, [handleKeyboardInput]);
+  }, [handleKeyboardInput, showHelpModal, showResultsModal]);
   return (
     <div className={styles["keyboard-wrapper"]}>
       <div className={styles["keyboard"]}>

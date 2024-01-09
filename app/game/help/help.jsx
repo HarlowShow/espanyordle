@@ -14,7 +14,7 @@ const Help = () => {
   return (
     <div>
       {showHelpModal === true && (
-        <Modal handleClose={() => setShowHelpModal(false)}>
+        <Modal title={"How to Play"} handleClose={() => setShowHelpModal(false)}>
           <div className={styles["content-wrapper"]}>
             <h2 className={styles.heading}>How to Play</h2>
             <div className={styles["text-wrapper"]}>

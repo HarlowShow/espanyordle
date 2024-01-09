@@ -9,7 +9,7 @@ import ShareBar from './sharebar';
 import styles from "./Results.module.css";
 import Definition from './definition';
 import Stats from './stats';
-import { BASE_ANIMATION_DELAY } from "@/app/data/ui";
+import { BASE_ANIMATION_DELAY } from "@/data/ui";
 
 const Results = ({newWordData}) => {
 
@@ -34,7 +34,7 @@ const Results = ({newWordData}) => {
   return (
     <div>
       {showResultsModal === true && (
-        <Modal handleClose={() => setShowResultsModal(false)}>
+        <Modal title={"Results"} handleClose={() => setShowResultsModal(false)}>
         <Definition newWordData={newWordData}/>
         <hr className={styles['divider']}></hr>
         <Stats />

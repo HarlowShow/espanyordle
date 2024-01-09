@@ -30,6 +30,17 @@ export const calcIndex = (startDate, currentDate) => {
   return index;
 };
 
+
+export const calcMSOffset = () => {
+  // determines how long the request will be cached for, the time until midnight - 12 minutes
+  const now = new Date()
+  let later = new Date()
+  later.setHours(24, 0, 0, 0)
+  const offset = later - now
+  return offset/1000
+};
+
+
 // get the index for each day
 export const getDailyIndex = () => {
   return calcIndex(ZERO_DAY_WORDLE, Date.now());

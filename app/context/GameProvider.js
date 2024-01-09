@@ -55,7 +55,7 @@ function GameProvider({ children }) {
  const [gameState, setGameState] = useState(() => {
   const latestState =
     typeof window !== "undefined" ? getGameStateFromLocalStorage() : null;
-  if (latestState?.guesses && latestState?.answer) {
+  if (latestState?.guesses && latestState?.answer && latestState?.answer === answer) {
     const latestGameState = getLatestGameState(
       latestState.guesses,
       latestState.answer
@@ -123,7 +123,7 @@ function GameProvider({ children }) {
       // put some ui stuff here
       setToastMsg("word must be five letters");
       console.error("guess length must be five");
-    } else if (!isInWordList(guess)) {
+    } else if (guess.length === 5 && guess !== answer && !isInWordList(guess)) {
       setToastMsg("word not in word list");
     } else {
       const styles = [];
