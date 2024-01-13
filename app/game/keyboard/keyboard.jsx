@@ -39,7 +39,7 @@ export default function Input() {
         ) {
           handleKeyboardInput(key);
         } else {
-          console.log("unsuitable keyboard input");
+          // console.log("unsuitable keyboard input");
         }
       }
     };

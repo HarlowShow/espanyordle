@@ -20,16 +20,18 @@ const initStats = {
   lastPlayedIdx: null,
   currentStreak: 0,
   longestStreak: 0,
+  currentWinStreak: 0,
+  longestWinStreak: 0,
 };
 
 export const updateStats = (hasWon, winDistro, mode) => {
   const todaysIndex = getDailyIndex();
   let currentStats = getStatsFromLocalStorage(mode);
-  console.log('updating stats')
-  console.log('current stats got are: ' + currentStats)
+  // console.log('updating stats')
+  // console.log('current stats got are: ' + currentStats)
 
   if (currentStats === null) {
-    console.log("stats assigned for the first time");
+    // console.log("stats assigned for the first time");
     currentStats = initStats;
   }
   // update played and hasWon stats
@@ -39,23 +41,41 @@ export const updateStats = (hasWon, winDistro, mode) => {
   // if it's zero it means something's gone wrong.
   // TODO make this safer once it's working
   let nextCurrentStreak = 0;
+  let nextCurrentWinStreak = 0;
 
   // check if there's a game played. If so check if it was yesterday's game
   if (
     currentStats.lastPlayedIdx &&
     todaysIndex - currentStats.lastPlayedIdx === 1
   ) {
-    console.log("streak continued!");
+    console.log("play streak continued!");
     nextCurrentStreak = currentStats.currentStreak + 1;
   } else {
     nextCurrentStreak = 1;
   }
+
+  if (
+    currentStats.lastPlayedIdx &&
+    todaysIndex - currentStats.lastPlayedIdx === 1
+    && hasWon === true
+  ) {
+    console.log("win streak continued!");
+    nextCurrentWinStreak = currentStats.currentWinStreak + 1;
+  } else {
+    nextCurrentWinStreak = 0;
+  }
+
 
   // if the new streak is longer than the old one, update it
   const nextLongestStreak =
     currentStats.longestStreak > nextCurrentStreak
       ? currentStats.longestStreak
       : nextCurrentStreak;
+
+  const nextLongestWinStreak =
+    currentStats.longestWinStreak > nextCurrentWinStreak
+      ? currentStats.longestWinStreak
+      : nextCurrentWinStreak;
 
   let nextDistro = currentStats.distro;
   if (hasWon === true) {
@@ -70,6 +90,8 @@ export const updateStats = (hasWon, winDistro, mode) => {
     lastPlayedIdx: todaysIndex,
     currentStreak: nextCurrentStreak,
     longestStreak: nextLongestStreak,
+    currentWinStreak: nextCurrentWinStreak,
+    longestWinStreak: nextLongestWinStreak,
   };
 
   setStatsInLocalStorage(nextStats, mode);

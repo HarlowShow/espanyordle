@@ -30,8 +30,8 @@ const formatData = async () => {
 };
 
 const writeData = async () => {
-  const data = await formatData();
-  console.log("writing file");
+  // const data = await formatData();
+  // console.log("writing file");
   writeFile("./writefiletest.txt", data, (err) => {
     if (err) {
       console.error(err);
