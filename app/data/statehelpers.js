@@ -20,3 +20,20 @@ export const getLatestGameState = (async(guesses, answer) => {
         return state
     }
 })
+
+export const getModeIndexFromSearchParams = (async(searchParams) => {
+    const mode = searchParams.mode
+    const modeIndex = mode === 'easy' ? 'easy_index' : 'index'
+    return modeIndex
+  })
+
+
+  export const getModeFromSearchParams = ((searchParams) => {
+    console.log(searchParams)
+    const mode = searchParams.get('mode')
+    console.log(mode)
+    return mode
+  })
+
+
+

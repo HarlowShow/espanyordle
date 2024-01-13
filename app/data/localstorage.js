@@ -2,6 +2,7 @@
 
 import { getDailyIndex } from "./helpers.js";
 const gameStateKey = "gameState";
+const easyGameStateKey = "easyGameState";
 const statsKey = "stats";
 const gameIndexKey = "gameNumber";
 // last game that was either one or lost.
@@ -24,15 +25,20 @@ export const getGameIndexFromLocalStorage = () => {
   // }
 };
 
-export const setGameStateToLocalStorage = (guesses, answer = "") => {
+export const setGameStateToLocalStorage = (guesses, answer = "", mode) => {
   // tbc add answer param, probs need to check if the game changes
   // console.log('setting game state to local storage')
+  console.log('setting game state to local storage, answer is: ' + answer)
   const gameState = {
     guesses,
     answer,
   };
   // if (!ISSERVER) {
-  localStorage?.setItem(gameStateKey, JSON.stringify(gameState));
+    if (mode === 'easy') {
+      localStorage?.setItem(easyGameStateKey, JSON.stringify(gameState));
+    } else {
+      localStorage?.setItem(gameStateKey, JSON.stringify(gameState));
+    }
   // }
 };
 

@@ -17,16 +17,13 @@ import { isInWordList } from "../data/wordhelpers.mjs";
 
 export const GameContext = createContext();
 
-function GameProvider({ children }) {
+function GameProvider({ word, modeParam, children }) {
+  // TBC, gonna pass mode to local storage to save easy game in state innit.
   const [isLoading, setIsLoading] = useState(true);
-  const [answer, setAnswer] = useState(null);
+  const answer = word;
+  const mode = modeParam === 'easy_index' ? 'easy' : 'daily'
+  // console.log('in provider mode is: ' + mode)
 
-  useEffect(() => {
-    (async () => {
-      const nextAnswer = await GetDailyWord();
-      setAnswer(nextAnswer);
-    })();
-  }, []);
   // console.log(answer)
 
   const [currentGuess, setCurrentGuess] = useState("");
@@ -208,6 +205,7 @@ function GameProvider({ children }) {
         dailyIndex,
         isLoading,
         lastPlayed,
+        mode
       }}
     >
       {children}

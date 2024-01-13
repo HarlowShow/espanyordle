@@ -1,4 +1,4 @@
-.button, .icon-button {
+.button, .icon-button, .main-button {
     display: inline-block;
     box-sizing: border-box;
     line-height: 1.25rem;
@@ -11,7 +11,7 @@
 
 
 @media (max-width: 640px) {
-  .button, .icon-button {
+  .button, .icon-button, .main-button {
       padding: 0.25rem 0.5rem;
   }
 }
@@ -23,7 +23,7 @@
   }
   
   
-  .button {
+  .button, .main-button {
     border: 0;
     cursor: pointer;
     border-radius: 8px;
@@ -39,5 +39,16 @@
   
   .button:hover {
     transform: translateY(-2px);
+  }
+
+  .inner-button-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-note {
+    font-size: 0.8rem;
+    font-weight: 300;
+    pading-top: 0.2rem;
   }
   

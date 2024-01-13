@@ -2,16 +2,16 @@
 
 import styles from "./Grid.module.css";
 import { useContext, useEffect } from "react";
-import { GameContext } from "../../context/GameProvider";
+import { GameContext } from "@/context/GameProvider";
 import {
   setGameStateToLocalStorage,
-} from "@/app/data/localstorage";
-import { range } from "../../data/utils";
+} from "@/data/localstorage";
+import { range } from "@/data/utils";
 import Cell from "./cell.jsx";
-import Spinner from '../../components/ui/spinner'
+import Spinner from '@/components/ui/spinner'
 
-export default function Grid() {
-  const { currentGuess, guesses, answer, isLoading } = useContext(GameContext);
+export default function Grid({newAnswer}) {
+  const { currentGuess, guesses, isLoading, mode } = useContext(GameContext);
   const guessesRemaining = 5 - guesses.length;
 
   // identify which row is active to enable/disable animation
@@ -23,9 +23,9 @@ export default function Grid() {
     // console.log('guesses use effect triggered')
     // save to ls when a guess is added
     if (guesses.length !== 0) {
-      setGameStateToLocalStorage(guesses, answer);
+      setGameStateToLocalStorage(guesses, newAnswer, mode);
     }
-  }, [guesses, answer]);
+  }, [guesses, newAnswer, mode]);
 
   return ( 
 

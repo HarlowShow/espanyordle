@@ -47,7 +47,7 @@ const ShareButton = (() => {
     })
 
     return (
-        <Button callback={copyText} label={'share'}>Share</Button>
+        <Button callback={copyText} label={'copy results to clipboard'}>Share</Button>
     )
 })
 export default ShareButton

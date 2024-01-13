@@ -2,13 +2,15 @@
 
 import styles from "./Nav.module.css";
 import IconButton from "../ui/iconbutton";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useContext } from "react";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { VscGraph } from "react-icons/vsc";
 import { UIContext } from "../../context/UIProvider";
 import { getDailyIndex } from "../../data/helpers.js";
+import { getModeFromSearchParams } from "@/data/statehelpers.js";
+
 
 export default function Nav() {
   const {
@@ -17,14 +19,19 @@ export default function Nav() {
     setShowHelpModal,
     setShowResultsModal,
   } = useContext(UIContext);
+  
+    const index = getDailyIndex();
+    const gameNumber = index + 1;
+
+  const searchParams = useSearchParams()  
+  const mode = getModeFromSearchParams(searchParams)
+  const modeTitle = mode === 'easy' ? 'Easy' : 'Daily'
+  const header = `${modeTitle} #${gameNumber}`
 
   const router = useRouter();
   const goBack = () => {
     router.push("/");
   };
-
-  const index = getDailyIndex();
-  const gameNumber = index + 1;
 
   return (
     <ul role="menubar" className={styles["nav"]}>
@@ -34,7 +41,7 @@ export default function Nav() {
         </IconButton>
       </li>
       <li className={styles.center}>
-        <h1>Daily #{gameNumber}</h1>
+        <h1>{header}</h1>
       </li>
       <li className={styles.right}>
         <IconButton

@@ -1,7 +1,7 @@
 import { getDailyIndex } from "../../data/helpers.js";
 import { supabase } from "../../lib/supabase/supabase.mjs";
 
-export const GetDailyWord = async () => {
+export const GetDailyWord = async (mode) => {
   const wordIndex = getDailyIndex() + 1;
   console.log("word index is: " + wordIndex);
 
