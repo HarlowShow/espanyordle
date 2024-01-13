@@ -1,11 +1,11 @@
-import Button from '../../components/ui/button';
+import Button from '@/components/ui/button';
 import { useContext } from 'react';
-import { copyToClipboard } from '@/app/data/clipboard';
-import { GameContext } from "../../context/GameProvider";
+import { copyToClipboard } from '@/data/clipboard';
+import { GameContext } from "@/context/GameProvider";
 
 const ShareButton = (() => {
 
-    const { guesses, dailyIndex, answer, gameState } = useContext(GameContext);
+    const { guesses, dailyIndex, answer, gameState, setToastMsg } = useContext(GameContext);
 
     const winLength = gameState === 'win' ? guesses.length.toString() : 'X'
     const winLengthString = `${winLength}/6`
@@ -40,7 +40,7 @@ const ShareButton = (() => {
         try {
             const string = getEmojiGrid()
             await copyToClipboard(string);
-            console.log('Text copied to the clipboard!');
+            setToastMsg('Results copied to the clipboard!');
         } catch(error) {
             console.error(error);
         }

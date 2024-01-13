@@ -17,7 +17,7 @@ export default function Toasts() {
 
   return (
     <>
-      <div className={styles["toast-wrapper"]}>
+      <div className={styles["toast-wrapper"]} role="region" aria-live="polite" aria-label="notification">
         {toastMsg !== null && (
           <div key={key} onAnimationEnd={resetMsg} className={defaultClasses}>
             <span>{toastMsg}</span>
