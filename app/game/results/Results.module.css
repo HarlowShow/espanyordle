@@ -11,6 +11,11 @@
    
 }
 
+/* .results-wrapper {
+    display: grid;
+    /* flex-direction: column; } */
+
+
 .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -96,12 +101,20 @@
 .share-bar {
     /* border: 2px solid red; */
     width: 100%;
-    position: sticky;
-    bottom: -1rem;
+    height: 100px;
     background: white;
 }
 
 .buttons {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    place-content: center;
+}
+
+@media (max-width: 640px) {
+    .share-bar {
+        position: sticky;
+        bottom: -1rem;
+    }
 }

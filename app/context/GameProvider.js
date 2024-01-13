@@ -9,7 +9,7 @@ import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
   getStatsFromLocalStorage,
-} from "@/app/data/localstorage";
+} from "@/data/localstorage";
 import { updateStats } from "../data/stats.js";
 import { GetDailyWord } from "../lib/supabase/getdailyword";
 import { getRandomToast } from "../data/toasts.js";
@@ -122,7 +122,6 @@ function GameProvider({ children }) {
     if (guess.length !== 5) {
       // put some ui stuff here
       setToastMsg("word must be five letters");
-      console.error("guess length must be five");
     } else if (guess.length === 5 && guess !== answer && !isInWordList(guess)) {
       setToastMsg("word not in word list");
     } else {

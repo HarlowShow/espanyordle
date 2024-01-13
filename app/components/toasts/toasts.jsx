@@ -1,14 +1,12 @@
 "use client";
 
 import styles from "./Toasts.module.css";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { GameContext } from "../../context/GameProvider";
-import { UIContext } from "@/context/UIProvider";
 
 export default function Toasts() {
   // trigger on a message being added
   const { toastMsg, setToastMsg } = useContext(GameContext);
-  const { showHelpModal, showResultsModal} = useContext(UIContext);
   const key = crypto.randomUUID();
   const defaultClasses = `${styles.toast} ${styles.hidden}`;
 

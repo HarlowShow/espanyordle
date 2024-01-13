@@ -28,12 +28,11 @@ export default function Modal({ handleClose, title, children}) {
             <div className={styles['modal']} role="dialog" aria-modal="true" aria-label={title}>
             <div className={styles['modal-header']}>
                 <IconButton callback={handleClose} label={'close'}>
-                   <IoClose />
+                   <IoClose aria-hidden="true" focusable="false"/>
                 </IconButton>
             </div>
             <div className={styles['modal-content']}>
                     { children }
-
             </div>
             </div>
         </div>
