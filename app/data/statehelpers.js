@@ -29,9 +29,9 @@ export const getModeIndexFromSearchParams = (async(searchParams) => {
 
 
   export const getModeFromSearchParams = ((searchParams) => {
-    console.log(searchParams)
+    // console.log(searchParams)
     const mode = searchParams.get('mode')
-    console.log(mode)
+    // console.log(mode)
     return mode
   })
 

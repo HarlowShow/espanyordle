@@ -13,7 +13,7 @@ import { BASE_ANIMATION_DELAY } from "@/data/ui";
 
 const Results = ({ newWordData }) => {
   const { showResultsModal, setShowResultsModal } = useContext(UIContext);
-  const { gameState, dailyIndex, lastPlayed } = useContext(GameContext);
+  const { gameState, dailyIndex, lastPlayed, mode } = useContext(GameContext);
 
   // trigger modal open on win or lose for first time each day
   useEffect(() => {
@@ -34,8 +34,8 @@ const Results = ({ newWordData }) => {
         <Modal title={"Results"} handleClose={() => setShowResultsModal(false)}>
             <Definition newWordData={newWordData} />
             <hr className={styles["divider"]}></hr>
-            <Stats />
-            <ShareBar />
+            <Stats mode={mode}/>
+            <ShareBar mode={mode}/>
         </Modal>
       )}
     </div>

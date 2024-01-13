@@ -22,9 +22,11 @@ const initStats = {
   longestStreak: 0,
 };
 
-export const updateStats = (hasWon, winDistro) => {
+export const updateStats = (hasWon, winDistro, mode) => {
   const todaysIndex = getDailyIndex();
-  let currentStats = getStatsFromLocalStorage();
+  let currentStats = getStatsFromLocalStorage(mode);
+  console.log('updating stats')
+  console.log('current stats got are: ' + currentStats)
 
   if (currentStats === null) {
     console.log("stats assigned for the first time");
@@ -70,5 +72,5 @@ export const updateStats = (hasWon, winDistro) => {
     longestStreak: nextLongestStreak,
   };
 
-  setStatsInLocalStorage(nextStats);
+  setStatsInLocalStorage(nextStats, mode);
 };

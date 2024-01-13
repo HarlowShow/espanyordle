@@ -3,13 +3,12 @@ import { getStatsFromLocalStorage } from "../../data/localstorage.js";
 import SingleStat from './singlestat'
 import Distro from './distro';
 
-const Stats = () => {
-  const stats = getStatsFromLocalStorage();
+const Stats = ({mode}) => {
+  const stats = getStatsFromLocalStorage(mode);
   const played = stats && stats.played ? stats.played : 0
   const currentStreak = stats && stats.currentStreak ? stats.currentStreak : 0
   const longestStreak = stats && stats.longestStreak ? stats.longestStreak : 0
   const winPerc = stats && stats.won ? `${(stats.won / stats.played * 100).toFixed()}%` : 0
-  const distro = stats.distro
 
   const testDistro = {
     1: 0,
@@ -19,6 +18,9 @@ const Stats = () => {
     5: 5,
     6: 6,
 }
+  // TESTING. DISABLE THIS
+  const distro = stats?.distro ? stats.distro : testDistro
+
   
   return (
     <div className={styles["content-wrapper"]}>

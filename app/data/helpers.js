@@ -48,11 +48,11 @@ export const getDailyIndex = () => {
 
 // if false, returns { isOld: false }
 // if true, returns { isOld: true, offSet: number}
-export const isGameIndexOld = () => {
+export const isGameIndexOld = (mode) => {
   const todaysIndex = getDailyIndex();
 
   const latestIndex =
-    typeof window !== "undefined" ? getGameIndexFromLocalStorage() : null;
+    typeof window !== "undefined" ? getGameIndexFromLocalStorage(mode) : null;
   // console.log('todays index is: ' + todaysIndex)
   // console.log('latest recorded index is: ' + latestIndex)
   return todaysIndex === latestIndex

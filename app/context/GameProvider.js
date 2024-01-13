@@ -1,19 +1,19 @@
 "use client";
 
 import { createContext, useState, useEffect } from "react";
-import { INIT_KEYS } from "../data/keys.js";
-import { isGameIndexOld, getDailyIndex } from "../data/helpers.js";
-import { getLatestGameState } from "../data/statehelpers.js";
-import { checkGuess } from "../data/helpers.js";
+import { INIT_KEYS } from "@/data/keys.js";
+import { isGameIndexOld, getDailyIndex } from "@/data/helpers.js";
+import { getLatestGameState } from "@/data/statehelpers.js";
+import { checkGuess } from "@/data/helpers.js";
 import {
   getGameStateFromLocalStorage,
   setGameIndexInLocalStorage,
   getStatsFromLocalStorage,
 } from "@/data/localstorage";
-import { updateStats } from "../data/stats.js";
-import { GetDailyWord } from "../lib/supabase/getdailyword";
-import { getRandomToast } from "../data/toasts.js";
-import { isInWordList } from "../data/wordhelpers.mjs";
+import { updateStats } from "@/data/stats.js";
+import { getRandomToast } from "@/data/toasts.js";
+import { isInWordList } from "@/data/wordhelpers.mjs";
+import { removeAccentsString } from '@/api/scripts/removeaccents.mjs'
 
 export const GameContext = createContext();
 
@@ -21,6 +21,7 @@ function GameProvider({ word, modeParam, children }) {
   // TBC, gonna pass mode to local storage to save easy game in state innit.
   const [isLoading, setIsLoading] = useState(true);
   const answer = word;
+  const answerNoAccents = removeAccentsString(answer)
   const mode = modeParam === 'easy_index' ? 'easy' : 'daily'
   // console.log('in provider mode is: ' + mode)
 
@@ -37,21 +38,22 @@ function GameProvider({ word, modeParam, children }) {
   const [guesses, setGuesses] = useState([]);
 
   useEffect(() => {
-    const latestState = getGameStateFromLocalStorage();
-    const isOld = typeof window !== "undefined" ? isGameIndexOld() : null;
+    const latestState = getGameStateFromLocalStorage(mode);
+    const isOld = typeof window !== "undefined" ? isGameIndexOld(mode) : null;
     const latestGuesses =
       latestState?.guesses && isOld.isOld === false ? latestState.guesses : [];
     setGuesses(latestGuesses);
     // TESTING: disable this
     setIsLoading(false);
-  }, []);
+  }, [mode]);
 
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
  const [gameState, setGameState] = useState(() => {
+  // TODO come back to this for the accents thing
   const latestState =
-    typeof window !== "undefined" ? getGameStateFromLocalStorage() : null;
+    typeof window !== "undefined" ? getGameStateFromLocalStorage(mode) : null;
   if (latestState?.guesses && latestState?.answer && latestState?.answer === answer) {
     const latestGameState = getLatestGameState(
       latestState.guesses,
@@ -119,7 +121,7 @@ function GameProvider({ word, modeParam, children }) {
     if (guess.length !== 5) {
       // put some ui stuff here
       setToastMsg("word must be five letters");
-    } else if (guess.length === 5 && guess !== answer && !isInWordList(guess)) {
+    } else if (guess.length === 5 && guess !== answer && guess !== answerNoAccents && !isInWordList(guess)) {
       setToastMsg("word not in word list");
     } else {
       const styles = [];
@@ -138,27 +140,34 @@ function GameProvider({ word, modeParam, children }) {
       setKeys(nextKeys);
       // TODO: is this the best place to put this?
       if (typeof window !== "undefined") {
-        setGameIndexInLocalStorage();
+        setGameIndexInLocalStorage(mode);
       }
       // enable animation for the latest row
       enableAnimation();
-      const { lastPlayedIdx } = getStatsFromLocalStorage();
+      const possibleLastPlayedGame = getStatsFromLocalStorage(mode)
+      const lastPlayedIdx = possibleLastPlayedGame?.lastPlayedIdx ? possibleLastPlayedGame.lastPlayedIdx : null
 
       // updateKeys(guess, styles)
-      if (guess === answer) {
+      console.log('validating guess. guess was: ' + guess + 'answer was: ' + answer + 'no accents is: ' + answerNoAccents)
+      if (guess === answer ||  guess === answerNoAccents) {
         console.log("setting last played idx to: " + lastPlayedIdx);
-        setLastPlayed(lastPlayedIdx);
+        if (lastPlayedIdx) {
+          setLastPlayed(lastPlayedIdx);
+        }
         console.log("win");
         setGameState("win");
-        updateStats(true, guesses.length + 1);
+        console.log('passing on mode to update stats: ' + mode)
+        updateStats(true, guesses.length + 1, mode);
         const toast = getRandomToast("win");
         setToastMsg(toast);
       } else if (guesses.length === 5) {
         console.log("setting last played idx to: " + lastPlayedIdx);
+        if (lastPlayedIdx) {
         setLastPlayed(lastPlayedIdx);
+        }
         console.log("lose");
         setGameState("lose");
-        updateStats(false, 0);
+        updateStats(false, 0, mode);
         const toast = getRandomToast("lose");
         setToastMsg(toast);
       } else {
