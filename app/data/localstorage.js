@@ -3,8 +3,8 @@
 import { getDailyIndex } from "./helpers.js";
 const gameStateKey = "gameState";
 const easyGameStateKey = "easyGameState";
-const statsKey = "stats";
-const easyStatsKey = "easyStats";
+const statsKey = "statsNew";
+const easyStatsKey = "easyStatsNew";
 const gameIndexKey = "gameNumber";
 const easyGameIndexKey = "easyGameNumber";
 // last game that was either one or lost.
@@ -16,8 +16,10 @@ export const setGameIndexInLocalStorage = (mode) => {
   const idx = getDailyIndex();
   if (mode === "easy") {
     localStorage?.setItem(easyGameIndexKey, JSON.stringify(idx));
-  } else {
+  } else if (mode === "daily"){
     localStorage?.setItem(gameIndexKey, JSON.stringify(idx));
+  } else {
+    console.warn('invalid mode in setGameIndexInLocalStorage')
   }
   // if (!ISSERVER) {
   // }
@@ -29,9 +31,11 @@ export const getGameIndexFromLocalStorage = (mode) => {
   if (mode === "easy") {
     const gameNumber = localStorage?.getItem(easyGameIndexKey);
     return gameNumber ? JSON.parse(gameNumber) : null;
-  } else {
+  } else if (mode === "daily"){
     const gameNumber = localStorage?.getItem(gameIndexKey);
     return gameNumber ? JSON.parse(gameNumber) : null;
+  } else {
+    console.warn('invalid mode in getGameIndexFromLocalStorage')
   }
   // }
 };
@@ -47,8 +51,10 @@ export const setGameStateToLocalStorage = (guesses, answer = "", mode) => {
   // if (!ISSERVER) {
   if (mode === "easy") {
     localStorage?.setItem(easyGameStateKey, JSON.stringify(gameState));
-  } else {
+  } else if (mode === "daily"){
     localStorage?.setItem(gameStateKey, JSON.stringify(gameState));
+  } else {
+    console.warn('invalid mode in getGameStateToLocalStorage')
   }
   // }
 };
@@ -60,32 +66,42 @@ export const getGameStateFromLocalStorage = (mode) => {
     const state = localStorage?.getItem(easyGameStateKey);
     const latestState = state ? JSON.parse(state) : null;
     return latestState;
-  } else {
+  } else if (mode === "daily") {
     const state = localStorage?.getItem(gameStateKey);
     const latestState = state ? JSON.parse(state) : null;
     return latestState;
+  } else {
+    console.warn('invalid mode in getGameStateFromLocalStorage')
   }
 };
 
 export const setStatsInLocalStorage = (stats, mode) => {
   // if (!ISSERVER) {
-  if (mode === "easy") {
+    if (mode === "easy") {
+    // console.log('setting stats from local storage for: ' + mode)
     localStorage?.setItem(easyStatsKey, JSON.stringify(stats));
-  } else {
+  } else if (mode === "daily") {
+    // console.log('setting stats from local storage for: ' + mode)
     localStorage?.setItem(statsKey, JSON.stringify(stats));
+  } else {
+    console.warn('invalid mode in setStatsInLocalStorage')
   }
   // }
 };
 
 export const getStatsFromLocalStorage = (mode) => {
-  // console.log('getting stats from local storage, ' + mode)
+  // console.log('getting stats from local storage for: ' + mode)
   // if (!ISSERVER) {
   if (mode === "easy") {
+    // console.log('setting stats from local storage for: ' + mode)
     const stats = localStorage?.getItem(easyStatsKey);
     return stats ? JSON.parse(stats) : null;
-  } else {
+  } else if (mode === "daily") {
+    // console.log('setting stats from local storage for: ' + mode)
     const stats = localStorage?.getItem(statsKey);
     return stats ? JSON.parse(stats) : null;
+  } else {
+    console.warn('invalid mode in getStatsFromLocalStorage')
   }
 
   // }

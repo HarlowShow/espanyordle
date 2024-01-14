@@ -40,10 +40,16 @@ export const calcMSOffset = () => {
   return offset/1000
 };
 
+const TEST_INDEX = 14
 
+// TESTING. Disable later
 // get the index for each day
 export const getDailyIndex = () => {
-  return calcIndex(ZERO_DAY_WORDLE, Date.now());
+  if (TEST_INDEX) {
+    return TEST_INDEX
+  } else {
+    return calcIndex(ZERO_DAY_WORDLE, Date.now());
+  }
 };
 
 // if false, returns { isOld: false }
