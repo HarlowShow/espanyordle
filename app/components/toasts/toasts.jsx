@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./Toasts.module.css";
-import { useContext, useEffect, useState, memo } from "react";
+import { useContext, useCallback, useState, memo } from "react";
 import { GameContext } from "../../context/GameProvider";
 
 function ToastsImpure() {
@@ -9,31 +9,43 @@ function ToastsImpure() {
   const { toastMsg, setToastMsg } = useContext(GameContext);
   const key = crypto.randomUUID();
   const defaultClasses = `${styles.toast} ${styles.hidden}`;
+  const [shouldWait, setShouldWait] = useState(false)
 
-  const throttle = ((callback, delay) => {
-    // Returning a throttled version 
-  let timerFlag = null;
+  // const throttle = (callback, delay) => {
+  //   console.log("throttlin");
 
-  return (...args) => {
-    if (timerFlag === null) { // If there is no timer currently running
-      callback(...args); // Execute the main function 
-      timerFlag = setTimeout(() => { // Set a timer to clear the timerFlag after the specified delay
-        timerFlag = null; // Clear the timerFlag to allow the main function to be executed again
-      }, delay);
-    }
-  };
-  })
+  //     if (shouldWait === true) {
+  //       console.log('should wait')
+  //       return;
+  //     } else {
+  //       console.log("doing callback");
+  //       setShouldWait(true);
+  //       setTimeout(() => {
+  //         callback();
+  //         setShouldWait(false);
+  //       }, delay);
+  //     }
+  // };
 
   const resetMsg = () => {
+    console.log("resetting toast message");
     setToastMsg(null);
   };
 
+  const memoizedResetMsg = useCallback(resetMsg, [setToastMsg])
 
   return (
     <>
       <div className={styles["toast-wrapper"]}>
         {toastMsg !== null && (
-          <div key={key} onAnimationEnd={() => { throttle(resetMsg, 2500)}} className={defaultClasses}>
+          <div
+            key={toastMsg}
+            // onAnimationStart={() => {
+            //   throttle(resetMsg, 2500);
+            // }}
+            onAnimationEnd={memoizedResetMsg}
+            className={defaultClasses}
+          >
             <span>{toastMsg}</span>
           </div>
         )}
@@ -47,5 +59,5 @@ function ToastsImpure() {
   );
 }
 
-const Toasts = memo(ToastsImpure)
-export default Toasts
+const Toasts = memo(ToastsImpure);
+export default Toasts;
