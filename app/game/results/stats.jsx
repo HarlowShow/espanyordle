@@ -41,7 +41,7 @@ const Stats = ({mode}) => {
         </div>
       ) : (
         <div>
-          <h2 className={styles["heading"]}>No Statistics Found</h2>
+          <h2 className={styles["heading"]}>No Statistics Found ({mode})</h2>
           <p>Play some games to see your statistics</p>
         </div>
       )}
