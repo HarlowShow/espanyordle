@@ -1,14 +1,19 @@
 "use client";
 
 import styles from "./Toasts.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState, memo } from "react";
 import { GameContext } from "../../context/GameProvider";
 
-export default function Toasts() {
+function ToastsImpure() {
   // trigger on a message being added
   const { toastMsg, setToastMsg } = useContext(GameContext);
   const key = crypto.randomUUID();
   const defaultClasses = `${styles.toast} ${styles.hidden}`;
+  const [showNewToast, setShowNewToast] = useState(true)
+
+  useEffect(() => {
+    setShowNewToast(false)
+  }, [toastMsg])
 
   const resetMsg = () => {
     setToastMsg(null);
@@ -17,7 +22,7 @@ export default function Toasts() {
 
   return (
     <>
-      <div className={styles["toast-wrapper"]} role="region" aria-live="polite" aria-label="notification">
+      <div className={styles["toast-wrapper"]}>
         {toastMsg !== null && (
           <div key={key} onAnimationEnd={resetMsg} className={defaultClasses}>
             <span>{toastMsg}</span>
@@ -32,3 +37,6 @@ export default function Toasts() {
     </>
   );
 }
+
+const Toasts = memo(ToastsImpure)
+export default Toasts
