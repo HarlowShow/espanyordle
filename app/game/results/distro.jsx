@@ -1,31 +1,18 @@
 import styles from './Distro.module.css'
-import { useState } from 'react'
+import DistroBar from './distrobar'
+import { useState, useContext } from 'react'
+import { GameContext } from "@/context/GameProvider";
 
 
 
 
-const DistroBar = (({number, value, frac}) => {
 
-    const width = `${frac * value}%`
-    const distroStyle = {
-        'width': width
-    }
-    // console.log(widthClass)
-
-    // let style = ` ${styles.flip} ` + `${styles[delay]} `;
-    return (
-        <>
-        <span>{number}</span>
-        <div className={styles.bar} style={distroStyle}>
-            <span className={styles['bar-value']}>({value})</span>
-        </div>
-        <div></div>
-        </>
-    )
-})
 
 const Distro = (({distro}) => {
     const [max, setMax] = useState(0)
+    const { gameState, guesses } = useContext(GameContext);
+    const winDistroNo = gameState === 'win' ? guesses.length : null
+    console.log('game state in distro is logged as: ' + gameState)
     
     const getWidths = (() => {
         // loop through to get the highest amount;
@@ -44,12 +31,12 @@ const Distro = (({distro}) => {
         <div className={styles['distro-content']}>
         <h2 className='heading'>guess distribution</h2>
         <div className={styles['distro-wrapper']}>
-            <DistroBar number={1} value={distro[1]} frac={fraction}></DistroBar>
-            <DistroBar number={2} value={distro[2]} frac={fraction}></DistroBar>
-            <DistroBar number={3} value={distro[3]} frac={fraction}></DistroBar>
-            <DistroBar number={4} value={distro[4]} frac={fraction}></DistroBar>
-            <DistroBar number={5} value={distro[5]} frac={fraction}></DistroBar>
-            <DistroBar number={6} value={distro[6]} frac={fraction}></DistroBar>
+            <DistroBar number={1} value={distro[1]} winNo={winDistroNo} frac={fraction}></DistroBar>
+            <DistroBar number={2} value={distro[2]} winNo={winDistroNo} frac={fraction}></DistroBar>
+            <DistroBar number={3} value={distro[3]} winNo={winDistroNo} frac={fraction}></DistroBar>
+            <DistroBar number={4} value={distro[4]} winNo={winDistroNo} frac={fraction}></DistroBar>
+            <DistroBar number={5} value={distro[5]} winNo={winDistroNo} frac={fraction}></DistroBar>
+            <DistroBar number={6} value={distro[6]} winNo={winDistroNo} frac={fraction}></DistroBar>
         </div>
         </div>
     )

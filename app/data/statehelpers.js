@@ -2,7 +2,7 @@
 
 // guesses: string[] | null
 // state: 'win' | 'lose' | 'in progress'
-export const getLatestGameState = (async(guesses, answer) => {
+export const getLatestGameState = ((guesses, answer) => {
     if (answer) {
         const length = guesses.length
         // console.log(length)

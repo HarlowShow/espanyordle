@@ -7,25 +7,8 @@ import { GameContext } from "../../context/GameProvider";
 function ToastsImpure() {
   // trigger on a message being added
   const { toastMsg, setToastMsg } = useContext(GameContext);
-  const key = crypto.randomUUID();
   const defaultClasses = `${styles.toast} ${styles.hidden}`;
-  const [shouldWait, setShouldWait] = useState(false)
 
-  // const throttle = (callback, delay) => {
-  //   console.log("throttlin");
-
-  //     if (shouldWait === true) {
-  //       console.log('should wait')
-  //       return;
-  //     } else {
-  //       console.log("doing callback");
-  //       setShouldWait(true);
-  //       setTimeout(() => {
-  //         callback();
-  //         setShouldWait(false);
-  //       }, delay);
-  //     }
-  // };
 
   const resetMsg = () => {
     console.log("resetting toast message");
@@ -40,9 +23,6 @@ function ToastsImpure() {
         {toastMsg !== null && (
           <div
             key={toastMsg}
-            // onAnimationStart={() => {
-            //   throttle(resetMsg, 2500);
-            // }}
             onAnimationEnd={memoizedResetMsg}
             className={defaultClasses}
           >

@@ -32,10 +32,14 @@ const Results = ({ newWordData }) => {
     <div>
       {showResultsModal === true && (
         <Modal title={"Results"} handleClose={() => setShowResultsModal(false)}>
+          <div className={styles['results-wrapper']}>
+            <div>
             <Definition newWordData={newWordData} />
             <hr className={styles["divider"]}></hr>
+            </div>
             <Stats mode={mode}/>
             <ShareBar mode={mode}/>
+            </div>
         </Modal>
       )}
     </div>
