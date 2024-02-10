@@ -4,7 +4,6 @@
     gap: var(--grid-gap);
   }
   
-  
   .logo-row {
     display: flex;
     gap: var(--grid-gap);

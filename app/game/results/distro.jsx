@@ -12,7 +12,7 @@ const Distro = (({distro}) => {
     const [max, setMax] = useState(0)
     const { gameState, guesses } = useContext(GameContext);
     const winDistroNo = gameState === 'win' ? guesses.length : null
-    console.log('game state in distro is logged as: ' + gameState)
+    // console.log('game state in distro is logged as: ' + gameState)
     
     const getWidths = (() => {
         // loop through to get the highest amount;

@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "./Toasts.module.css";
-import { useContext, useCallback, useState, memo } from "react";
-import { GameContext } from "../../context/GameProvider";
+import { useContext, useCallback, memo } from "react";
+import { GameContext } from "@/context/GameProvider";
 
 function ToastsImpure() {
   // trigger on a message being added
@@ -11,7 +11,7 @@ function ToastsImpure() {
 
 
   const resetMsg = () => {
-    console.log("resetting toast message");
+    // console.log("resetting toast message");
     setToastMsg(null);
   };
 

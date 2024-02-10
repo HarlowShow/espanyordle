@@ -15,7 +15,7 @@ const Stats = () => {
     const longestStreak = stats && stats.longestStreak ? stats.longestStreak : 0
     const currentWinStreak = stats && stats.currentWinStreak ? stats.currentWinStreak : 0
     const longestWinStreak = stats && stats.longestWinStreak ? stats.longestWinStreak : 0
-    const winPerc = stats && stats.won ? `${(stats.won / stats.played * 100).toFixed()}%` : 0
+    const winPerc = stats && stats.won ? `${(stats.won / stats.played * 100).toFixed()}%` : `${0}%`
     const distro = stats?.distro ? stats.distro : null
     
     return {

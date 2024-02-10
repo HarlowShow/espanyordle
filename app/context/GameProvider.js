@@ -54,9 +54,9 @@ function GameProvider({ word, modeParam, children }) {
   // TODO come back to this for the accents thing
   const latestState =
     typeof window !== "undefined" ? getGameStateFromLocalStorage(mode) : null;
-  console.log(latestState?.guesses)
+  // console.log(latestState?.guesses)
   if (latestState?.guesses && latestState?.answer && (latestState?.answer === answer || latestState?.guesses.length === 6)) {
-    console.log('checking latest game state')
+    // console.log('checking latest game state')
     const latestGameState = getLatestGameState(
       latestState.guesses,
       latestState.answer,

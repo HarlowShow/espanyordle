@@ -5,11 +5,12 @@ import { GameContext } from "@/context/GameProvider";
 
 const ShareButton = (() => {
 
-    const { guesses, dailyIndex, answer, gameState, setToastMsg } = useContext(GameContext);
+    const { guesses, dailyIndex, answer, gameState, setToastMsg, mode } = useContext(GameContext);
+    const shareMode = mode === 'easy' ? 'Easy' : 'Daily'
 
     const winLength = gameState === 'win' ? guesses.length.toString() : 'X'
     const winLengthString = `${winLength}/6`
-    const gameNumberString = `Españordle #${dailyIndex + 1}`
+    const gameNumberString = `Españordle #${dailyIndex + 1} | ${shareMode} |`
     const titleString = `${gameNumberString} ${winLengthString}`
 
     const getEmojiGrid = (() => {
