@@ -1,4 +1,4 @@
-.button, .icon-button, .main-button {
+.icon-button, .main-button {
     display: inline-block;
     box-sizing: border-box;
     line-height: 1.25rem;
@@ -11,7 +11,7 @@
 
 
 @media (max-width: 640px) {
-  .button, .icon-button, .main-button {
+  .icon-button, .main-button {
       padding: 0.25rem 0.5rem;
   }
 }
@@ -23,7 +23,7 @@
   }
   
   
-  .button, .main-button {
+  .main-button {
     border: 0;
     cursor: pointer;
     border-radius: 8px;
