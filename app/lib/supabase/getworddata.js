@@ -17,6 +17,6 @@ import { supabase } from '../../lib/supabase/supabase.mjs';
   ]
 } */
 
-// should return 'NUEVO' | returns [ { word: 'NUEVO'} ]
+
 const { data } = await supabase.from('words').select('word, examples, maindef, audio_url').eq('id', 1);
 console.log(data)

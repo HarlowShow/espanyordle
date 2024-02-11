@@ -4,7 +4,6 @@ import { supabase } from "../../lib/supabase/supabase.mjs";
 // NOT CURRENTLY IN USE
 export const GetDailyWord = async (mode) => {
   const wordIndex = getDailyIndex() + 1;
-  // console.log("word index is: " + wordIndex);
 
   // get data for the day's word
   const { data } = await supabase

@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button';
+import MainButton from '@/components/ui/button';
 import { useContext } from 'react';
 import { copyToClipboard } from '@/data/clipboard';
 import { GameContext } from "@/context/GameProvider";
@@ -48,7 +48,7 @@ const ShareButton = (() => {
     })
 
     return (
-        <Button callback={copyText} label={'copy results to clipboard'}>Share</Button>
+        <MainButton callback={copyText} label={'copy results to clipboard'}>Share</MainButton>
     )
 })
 export default ShareButton
