@@ -69,6 +69,7 @@
 .inline {
   display: flex;
   align-items: baseline;
+  max-height: 2rem;
   /* gap: 0.5rem; */
 }
 
@@ -84,7 +85,8 @@
 
 .definition {
   font-size: 1.5rem;
-  line-height: 1.1;
+  line-height: 1.4;
+  align-self: center;
 }
 
 .icon-button {

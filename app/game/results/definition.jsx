@@ -62,7 +62,6 @@ const Definition = ({ newWordData }) => {
                     </div>
                   ))}
                 </div>
-              {/* <p>Can also mean: {wordData.otherDefs}</p> */}
             </div>
           )}
         </>

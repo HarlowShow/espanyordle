@@ -17,6 +17,7 @@ const Results = ({ newWordData }) => {
   const { gameState, dailyIndex, mode } = useContext(GameContext);
   const hasFinishedGame = gameState === "win" || gameState === "lose";
 
+  // will be undefined when latet state not yet set, null if no prev index found, or last index played
   const [lastPlayed, setLastPlayed] = useState(undefined);
 
   // update the idx of the last played game
