@@ -4,9 +4,11 @@ import DistroArrow from './distroarrow'
 
 const DistroBar = (({number, value, winNo, frac}) => {
 
-    const width = `${frac * value}%`
+    const width = value === 0 ? `7%`: `${frac * value}%`
+    const color = winNo === number ? '#478d7b' : '#747474';
     const distroStyle = {
-        'width': width
+        'width': width,
+        'backgroundColor': color
     }
     return (
         <>

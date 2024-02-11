@@ -13,7 +13,7 @@
 }
 
 .bar {
-    background-color: var(--color-correct);
+    background-color: var(--color-incorrect);
     /* border: 2px solid red; */
     text-align: end;
 }

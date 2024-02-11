@@ -12,7 +12,6 @@ const Distro = (({distro}) => {
     const [max, setMax] = useState(0)
     const { gameState, guesses } = useContext(GameContext);
     const winDistroNo = gameState === 'win' ? guesses.length : null
-    // console.log('game state in distro is logged as: ' + gameState)
     
     const getWidths = (() => {
         // loop through to get the highest amount;
@@ -21,12 +20,18 @@ const Distro = (({distro}) => {
                 setMax(distro[key])
             }
         }
-        const frac = 100 / max
-        return frac.toFixed(1)
+        // don't accidentally set the fraction to infinity
+        if (max === 0) {
+            return 0
+        } else {
+            const frac = 100 / max
+            return frac.toFixed(1)
+        }
     })
 
-    const fraction = getWidths()
     // divide to get a % fraction
+    const fraction = getWidths()
+
     return (
         <div className={styles['distro-content']}>
         <h2 className='heading'>guess distribution</h2>
