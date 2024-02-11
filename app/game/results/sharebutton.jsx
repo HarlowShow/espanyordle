@@ -1,4 +1,4 @@
-import MainButton from '@/components/ui/button';
+import MainButton from '@/components/ui/mainbutton';
 import { useContext } from 'react';
 import { copyToClipboard } from '@/data/clipboard';
 import { GameContext } from "@/context/GameProvider";

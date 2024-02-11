@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "./components/ui/button";
 import MainButton from "@/components/ui/mainbutton";
 import styles from "./Home.module.css";
 import { useRouter } from "next/navigation";
