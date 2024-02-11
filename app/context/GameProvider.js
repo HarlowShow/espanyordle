@@ -31,7 +31,7 @@ function GameProvider({ word, modeParam, children }) {
 
   const [dailyIndex] = useState(getDailyIndex());
 
-  const [lastPlayed, setLastPlayed] = useState(null);
+
 
   // console.log("daily index: " + dailyIndex);
 
@@ -147,28 +147,14 @@ function GameProvider({ word, modeParam, children }) {
       }
       // enable animation for the latest row
       enableAnimation();
-      const possibleLastPlayedGame = getStatsFromLocalStorage(mode)
-      const lastPlayedIdx = possibleLastPlayedGame?.lastPlayedIdx ? possibleLastPlayedGame.lastPlayedIdx : null
 
-      // updateKeys(guess, styles)
-      console.log('validating guess. guess was: ' + guess + 'answer was: ' + answer + 'no accents is: ' + answerNoAccents)
       if (guess === answer ||  guess === answerNoAccents) {
-        console.log("setting last played idx to: " + lastPlayedIdx);
-        if (lastPlayedIdx) {
-          setLastPlayed(lastPlayedIdx);
-        }
-        console.log("win");
         setGameState("win");
         console.log('passing on mode to update stats: ' + mode)
         updateStats(true, guesses.length + 1, mode);
         const toast = getRandomToast("win");
         setToastMsg(toast);
       } else if (guesses.length === 5) {
-        console.log("setting last played idx to: " + lastPlayedIdx);
-        if (lastPlayedIdx) {
-        setLastPlayed(lastPlayedIdx);
-        }
-        console.log("lose");
         setGameState("lose");
         updateStats(false, 0, mode);
         const toast = getRandomToast("lose");
@@ -216,7 +202,6 @@ function GameProvider({ word, modeParam, children }) {
         animationIsDisabled,
         dailyIndex,
         isLoading,
-        lastPlayed,
         mode
       }}
     >

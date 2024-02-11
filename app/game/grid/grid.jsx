@@ -20,7 +20,6 @@ export default function Grid({newAnswer}) {
   let activeGuessStyle = ` ${styles.active} `;
 
   useEffect(() => {
-    // console.log('guesses use effect triggered')
     // save to ls when a guess is added
     if (guesses.length !== 0) {
       setGameStateToLocalStorage(guesses, newAnswer, mode);
