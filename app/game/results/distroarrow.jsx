@@ -3,6 +3,8 @@ import styles from './Distro.module.css'
 
 
 const DistroArrow = (() => {
+
+
     return (
         <div className={styles['distro-arrow']}>
             <FaLongArrowAltLeft />

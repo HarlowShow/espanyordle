@@ -10,6 +10,7 @@ const DistroBar = (({number, value, winNo, frac}) => {
         'width': width,
         'backgroundColor': color
     }
+
     return (
         <>
         <span>{number}</span>
@@ -17,7 +18,7 @@ const DistroBar = (({number, value, winNo, frac}) => {
             <span className={styles['bar-value']}>{value}</span> 
         </div>
         <div>{ winNo === number && (
-                <DistroArrow />
+                <DistroArrow/>
             )}</div>
         </>
     )

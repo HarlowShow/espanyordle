@@ -26,7 +26,7 @@ export default function Home() {
         </div>
         <div className={styles["button-wrapper"]}>
           <MainButton callback={() => goToGame("easy")} label={"play"} note={"Basic vocab only"}>
-           EASY MODE
+           EASY GAME
           </MainButton>
         </div>
       </div>
