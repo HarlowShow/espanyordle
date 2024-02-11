@@ -6,7 +6,7 @@
     width: min-content;
     max-width: 200px;
     padding: 0.6rem 1rem;
-    animation: fade-out 2.5s;
+    animation: fade-out 2s;
     text-align: center;
     z-index: 2;
     line-height: 1.2;
@@ -55,7 +55,7 @@
 
 @keyframes fade-out {
     0% { opacity: 1; }
-    15% {opacity: 1;}
+    55% { opacity: 1;}
     100% { opacity: 0;}
 }
 
