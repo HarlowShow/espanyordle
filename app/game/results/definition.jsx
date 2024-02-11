@@ -5,16 +5,23 @@ import styles from "./Results.module.css";
 import { useRef, useContext } from "react";
 
 const Definition = ({ newWordData }) => {
-  const testing = true
+  // enable to see word data regardless of game state
+  const testing = false
   const { gameState } = useContext(GameContext);
   const audioRef = useRef(null);
 
   const newWord = newWordData.word
   const newMainDef = newWordData.maindef
   const newAudio = newWordData.audio_url ?? null
-  const newExamples = newWordData.examples || null
+  const newExamples = newWordData.examples.slice(0, 6) || null
   // should check for string length here
   const newOtherDefs = newWordData.other_defs 
+
+  console.log(newMainDef.length)
+
+  const definitionClass = newMainDef.length <= 20 ? `${styles.definition}` : `${styles['definition-small']}`
+  // make the example font size smaller if there are many of them
+  const exampleClass = newExamples.length > 3 ? `${styles['example-small']}` : `${styles.example}`
 
   const playAudio = () => {
     audioRef.current.play();
@@ -25,7 +32,7 @@ const Definition = ({ newWordData }) => {
       <h2 className={styles["heading"]}>Today&apos;s Word</h2>
       {gameState !== "in progress" || testing === true ? (
         <>
-        { testing === true && <span>*results testing mode</span>}
+        { testing === true && <span>*if you see this I forgot to turn off the results testing mode. Sorry about that</span>}
           <div className={styles["inline"]}>
             <h3 className={styles["definition"]}> {newWord.toLowerCase()}</h3>
             {newAudio && (
@@ -37,7 +44,7 @@ const Definition = ({ newWordData }) => {
           </div>
           <div className={styles["inline"]}>
             {newWordData.maindef && (
-              <h3 className={`${styles.definition} ${styles.green}`}>
+              <h3 className={`${definitionClass} ${styles.green}`}>
                 {newMainDef}
               </h3>
             )}
@@ -54,8 +61,8 @@ const Definition = ({ newWordData }) => {
                 <div>
                   {newExamples.map(({ english, spanish }) => (
                     <div key={english}>
-                      <span className={`${styles.example}`}>{spanish}</span>
-                      <span className={`${styles.example} ${styles.light}`}>
+                      <span className={exampleClass}>{spanish}</span>
+                      <span className={`${exampleClass} ${styles.light}`}>
                         {" "}
                         — {english}
                       </span>
