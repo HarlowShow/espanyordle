@@ -1,7 +1,7 @@
 import { ZERO_DAY_WORDLE } from "./config";
 import { removeAccents } from './wordhelpers.mjs'
 // import { ZERO_DAY_WORDLE_PLUS_ONE } from "./config";
-import { getGameIndexFromLocalStorage } from "./localstorage";
+import { getStatsFromLocalStorage } from "./localstorage";
 
 export const calcIndex = (startDate, currentDate) => {
   // milliseconds in a day
@@ -57,10 +57,7 @@ export const getDailyIndex = () => {
 export const isGameIndexOld = (mode) => {
   const todaysIndex = getDailyIndex();
 
-  const latestIndex =
-    typeof window !== "undefined" ? getGameIndexFromLocalStorage(mode) : null;
-  // console.log('todays index is: ' + todaysIndex)
-  // console.log('latest recorded index is: ' + latestIndex)
+  const latestIndex = typeof window !== "undefined" ? getStatsFromLocalStorage(mode)?.lastPlayedIdx : null;
   return todaysIndex === latestIndex
     ? { isOld: false }
     : { isOld: true, offset: todaysIndex - latestIndex };

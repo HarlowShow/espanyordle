@@ -21,17 +21,21 @@ const Results = ({ newWordData }) => {
   const [lastPlayed, setLastPlayed] = useState(undefined);
 
   // update the idx of the last played game
-    useEffect(() => {
-      const possibleLastPlayedGame = getStatsFromLocalStorage(mode)
-      const lastPlayedIdx = possibleLastPlayedGame?.lastPlayedIdx ? possibleLastPlayedGame.lastPlayedIdx : null
-      console.log('setting last played idx to: ' + lastPlayedIdx)
-      setLastPlayed(lastPlayedIdx)
-    }, [mode], )
+  useEffect(() => {
+    const possibleLastPlayedGame = getStatsFromLocalStorage(mode);
+    const lastPlayedIdx = possibleLastPlayedGame?.lastPlayedIdx
+      ? possibleLastPlayedGame.lastPlayedIdx
+      : null;
+    setLastPlayed(lastPlayedIdx);
+  }, [mode]);
 
   // trigger modal open on win or lose for first time each day
   useEffect(() => {
-    console.log('last played index is: ' + lastPlayed + 'daily index is: ' + dailyIndex)
-    if (lastPlayed !== undefined && lastPlayed !== dailyIndex && hasFinishedGame) {
+    if (
+      lastPlayed !== undefined &&
+      lastPlayed !== dailyIndex &&
+      hasFinishedGame
+    ) {
       setTimeout(() => {
         setShowResultsModal(true);
       }, BASE_ANIMATION_DELAY * 5);
@@ -42,14 +46,14 @@ const Results = ({ newWordData }) => {
     <div>
       {showResultsModal === true && (
         <Modal title={"Results"} handleClose={() => setShowResultsModal(false)}>
-          <div className={styles['results-wrapper']}>
+          <div className={styles["results-wrapper"]}>
             <div>
-            <Definition newWordData={newWordData} />
-            <hr className={styles["divider"]}></hr>
+              <Definition newWordData={newWordData} />
+              <hr className={styles["divider"]}></hr>
             </div>
-            <Stats mode={mode}/>
-            <ShareBar mode={mode}/>
-            </div>
+            <Stats mode={mode} />
+            <ShareBar mode={mode} />
+          </div>
         </Modal>
       )}
     </div>

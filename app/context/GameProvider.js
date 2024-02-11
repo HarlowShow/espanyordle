@@ -7,8 +7,6 @@ import { getLatestGameState } from "@/data/statehelpers.js";
 import { checkGuess } from "@/data/helpers.js";
 import {
   getGameStateFromLocalStorage,
-  setGameIndexInLocalStorage,
-  getStatsFromLocalStorage,
 } from "@/data/localstorage";
 import { updateStats } from "@/data/stats.js";
 import { getRandomToast } from "@/data/toasts.js";
@@ -18,32 +16,25 @@ import { removeAccentsString } from '@/api/scripts/removeaccents.mjs'
 export const GameContext = createContext();
 
 function GameProvider({ word, modeParam, children }) {
-  // TBC, gonna pass mode to local storage to save easy game in state innit.
+
   const [isLoading, setIsLoading] = useState(true);
   const answer = word;
   const answerNoAccents = removeAccentsString(answer)
   const mode = modeParam === 'easy_index' ? 'easy' : 'daily'
-  // console.log('in provider mode is: ' + mode)
-
-  // console.log(answer)
 
   const [currentGuess, setCurrentGuess] = useState("");
-
   const [dailyIndex] = useState(getDailyIndex());
-
-
-
-  // console.log("daily index: " + dailyIndex);
-
   const [guesses, setGuesses] = useState([]);
+  const [keys, setKeys] = useState(INIT_KEYS);
+  const [toastMsg, setToastMsg] = useState(null);
 
+  // get the latest guesses from local storage
   useEffect(() => {
     const latestState = getGameStateFromLocalStorage(mode);
     const isOld = typeof window !== "undefined" ? isGameIndexOld(mode) : null;
     const latestGuesses =
       latestState?.guesses && isOld.isOld === false ? latestState.guesses : [];
     setGuesses(latestGuesses);
-    // TESTING: disable this
     setIsLoading(false);
   }, [mode]);
 
@@ -51,12 +42,9 @@ function GameProvider({ word, modeParam, children }) {
 
   // 'win' | 'lose' | 'in progress'
  const [gameState, setGameState] = useState(() => {
-  // TODO come back to this for the accents thing
   const latestState =
     typeof window !== "undefined" ? getGameStateFromLocalStorage(mode) : null;
-  // console.log(latestState?.guesses)
   if (latestState?.guesses && latestState?.answer && (latestState?.answer === answer || latestState?.guesses.length === 6)) {
-    // console.log('checking latest game state')
     const latestGameState = getLatestGameState(
       latestState.guesses,
       latestState.answer,
@@ -68,22 +56,17 @@ function GameProvider({ word, modeParam, children }) {
 });
 
 
-  const [toastMsg, setToastMsg] = useState(null);
-
   // X____X
   const getNextKeys = (nextGuesses) => {
-    // console.log('next keys callback triggered')
     const newKeys = [];
     const active = new Map();
 
     // adds the key statuses to a map
     const addToMap = (word, status) => {
-      // console.log('add to map function')
       for (let i = 0; i < word.length; i++) {
         const nextKey = word[i];
         const nextStatus = status[i];
         active.set(nextKey, nextStatus);
-        // console.log(active)
       }
     };
 
@@ -98,19 +81,17 @@ function GameProvider({ word, modeParam, children }) {
     for (let i = 0; i < INIT_KEYS.length; i++) {
       const oldKey = INIT_KEYS[i];
       const newStatus = active.get(oldKey.key) ?? oldKey.status;
-      // console.log('new status for' + oldKey.key + 'is ' + newStatus)
       const nextKey = {
         key: oldKey.key,
         status: newStatus,
       };
-      // console.log('next key to push is' + JSON.stringify(nextKey))
       newKeys.push(nextKey);
     }
 
     return newKeys;
   };
 
-  const [keys, setKeys] = useState(INIT_KEYS);
+
   useEffect(() => {
     const keys = getNextKeys(guesses);
     setKeys(keys);
@@ -122,11 +103,13 @@ function GameProvider({ word, modeParam, children }) {
 
   const validateGuess = (guess) => {
     if (guess.length !== 5) {
-      // put some ui stuff here
+      // check guess length
       setToastMsg("word must be five letters");
     } else if (guess.length === 5 && guess !== answer && guess !== answerNoAccents && !isInWordList(guess)) {
+      // check if not in word list
       setToastMsg("word not in word list");
     } else {
+      // update state for valid guesses
       const styles = [];
       const results = checkGuess(guess, answer);
       results.forEach((result) => styles.push(result.status));
@@ -141,16 +124,12 @@ function GameProvider({ word, modeParam, children }) {
       setGuesses(nextGuesses);
       const nextKeys = getNextKeys(nextGuesses);
       setKeys(nextKeys);
-      // TODO: is this the best place to put this?
-      if (typeof window !== "undefined") {
-        setGameIndexInLocalStorage(mode);
-      }
       // enable animation for the latest row
       enableAnimation();
 
-      if (guess === answer ||  guess === answerNoAccents) {
+      // trigger win/lose states
+      if (guess === answer || guess === answerNoAccents) {
         setGameState("win");
-        console.log('passing on mode to update stats: ' + mode)
         updateStats(true, guesses.length + 1, mode);
         const toast = getRandomToast("win");
         setToastMsg(toast);
@@ -166,6 +145,7 @@ function GameProvider({ word, modeParam, children }) {
     }
   };
 
+  // one function to handle all input
   const handleKeyboardInput = (key) => {
     if (gameState === "in progress") {
       if (key === "Enter" || key === "ENTER") {
@@ -173,13 +153,13 @@ function GameProvider({ word, modeParam, children }) {
       } else if (key === "Backspace" || key === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, -1));
       } else if (currentGuess.length === 5) {
-        console.log("word length limit reached");
+        return
       } else {
         const nextGuess = `${currentGuess}${key}`;
         setCurrentGuess(nextGuess);
       }
     } else {
-      console.log("game state not in progress");
+      return;
     }
   };
 

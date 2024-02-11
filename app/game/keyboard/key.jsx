@@ -5,24 +5,21 @@ import styles from './Keyboard.module.css'
 
 
 
-export default function Key({status, char, children, optStyle = ''}) {
+export default function Key({status, char, children}) {
     const { handleKeyboardInput } = useContext(GameContext)
     const className = `${styles.key} ` + status
 
+    // two fns below accept only the enter event for users tabbing through keyboard, or the mouse pointer event
+    // stops propagation to the event listener in the keyboard component
     const handleKeyDown = ((event) => {
         event.stopPropagation()
-        // console.log('keydown')
         if (event.key === 'Enter') {
-            // console.log('handling input for: ' + char)
             handleKeyboardInput(char)
         }
     })
 
     const handleClick = ((event) => {
-        // event.preventDefault()
-        console.log(event.detail)
         if (event.detail === 1) {
-            // console.log('handling click event, pointer type was mouse')
             handleKeyboardInput(char)
         }
     })

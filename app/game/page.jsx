@@ -30,7 +30,6 @@ const Game = async ({searchParams}) => {
     .eq(modeIndex, wordIndex);
   const wordData = data[0];
   const newAnswer = wordData.word;
-  // console.log('answer is:' + newAnswer)
 
   return (
     <>

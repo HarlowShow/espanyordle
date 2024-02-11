@@ -11,7 +11,6 @@ function ToastsImpure() {
 
 
   const resetMsg = () => {
-    // console.log("resetting toast message");
     setToastMsg(null);
   };
 

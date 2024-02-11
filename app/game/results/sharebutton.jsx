@@ -22,13 +22,10 @@ const ShareButton = (() => {
             for (let i = 0; i < array.length; i++) {
                 if (array[i] === answerArr[i]) {
                     shareGrid += '🟩'
-                    // console.log(array[i] + 'correct')
                 } else if (answerArr.includes(array[i])) {
                     shareGrid += '🟨'
-                    // console.log(array[i] + 'misplaced')
                 } else {
                     shareGrid += '⬜'
-                    // console.log(array[i] + 'incorrect')
                 }
             }
             shareGrid += '\n'
