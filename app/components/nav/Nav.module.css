@@ -51,3 +51,14 @@
         height: var(--mobile-header-height);
     }
 }
+
+@media (orientation: landscape) {
+    .nav, .nav-home{
+      height: var(--mobile-header-height);
+    }
+    .nav > li {
+        padding: 0.5rem;
+        /* font-size: 1.5rem; */
+    }
+  
+  }

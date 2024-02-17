@@ -15,6 +15,12 @@
       padding: 0.25rem 0.5rem;
   }
 }
+
+@media (orientation: landscape) {
+  .icon-button, .main-button {
+    padding: 0.25rem 0.5rem;
+}
+}
   
   .icon-button {
     background-color: transparent;

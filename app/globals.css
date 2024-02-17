@@ -2,7 +2,7 @@
   --max-width: 1100px;
   --border-radius: 12px;
   --header-height: 80px;
-  --mobile-header-height: 60px;
+  --mobile-header-height: 50px;
   --color-red: #FF8080;
   --color-orange: #FFCF96;
   --color-yellow: #F6FDC3;
@@ -73,6 +73,12 @@ ul {
 
 }
 
+@media (orientation: landscape) {
+  .main {
+    height: calc(100% - var(--mobile-header-height));
+  }
+
+}
 
 @supports (height: 100svh) {
   html {
