@@ -3,7 +3,6 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100dvh;
   height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -27,6 +26,14 @@
   border-radius: var(--border-radius);
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
   overflow: auto;
+}
+
+
+@supports (height: 100dvh) {
+  .modal-wrapper {
+    height: calc(100dvh);
+  }
+
 }
 
 .modal-header {
