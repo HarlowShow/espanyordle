@@ -26,7 +26,7 @@
 }
 
 html {
-  height: 100lvh;
+  height: 100svh;
   width: 100vw;
   max-width: 100vw;
   overflow-x: hidden;
@@ -67,6 +67,14 @@ ul {
   .main {
     max-width: 640px;
     height: calc(100% - var(--mobile-header-height));
+  }
+
+}
+
+@supports (height: 100svh) {
+  .main {
+    max-width: 640px;
+    height: calc(100svh - var(--mobile-header-height));
   }
 
 }
