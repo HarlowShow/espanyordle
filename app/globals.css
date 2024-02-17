@@ -56,7 +56,7 @@ ul {
   display: flex;
   margin: 0 auto;
   height: calc(100% - var(--header-height));
-  width: 100%;
+  width: 100dvh;
   justify-content: center;
 }
 
