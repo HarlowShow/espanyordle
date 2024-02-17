@@ -22,10 +22,9 @@ const Results = ({ newWordData }) => {
 
   // update the idx of the last played game
   useEffect(() => {
-    const possibleLastPlayedGame = getStatsFromLocalStorage(mode);
-    const lastPlayedIdx = possibleLastPlayedGame?.lastPlayedIdx
-      ? possibleLastPlayedGame.lastPlayedIdx
-      : null;
+    const lastPlayedGame = getStatsFromLocalStorage(mode);
+    const lastPlayedIdx = lastPlayedGame.lastPlayedIdx ?? null
+    // console.log('last played idx is: ' + lastPlayedIdx)
     setLastPlayed(lastPlayedIdx);
   }, [mode]);
 
@@ -36,6 +35,7 @@ const Results = ({ newWordData }) => {
       lastPlayed !== dailyIndex &&
       hasFinishedGame
     ) {
+      // console.log('last played: ' + lastPlayed + 'dailyIndex: ' + dailyIndex)
       setTimeout(() => {
         setShowResultsModal(true);
       }, BASE_ANIMATION_DELAY * 5);
