@@ -6,14 +6,15 @@ A daily word game for spanish learners.
 
 Españordle is a fully-featured wordle variation for Spanish learners.
 
-After every game you'll receive the translation, audio, and example uses of the word.
+After every game you will receive the translation, audio, and example uses of the word.
 
-There are two game modes available, both with statistics:
+<img src='./app/demo/demo-image.png' height=400px/>
+
+Españordle tracks your play streak as well as your win streak. The primary aim is not to win, but to gain new vocabulary, increase your exposure to spanish, and build a daily language learning habit.
+
+There are two españordles released each day:
 - Daily - vocab range from beginner to advanced (but nothing too obscure)
 - Easy - a beginner-friendly mode limited to basic vocab
-
-Españordle tracks your play streak as well as just your win streak. The aim is not to win each day, but to learn something new and 
-
 
 ## About
 

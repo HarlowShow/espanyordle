@@ -41,7 +41,7 @@ export const calcMSOffset = () => {
 };
 
 const isTestingEnabled = true
-const TEST_INDEX = 15
+const TEST_INDEX = 0
 
 // TESTING. Disable later
 // get the index for each day
