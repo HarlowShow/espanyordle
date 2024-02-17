@@ -16,8 +16,15 @@
     gap: 0.3rem;
     max-width: 550px;
     min-width: 330px;
+    width: 100%;
+    height: auto;
+    /* max-height: 80%; */
     margin: auto;
     vertical-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
   }
 
   .spinner-wrapper {
@@ -36,6 +43,9 @@
     grid-template-columns: repeat(5, 1fr);
     box-sizing: border-box;
     gap: 0.3rem;
+    /* width: 100vw; */
+    justify-items: center;
+    align-items: center;
   }
 
   .guess-row > span {
@@ -48,6 +58,35 @@
     box-sizing: border-box;
     aspect-ratio: 1;
     font-weight: 600;
+    /* width: auto; */
+    width: 56px;
+  }
+
+  @media (max-height: 600px) {
+    .guess-row > span {
+      font-size: 1.6rem;
+      max-width: 48px;
+      /* width: 100%; */
+    }
+
+    .guess-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      justify-content: center;
+      max-width: 240px;
+      /* column-gap: 2px; */
+    }
+
+    .grid {
+      height: auto;
+    }
+
+  }
+
+  @media (min-width: 420px) {
+    .guess-row > span {
+      width: 64px;
+    }
   }
 
   .guess-row > span.active {
