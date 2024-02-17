@@ -17,6 +17,7 @@
   --color-misplaced: #c7af34;
   --color-default: #DDE3E9;
   --animation-delay: 400ms;
+  --vh: 1vh;
 }
 
 * {
@@ -26,18 +27,23 @@
 }
 
 html {
-  height: 100lvh;
+  height: 100vh;
   width: 100vw;
   max-width: 100vw;
   overflow: hidden;
   line-height: 1.5;
 }
 
+html.is-safari,
+html.is-safari body {
+ height: calc(var(--vh, 1vh) * 100);
+}
+
 body {
   width: 100vw;
   max-width: 100vw;
   overflow: hidden;
-  height: 100lvh;
+  height: 100vh;
   line-height: 1.5;
   color: var(--color-nearly-black)
 }
@@ -72,10 +78,10 @@ ul {
 
 }
 
-/* @supports (height: 100svh) {
-  .main {
-    max-width: 640px;
-    height: calc(100svh - var(--mobile-header-height));
+/* TBC WE STILL GOTTA FIX IT*/
+/* @supports (height: 100lvh) {
+  html {
+    height: calc(100lvh);
   }
 
 } */
