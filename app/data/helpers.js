@@ -40,13 +40,14 @@ export const calcMSOffset = () => {
   return offset/1000
 };
 
-const isTestingEnabled = true
+const isTestingEnabled = false
 const TEST_INDEX = 0
 
 // TESTING. Disable later
 // get the index for each day
 export const getDailyIndex = () => {
   if (isTestingEnabled) {
+    console.log('daily index: test index is enabled')
     return TEST_INDEX
   } else {
     return calcIndex(ZERO_DAY_WORDLE, Date.now());
@@ -56,12 +57,16 @@ export const getDailyIndex = () => {
 // if false, returns { isOld: false }
 // if true, returns { isOld: true, offSet: number}
 export const isGameIndexOld = (mode) => {
-  const todaysIndex = getDailyIndex();
-
-  const latestIndex = typeof window !== "undefined" ? getStatsFromLocalStorage(mode)?.lastPlayedIdx : null;
-  return todaysIndex === latestIndex
-    ? { isOld: false }
-    : { isOld: true, offset: todaysIndex - latestIndex };
+  if (isTestingEnabled) {
+    return { isOld: false }
+  } else {
+    const todaysIndex = getDailyIndex();
+  
+    const latestIndex = typeof window !== "undefined" ? getStatsFromLocalStorage(mode)?.lastPlayedIdx : null;
+    return todaysIndex === latestIndex
+      ? { isOld: false }
+      : { isOld: true, offset: todaysIndex - latestIndex };
+  }
 };
 
 

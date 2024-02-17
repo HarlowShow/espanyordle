@@ -17,7 +17,7 @@ const Definition = ({ newWordData }) => {
   // should check for string length here
   const newOtherDefs = newWordData.other_defs 
 
-  console.log(newMainDef.length)
+  // console.log(newMainDef.length)
 
   const definitionClass = newMainDef.length <= 20 ? `${styles.definition}` : `${styles['definition-small']}`
   // make the example font size smaller if there are many of them
