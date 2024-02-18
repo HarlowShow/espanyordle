@@ -37,7 +37,7 @@
   
   @media (max-height: 800px) {
     .key {
-      height: 60px;
+      max-height: 50px;
     }
   }
   
