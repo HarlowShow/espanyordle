@@ -48,6 +48,11 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+button, p, h {
+  color: inherit;
+}
+
 ul {
   margin:0;
   padding: 0;
