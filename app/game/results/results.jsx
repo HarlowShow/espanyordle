@@ -30,12 +30,15 @@ const Results = ({ newWordData }) => {
 
   // trigger modal open on win or lose for first time each day
   useEffect(() => {
+
+    // checks if null (has never played before) or if first win/loss trigger
+    const indexConditions = (typeof lastPlayed === 'number' &&
+    lastPlayed !== dailyIndex) || lastPlayed === null
     if (
-      typeof lastPlayed === 'number' &&
-      lastPlayed !== dailyIndex &&
+      indexConditions &&
       hasFinishedGame
     ) {
-      // console.log('last played: ' + lastPlayed + 'dailyIndex: ' + dailyIndex)
+      console.log('gonna open modal. last played: ' + lastPlayed + 'dailyIndex: ' + dailyIndex)
       setTimeout(() => {
         setShowResultsModal(true);
       }, BASE_ANIMATION_DELAY * 5);

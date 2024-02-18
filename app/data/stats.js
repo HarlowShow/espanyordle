@@ -6,6 +6,7 @@ import { getDailyIndex } from "./helpers.js";
 
 // win: true/false
 // winDistro: 1-6 | null
+const TEST_LAST_PLAYED_IDX = getDailyIndex() - 1
 
 export const updateStats = (hasWon, winDistro, mode) => {
   
@@ -45,29 +46,40 @@ export const updateStats = (hasWon, winDistro, mode) => {
   let nextCurrentWinStreak = 0;
 
   // update the play streak
+
+  // console.log('setting stats: ' + todaysIndex)
+  // console.log('last played idx: ' + currentStats.lastPlayedIdx)
+  // console.log(typeof todaysIndex)
+  // console.log(typeof currentStats.lastPlayedIdx)
+  // console.log(`${todaysIndex - 1 === currentStats.lastPlayedIdx}`)
   if (
-    currentStats.lastPlayedIdx &&
-    todaysIndex - currentStats.lastPlayedIdx === 1
+    typeof currentStats.lastPlayedIdx === 'number' &&
+    todaysIndex - 1 === currentStats.lastPlayedIdx
   ) {
     // add one to the streak
     nextCurrentStreak = currentStats.currentStreak + 1;
+    console.log('play streak continued! nextCurrentStreak is: ' + nextCurrentStreak)
   } else {
     // or set the streak to one
+    console.log('play streak not continued :( setting current streak to 1')
     nextCurrentStreak = 1;
   }
 
   // update the win streak
   if (
-    currentStats.lastPlayedIdx &&
-    todaysIndex - currentStats.lastPlayedIdx === 1 &&
+    typeof currentStats.lastPlayedIdx === 'number' &&
+    todaysIndex - 1 === currentStats.lastPlayedIdx &&
     hasWon === true
   ) {
     // add one to the streak
     nextCurrentWinStreak = currentStats.currentWinStreak + 1;
+    console.log('win streak continued! nextCurrentStreak is: ' + nextCurrentWinStreak)
   } else if (hasWon === true) {
     nextCurrentWinStreak = 1
+    console.log('win streak not started today!')
   } else {
     // or set it to zero
+    console.log('win streak on zero :(')
     nextCurrentWinStreak = 0;
   }
 
