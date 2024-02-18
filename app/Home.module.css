@@ -24,3 +24,9 @@
   gap: 1rem;
   padding-top: 40%;
 }
+
+@media (max-height: 800px) {
+  .home-content {
+    padding-top: 3rem;
+  }
+}
