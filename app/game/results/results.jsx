@@ -23,7 +23,7 @@ const Results = ({ newWordData }) => {
   // update the idx of the last played game
   useEffect(() => {
     const lastPlayedGame = getStatsFromLocalStorage(mode);
-    const lastPlayedIdx = lastPlayedGame.lastPlayedIdx ?? null
+    const lastPlayedIdx = lastPlayedGame?.lastPlayedIdx ?? null
     // console.log('last played idx is: ' + lastPlayedIdx)
     setLastPlayed(lastPlayedIdx);
   }, [mode]);
@@ -31,7 +31,7 @@ const Results = ({ newWordData }) => {
   // trigger modal open on win or lose for first time each day
   useEffect(() => {
     if (
-      lastPlayed !== undefined &&
+      typeof lastPlayed === 'number' &&
       lastPlayed !== dailyIndex &&
       hasFinishedGame
     ) {
