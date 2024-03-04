@@ -1,6 +1,6 @@
 # Españordle
 
-A daily word game for spanish learners.
+A daily word game for spanish learners. Españordle is still in development but you can play the fully-functioning dev version [here](https://dev--espanyordle.netlify.app/).
 
 ## Overview
 
