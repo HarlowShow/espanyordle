@@ -7,7 +7,7 @@ export const UIContext = createContext();
 function UIProvider({children}) {
 
     const [showHelpModal, setShowHelpModal] = useState(false)
-    const [showResultsModal, setShowResultsModal] = useState(true)
+    const [showResultsModal, setShowResultsModal] = useState(false)
 
     return (
         <UIContext.Provider
