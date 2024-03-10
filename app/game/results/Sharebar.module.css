@@ -1,0 +1,52 @@
+.countdown-wrapper {
+    display: flex;
+    flex-direction: column;
+} 
+.countdown-label {
+    font-size: 0.8rem;
+    color: var(--color-dark-grey);
+}
+
+.countdown {
+    color: var(--color-nearly-black);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+
+ 
+  .divider {
+    width: 100%;
+    border-top: 2px solid var(--color-grey);
+    border-radius: 5px;
+  }
+
+  .stretched-out {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    align-self: end;
+  }
+
+   
+  .share-bar-wrapper {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 75px;
+    background: white;
+    align-self: end;
+    /* padding-top: 0.5rem; */
+    padding-bottom: 0.5rem;
+  }
+  
+  .share-bar {
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stretched-out {
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0rem;
+  }

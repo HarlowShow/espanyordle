@@ -1,13 +1,14 @@
 'use client'
 import styles from "./Results.module.css";
 import { GameContext } from "@/context/GameProvider";
-import { useEffect, useContext, useState} from 'react'
-import { getStatsFromLocalStorage } from "../../data/localstorage.js";
-import SingleStat from './singlestat'
+import { useEffect, useContext, useState} from 'react';
+import { getStatsFromLocalStorage } from "@/data/localstorage.js";
+import SingleStat from './singlestat';
 import Distro from './distro';
 
 const Stats = () => {
   const { mode } = useContext(GameContext)
+
   const stats = getStatsFromLocalStorage(mode);
   const getLiveStats = ((stats) => {
     const played = stats && stats.played ? stats.played : 0

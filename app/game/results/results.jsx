@@ -1,9 +1,9 @@
 "use client";
 
-import Modal from "../../components/ui/modal";
+import Modal from "@/components/ui/modal";
 import { useContext, useEffect, useState } from "react";
-import { GameContext } from "../../context/GameProvider";
-import { UIContext } from "../../context/UIProvider";
+import { GameContext } from "@/context/GameProvider";
+import { UIContext } from "@/context/UIProvider";
 import ShareBar from "./sharebar";
 import { getStatsFromLocalStorage } from "@/data/localstorage";
 
