@@ -1,4 +1,5 @@
 import ShareButton from "./sharebutton";
+import Countdown from './countdown';
 import styles from "./Results.module.css";
 
 const ShareBar = () => {
@@ -9,6 +10,7 @@ const ShareBar = () => {
       <div className={styles["share-bar"]}>
         <hr className={styles["divider"]}></hr>
         <div className={styles["buttons"]}>
+          <Countdown />
           <ShareButton />
         </div>
       </div>

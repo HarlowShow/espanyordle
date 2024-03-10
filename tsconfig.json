@@ -20,7 +20,17 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "baseUrl": "app/",
+    "paths": {
+      "@/*": ["/*"],
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/data/*": ["data/*"],
+      "@/game/*": ["game/*"],
+      "@/context/*": ["context/*"],
+      "@/hooks/*": ["hooks/*"],
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -30,5 +40,6 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+
 }
