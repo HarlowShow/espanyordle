@@ -15,7 +15,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "plugins": [
       {
         "name": "next"
@@ -23,13 +23,27 @@
     ],
     "baseUrl": "app/",
     "paths": {
-      "@/*": ["/*"],
-      "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"],
-      "@/data/*": ["data/*"],
-      "@/game/*": ["game/*"],
-      "@/context/*": ["context/*"],
-      "@/hooks/*": ["hooks/*"],
+      "@/*": [
+        "/*"
+      ],
+      "@/components/*": [
+        "components/*"
+      ],
+      "@/lib/*": [
+        "lib/*"
+      ],
+      "@/data/*": [
+        "data/*"
+      ],
+      "@/game/*": [
+        "game/*"
+      ],
+      "@/context/*": [
+        "context/*"
+      ],
+      "@/hooks/*": [
+        "hooks/*"
+      ]
     }
   },
   "include": [
@@ -40,6 +54,5 @@
   ],
   "exclude": [
     "node_modules"
-  ],
-
+  ]
 }

@@ -5,6 +5,7 @@ import Grid from "./grid/grid";
 import styles from "./styles.module.css";
 import GameProvider from "@/context/GameProvider";
 import Toasts from "@/components/toasts/toasts.jsx";
+import { MAX_EASY_INDEX, MAX_DAILY_INDEX } from '@/data/config';
 import Results from "./results/results.jsx";
 import Help from "./help/help";
 import { getDailyIndex, calcMSOffset } from "@/data/helpers.js";
@@ -13,17 +14,15 @@ export const revalidate = calcMSOffset()
 
 const Game = async ({searchParams}) => {
 
-  // const getModeFromSearchParams = (async() => {
-  //   const mode = searchParams.mode
-  //   const modeIndex = mode === 'easy' ? 'easy_index' : 'index'
-  //   return modeIndex
-  // })
-
-
+  
   const wordIndex = getDailyIndex() + 1;
-
   // get data for the day's word
   const modeIndex = await getModeIndexFromSearchParams(searchParams)
+  
+  // fallback for if the number of available words ever runs out, it will pick a random one.
+  const fallbackIndex = modeIndex === 'easy_index' ? MAX_EASY_INDEX : MAX_DAILY_INDEX
+
+
   const { data } = await supabase
     .from("words-prod")
     .select("word, maindef, examples, audio_url, other_defs")
