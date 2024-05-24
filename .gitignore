@@ -6,9 +6,6 @@
 .pnp.js
 
 # testing
-/lib/supabase
-/api/scripts
-/supabase
 /coverage
 
 # next.js
@@ -36,6 +33,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev
+/dev
 
 # other
 todo.md
