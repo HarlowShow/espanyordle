@@ -1,7 +1,7 @@
 import { ZERO_DAY_WORDLE } from "./config";
-import { removeAccents } from './wordhelpers.mjs'
+import { removeAccents } from "./wordhelpers.mjs";
 // import { ZERO_DAY_WORDLE_PLUS_ONE } from "./config";
-import { getStatsFromLocalStorage } from "./localstorage";
+import { getGameStateFromLocalStorage } from "./localstorage";
 
 export const calcIndex = (startDate, currentDate) => {
   // milliseconds in a day
@@ -30,27 +30,27 @@ export const calcIndex = (startDate, currentDate) => {
   return index;
 };
 
-
 export const calcMSOffset = () => {
   // determines how long the request will be cached for, the time until midnight - 12 minutes
-  const now = new Date()
-  let later = new Date()
-  later.setHours(24, 0, 0, 0)
-  const offset = later - now
-  return offset/1000
+  const now = new Date();
+  let later = new Date();
+  later.setHours(24, 0, 0, 0);
+  const offset = later - now;
+  return offset / 1000;
 };
 
-const isTestingEnabled = false
-const TEST_INDEX = 0
+const isTestingEnabled = false;
+const TEST_INDEX = 0;
 
 // TESTING. Disable later
 // get the index for each day
 export const getDailyIndex = () => {
   if (isTestingEnabled) {
-    console.log('daily index: test index is enabled')
-    return TEST_INDEX
+    console.log("daily index: test index is enabled");
+    return TEST_INDEX;
   } else {
-    return calcIndex(ZERO_DAY_WORDLE, Date.now());
+    const dailyIndex = calcIndex(ZERO_DAY_WORDLE, Date.now());
+    return dailyIndex;
   }
 };
 
@@ -58,17 +58,20 @@ export const getDailyIndex = () => {
 // if true, returns { isOld: true, offSet: number}
 export const isGameIndexOld = (mode) => {
   if (isTestingEnabled) {
-    return { isOld: false }
+    return { isOld: false };
   } else {
     const todaysIndex = getDailyIndex();
-  
-    const latestIndex = typeof window !== "undefined" ? getStatsFromLocalStorage(mode)?.lastPlayedIdx : null;
+
+    const latestIndex =
+      typeof window !== "undefined"
+        ? getGameStateFromLocalStorage(mode)?.index
+        : null;
+    console.log("latest index from isgameindexold is:" + latestIndex);
     return todaysIndex === latestIndex
       ? { isOld: false }
       : { isOld: true, offset: todaysIndex - latestIndex };
   }
 };
-
 
 export const checkGuess = (guess, answer) => {
   const SOLVED_CHAR = "✓";

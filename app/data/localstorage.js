@@ -7,9 +7,11 @@ const statsKey = "statsNew";
 const easyStatsKey = "easyStatsNew";
 
 export const setGameStateToLocalStorage = (guesses, answer = "", mode) => {
+  const index = getDailyIndex()
   const gameState = {
     guesses,
     answer,
+    index
   };
 
   if (mode === "easy") {

@@ -5,22 +5,19 @@ import { INIT_KEYS } from "@/data/keys.js";
 import { isGameIndexOld, getDailyIndex } from "@/data/helpers.js";
 import { getLatestGameState } from "@/data/statehelpers.js";
 import { checkGuess } from "@/data/helpers.js";
-import {
-  getGameStateFromLocalStorage,
-} from "@/data/localstorage";
+import { getGameStateFromLocalStorage } from "@/data/localstorage";
 import { updateStats } from "@/data/stats.js";
 import { getRandomToast } from "@/data/toasts.js";
 import { isInWordList } from "@/data/wordhelpers.mjs";
-import { removeAccentsString } from '@/api/scripts/removeaccents.mjs'
+import { removeAccentsString } from "@/api/scripts/removeaccents.mjs";
 
 export const GameContext = createContext();
 
 function GameProvider({ word, modeParam, children }) {
-
   const [isLoading, setIsLoading] = useState(true);
   const answer = word;
-  const answerNoAccents = removeAccentsString(answer)
-  const mode = modeParam === 'easy_index' ? 'easy' : 'daily'
+  const answerNoAccents = removeAccentsString(answer);
+  const mode = modeParam === "easy_index" ? "easy" : "daily";
 
   const [currentGuess, setCurrentGuess] = useState("");
   const [dailyIndex] = useState(getDailyIndex());
@@ -30,8 +27,12 @@ function GameProvider({ word, modeParam, children }) {
 
   // get the latest guesses from local storage
   useEffect(() => {
+    console.log("running get game state use effect");
     const latestState = getGameStateFromLocalStorage(mode);
+    const isWindowDefined = typeof window !== "undefined"
     const isOld = typeof window !== "undefined" ? isGameIndexOld(mode) : null;
+    console.log('is window defined:', isWindowDefined)
+    console.log("isOld: " + isOld.isOld)
     const latestGuesses =
       latestState?.guesses && isOld.isOld === false ? latestState.guesses : [];
     setGuesses(latestGuesses);
@@ -41,20 +42,23 @@ function GameProvider({ word, modeParam, children }) {
   const [animationIsDisabled, setAnimationIsDisabled] = useState(true);
 
   // 'win' | 'lose' | 'in progress'
- const [gameState, setGameState] = useState(() => {
-  const latestState =
-    typeof window !== "undefined" ? getGameStateFromLocalStorage(mode) : null;
-  if (latestState?.guesses && latestState?.answer && (latestState?.answer === answer || latestState?.guesses.length === 6)) {
-    const latestGameState = getLatestGameState(
-      latestState.guesses,
-      latestState.answer,
-      answer
-    );
-    return latestGameState;
-  }
-  return "in progress";
-});
-
+  const [gameState, setGameState] = useState(() => {
+    const latestState =
+      typeof window !== "undefined" ? getGameStateFromLocalStorage(mode) : null;
+    if (
+      latestState?.guesses &&
+      latestState?.answer &&
+      (latestState?.answer === answer || latestState?.guesses.length === 6)
+    ) {
+      const latestGameState = getLatestGameState(
+        latestState.guesses,
+        latestState.answer,
+        answer
+      );
+      return latestGameState;
+    }
+    return "in progress";
+  });
 
   // X____X
   const getNextKeys = (nextGuesses) => {
@@ -91,7 +95,6 @@ function GameProvider({ word, modeParam, children }) {
     return newKeys;
   };
 
-
   useEffect(() => {
     const keys = getNextKeys(guesses);
     setKeys(keys);
@@ -105,7 +108,12 @@ function GameProvider({ word, modeParam, children }) {
     if (guess.length !== 5) {
       // check guess length
       setToastMsg("word must be five letters");
-    } else if (guess.length === 5 && guess !== answer && guess !== answerNoAccents && !isInWordList(guess)) {
+    } else if (
+      guess.length === 5 &&
+      guess !== answer &&
+      guess !== answerNoAccents &&
+      !isInWordList(guess)
+    ) {
       // check if not in word list
       setToastMsg("word not in word list");
     } else {
@@ -153,7 +161,7 @@ function GameProvider({ word, modeParam, children }) {
       } else if (key === "Backspace" || key === "BACKSPACE") {
         setCurrentGuess(currentGuess.slice(0, -1));
       } else if (currentGuess.length === 5) {
-        return
+        return;
       } else {
         const nextGuess = `${currentGuess}${key}`;
         setCurrentGuess(nextGuess);
@@ -182,7 +190,7 @@ function GameProvider({ word, modeParam, children }) {
         animationIsDisabled,
         dailyIndex,
         isLoading,
-        mode
+        mode,
       }}
     >
       {children}
