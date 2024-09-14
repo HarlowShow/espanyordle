@@ -41,6 +41,8 @@
       max-height: 50px;
     }
   }
+
+
   
   @media (min-height: 800px) {
     .keyboard {
@@ -53,6 +55,16 @@
     padding-left: 10px;
     padding-right: 10px;
     text-transform: uppercase;
+    flex-grow: 1.68;
+  }
+
+  @media (max-width: 400px) {
+    .enter {
+      font-size: 1rem;
+      padding-left: 7px;
+      padding-right: 7px;
+
+    }
   }
   
   .backspace {
