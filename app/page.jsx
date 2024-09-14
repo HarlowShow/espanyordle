@@ -9,6 +9,7 @@ import Help from "./game/help/help";
 export default function Home() {
   const router = useRouter();
   const goToGame = (mode) => {
+    console.log('button clicked')
     router.push(`/game?mode=${mode}`);
   };
 
