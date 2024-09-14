@@ -9,9 +9,13 @@
   --border-width: 5px;
   --grid-gap: 4px;
   --color-correct: #478d7b;
+  --color-correct-shadow: #306c5c;
   --color-incorrect: #73797e;
+  --color-incorrect-shadow: #565c62;
   --color-misplaced: #c7af34;
+  --color-misplaced-shadow: #9e8a25;
   --color-default: #dde3e9;
+  --color-default-shadow: #bac3cd;
   --animation-delay: 400ms;
   --vh: 1vh;
 }
