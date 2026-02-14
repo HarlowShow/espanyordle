@@ -12,7 +12,7 @@ import { getDailyIndex, calcMSOffset } from "@/data/helpers.js";
 import { getModeIndexFromSearchParams } from "@/data/statehelpers.js";
 import Spinner from '@/components/ui/spinner'
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 const Game = async ({ searchParams }) => {
   const wordIndex = getDailyIndex() + 1;
