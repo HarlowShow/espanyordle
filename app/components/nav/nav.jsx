@@ -12,7 +12,7 @@ import { getDailyIndex } from "../../data/helpers.js";
 import { getModeFromSearchParams } from "@/data/statehelpers.js";
 
 
-export default function Nav() {
+export default function Nav({searchParams}) {
   const {
     showHelpModal,
     showResultsModal,
@@ -23,8 +23,8 @@ export default function Nav() {
     const index = getDailyIndex();
     const gameNumber = index + 1;
 
-  const searchParams = useSearchParams()  
-  const mode = getModeFromSearchParams(searchParams)
+  const params = use(searchParams)
+  const mode = getModeFromSearchParams(params)
   const modeTitle = mode === 'easy' ? 'Easy' : 'Daily'
   const header = `${modeTitle} #${gameNumber}`
 
