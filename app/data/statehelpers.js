@@ -17,7 +17,7 @@ export const getLatestGameState = (guesses, answer, latestAnswer) => {
   }
 };
 
-export const getModeIndexFromSearchParams = async (searchParams) => {
+export const getModeIndexFromSearchParams = (searchParams) => {
   const mode = searchParams.mode;
   const modeIndex = mode === "easy" ? "easy_index" : "index";
   return modeIndex;

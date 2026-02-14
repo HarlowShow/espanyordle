@@ -9,8 +9,13 @@ const roboto = Roboto({ weight: '400', subsets: ["latin"] })
 export const metadata = {
   title: "Españordle",
   description: "A daily word game for spanish learners",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1
+}
 
 export default function RootLayout({ children }) {
   return (
