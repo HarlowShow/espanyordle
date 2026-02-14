@@ -12,7 +12,7 @@ import { getDailyIndex, calcMSOffset } from "@/data/helpers.js";
 import { getModeIndexFromSearchParams } from "@/data/statehelpers.js";
 import Spinner from '@/components/ui/spinner'
 
-export const revalidate = calcMSOffset();
+export const revalidate = 60 * 60;
 
 const Game = async ({ searchParams }) => {
   const wordIndex = getDailyIndex() + 1;
@@ -26,7 +26,7 @@ const Game = async ({ searchParams }) => {
 
   const getData = async () => {
     const { data } = await supabase
-      .from("words-prod")
+      .from("words-dev")
       .select("word, maindef, examples, audio_url, other_defs")
       .eq(modeIndex, wordIndex);
     const wordData = data[0] ?? null
@@ -37,7 +37,7 @@ const Game = async ({ searchParams }) => {
     } else {
       // console.log('getting fallback data at fallback index of: ' + fallbackIndex);
       const { data } = await supabase
-        .from("words-prod")
+        .from("words-dev")
         .select("word, maindef, examples, audio_url, other_defs")
         .eq(modeIndex, fallbackIndex);
       const fallbackWordData = data[0];
