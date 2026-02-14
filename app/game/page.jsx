@@ -11,9 +11,10 @@ import Help from "./help/help";
 import { getDailyIndex, calcMSOffset } from "@/data/helpers.js";
 import { getModeIndexFromSearchParams } from "@/data/statehelpers.js";
 import Spinner from '@/components/ui/spinner'
-import { Suspense } from "react";
+// import { Suspense } from "react";
 
 export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const Game = async ({ searchParams }) => {
   const wordIndex = getDailyIndex() + 1;
@@ -54,7 +55,7 @@ const Game = async ({ searchParams }) => {
   const { wordData, answer} = await getData()
 
   return (
-    <Suspense>
+    <>
     { answer ? (
       <GameProvider modeParam={modeIndex} word={answer}>
         <Toasts />
@@ -71,7 +72,7 @@ const Game = async ({ searchParams }) => {
 ) : (
   <Spinner />
 )}
-</Suspense>
+</>
   );
 };
 export default Game;
