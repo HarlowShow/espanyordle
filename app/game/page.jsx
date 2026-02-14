@@ -13,13 +13,13 @@ import { getModeIndexFromSearchParams } from "@/data/statehelpers.js";
 import Spinner from '@/components/ui/spinner'
 import { Suspense } from "react";
 
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 const Game = async ({ searchParams }) => {
   const wordIndex = getDailyIndex() + 1;
   // get data for the day's word
   const params = await searchParams
-  const modeIndex = await getModeIndexFromSearchParams(params);
+  const modeIndex = getModeIndexFromSearchParams(params);
 
   // fallback for if the number of available words ever runs out, it will pick a random one.
   const fallbackIndexMax =
